@@ -1,0 +1,9 @@
+{volist name='news_cate_data' id='vo'}
+<div class="list">
+    <div class="tit"><a href="{if condition='$vo.url_title'}{:url('/news_detail/'.$vo.url_title)}{else/}{:url('/news_detail/'.$vo.id)}{/if}">{$vo.title}</a><a class="btn" href="{if condition='$vo.url_title'}{:url('/news_detail/'.$vo.url_title)}{else/}{:url('/news_detail/'.$vo.id)}{/if}">{$Think.lang.view_details} ></a></div>
+    <div class="txt">{$Think.lang.source}：{$vo.source}　　　　{$vo.update_time}</div>
+    <div class="ms">
+       	{$vo.abstract}
+    </div>
+</div>
+{/volist}

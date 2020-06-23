@@ -1,0 +1,344 @@
+{include file="layout/top" /}
+<style>
+    .page-content .item02-box{display:none;padding-left: 70px;margin-bottom:50px;}
+    .page-content .item02-box .list{margin-bottom:35px;position:relative;font-size:16px;padding-left:138px;}
+    .page-content .item02-box .list .left{line-height:45px;position:absolute;width:125px;text-align:right;left:0;top:0;}
+    .page-content .item02-box .list .left span{color:#78bc27;}
+    .page-content .item02-box .list .right{position:relative;}
+    .page-content .item02-box .list .right input.text{height:45px;border:1px solid #e6e6e6;width:100%;padding:0px 10px;width: 400px;}
+    .page-content .item02-box .list .right input.btn{width:120px;height:45px;border:1px solid #78bc27;background:none;color:#78bc27;line-height:43px;text-align:center;border-radius:3px;font-size:16px;}
+    .page-content .item02-box .list.btn{padding-left: 13px;}
+
+    @media screen and (max-width: 1024px){
+        .page-content .item02-box{padding-left: 0;}
+    }
+    @media screen and (max-width: 640px){
+        .page-content .item02-box .list .right input.text{width: 100%;height: 40px;}
+        .page-content .item02-box .list .left{position: static;text-align: left;}
+        .page-content .item02-box .list{padding-left: 0;margin-bottom:20px;font-size: 14px;}
+        .page-content .item02-box .list.btn{padding-left: 0;}
+
+    }
+    
+</style>
+{include file="layout/header" /}
+<div class="page-content">
+    <div class="w1400"><div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> &gt; <a href="/en/user_center.html">{$Think.lang.user_center}</a> &gt; {$Think.lang.apply_pwdback}</div></div>
+    <section class="page-container page-containerLR20 minH900 marginB30">
+            <div class="mCaption long"><span>{$Think.lang.apply_pwdback}</span></div>
+            <div class="clearfix findPswOrderNext">
+               <h2 class="tit">{$Think.lang.customer_info}<a href="javascript:void(0)" class='item02-edit'>  [{$Think.lang.edit}]</a></h2>
+                <div class="nextTable">
+                   <table>
+                        <thead>
+                            <tr>
+                                <td>{$Think.lang.company_name}</td>{/* 公司名称 */}
+                                <td>{$Think.lang.contact_p}</td>{/* 联系人 */}
+                                <td>{$Think.lang.email}</td>{/* 邮箱 */}
+                                <td>{$Think.lang.tel}</td>{/* 电话 */}
+                                <td>{$Think.lang.address}</td>{/* 公司地址 */}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id='tr-info'>
+                                <td data-name='companyName'>
+                                    {if condition="!empty(json_decode(cookie('user_info'),true))"}{:json_decode(cookie('user_info'),true)['companyName']}{/if}
+                                </td>
+                                <td data-name='contactName'>
+                                    {if condition="!empty(json_decode(cookie('user_info'),true))"}{:json_decode(cookie('user_info'),true)['contactName']}{/if}
+                                </td>
+                                <td data-name='email'>
+                                    {if condition="!empty(json_decode(cookie('user_info'),true))"}{:json_decode(cookie('user_info'),true)['email']}{/if}
+                                </td>
+                                <td data-name='tel'>
+                                    {if condition="!empty(json_decode(cookie('user_info'),true))"}{:json_decode(cookie('user_info'),true)['tel']}{/if}
+                                </td>
+                                <td data-name='address'>
+                                    {if condition="!empty(json_decode(cookie('user_info'),true)['address'])"}{:json_decode(cookie('user_info'),true)['address']}{/if}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> 
+                <div class="item02-box">
+                    <div class="list" style="width:50%;">
+                        <div class="left"><span>*</span>{$Think.lang.company_name}</div>{/* 公司名称 */}
+                        <div class="right"><input class="text" name='companyName'  type="text"></div>
+                    </div>
+                    <div class="list" style="width:50%;">
+                        <div class="left"><span>*</span>{$Think.lang.contact_p}</div>{/* 联系人 */}
+                        <div class="right"><input class="text" name='contactName' type="text"></div>
+                    </div>
+                    <div class="list" style="width:50%;">
+                        <div class="left"><span>*</span>{$Think.lang.address}</div>{/* 公司地址 */}
+                        <div class="right"><input class="text"  type="text"></div>
+                    </div>
+                    <div class="list">
+                        <div class="right"><input type="button" value="{$Think.lang.save}" style="background:#78bc27;color:#fff;" class="btn item02-save"></div>
+                    </div>
+                </div>
+                <div class="nextForm">    
+                    <form action="" method="">
+                        <div class="list">
+                            <span class="star">*</span>{$Think.lang.time_zone}{/* 设备所在时区 */}
+                            <select id="timeZone">
+                                <option value="(GMT-11:00) American Samoa">(GMT-11:00) American Samoa</option>
+                                <option value="(GMT-11:00) International Date Line West">(GMT-11:00) International Date Line West</option>
+                                <option value="(GMT-11:00) Midway Island">(GMT-11:00) Midway Island</option>
+                                <option value="(GMT-10:00) Hawaii">(GMT-10:00) Hawaii</option>
+                                <option value="(GMT-09:00) Alaska">(GMT-09:00) Alaska</option>
+                                <option value="(GMT-08:00) Pacific Time (US &amp; Canada)">(GMT-08:00) Pacific Time (US &amp; Canada)</option>
+                                <option value="(GMT-08:00) Tijuana">(GMT-08:00) Tijuana</option>
+                                <option value="(GMT-07:00) Arizona">(GMT-07:00) Arizona</option>
+                                <option value="(GMT-07:00) Chihuahua">(GMT-07:00) Chihuahua</option>
+                                <option value="(GMT-07:00) Mazatlan">(GMT-07:00) Mazatlan</option>
+                                <option value="(GMT-07:00) Mountain Time (US &amp; Canada)">(GMT-07:00) Mountain Time (US &amp; Canada)</option>
+                                <option value="(GMT-06:00) Central America">(GMT-06:00) Central America</option>
+                                <option value="(GMT-06:00) Central Time (US &amp; Canada)">(GMT-06:00) Central Time (US &amp; Canada)</option>
+                                <option value="(GMT-06:00) Guadalajara">(GMT-06:00) Guadalajara</option>
+                                <option value="(GMT-06:00) Mexico City">(GMT-06:00) Mexico City</option>
+                                <option value="(GMT-06:00) Monterrey">(GMT-06:00) Monterrey</option>
+                                <option value="(GMT-06:00) Saskatchewan">(GMT-06:00) Saskatchewan</option>
+                                <option value="(GMT-05:00) Bogota">(GMT-05:00) Bogota</option>
+                                <option value="(GMT-05:00) Eastern Time (US &amp; Canada)">(GMT-05:00) Eastern Time (US &amp; Canada)</option>
+                                <option value="(GMT-05:00) Indiana (East)">(GMT-05:00) Indiana (East)</option>
+                                <option value="(GMT-05:00) Lima">(GMT-05:00) Lima</option>
+                                <option value="(GMT-05:00) Quito">(GMT-05:00) Quito</option>
+                                <option value="(GMT-04:30) Caracas">(GMT-04:30) Caracas</option>
+                                <option value="(GMT-04:00) Atlantic Time (Canada)">(GMT-04:00) Atlantic Time (Canada)</option>
+                                <option value="(GMT-04:00) Georgetown">(GMT-04:00) Georgetown</option>
+                                <option value="(GMT-04:00) La Paz">(GMT-04:00) La Paz</option>
+                                <option value="(GMT-03:30) Newfoundland">(GMT-03:30) Newfoundland</option>
+                                <option value="(GMT-03:00) Brasilia">(GMT-03:00) Brasilia</option>
+                                <option value="(GMT-03:00) Buenos Aires">(GMT-03:00) Buenos Aires</option>
+                                <option value="(GMT-03:00) Greenland">(GMT-03:00) Greenland</option>
+                                <option value="(GMT-03:00) Santiago">(GMT-03:00) Santiago</option>
+                                <option value="(GMT-02:00) Mid-Atlantic">(GMT-02:00) Mid-Atlantic</option>
+                                <option value="(GMT-01:00) Azores">(GMT-01:00) Azores</option>
+                                <option value="(GMT-01:00) Cape Verde Is.">(GMT-01:00) Cape Verde Is.</option>
+                                <option value="(GMT+00:00) Casablanca">(GMT+00:00) Casablanca</option>
+                                <option value="(GMT+00:00) Dublin">(GMT+00:00) Dublin</option>
+                                <option value="(GMT+00:00) Edinburgh">(GMT+00:00) Edinburgh</option>
+                                <option value="(GMT+00:00) Lisbon">(GMT+00:00) Lisbon</option>
+                                <option value="(GMT+00:00) London">(GMT+00:00) London</option>
+                                <option value="(GMT+00:00) Monrovia">(GMT+00:00) Monrovia</option>
+                                <option value="(GMT+00:00) UTC">(GMT+00:00) UTC</option>
+                                <option value="(GMT+01:00) Amsterdam">(GMT+01:00) Amsterdam</option>
+                                <option value="(GMT+01:00) Belgrade">(GMT+01:00) Belgrade</option>
+                                <option value="(GMT+01:00) Berlin">(GMT+01:00) Berlin</option>
+                                <option value="(GMT+01:00) Bern">(GMT+01:00) Bern</option>
+                                <option value="(GMT+01:00) Bratislava">(GMT+01:00) Bratislava</option>
+                                <option value="(GMT+01:00) Brussels">(GMT+01:00) Brussels</option>
+                                <option value="(GMT+01:00) Budapest">(GMT+01:00) Budapest</option>
+                                <option value="(GMT+01:00) Copenhagen">(GMT+01:00) Copenhagen</option>
+                                <option value="(GMT+01:00) Ljubljana">(GMT+01:00) Ljubljana</option>
+                                <option value="(GMT+01:00) Madrid">(GMT+01:00) Madrid</option>
+                                <option value="(GMT+01:00) Paris">(GMT+01:00) Paris</option>
+                                <option value="(GMT+01:00) Prague">(GMT+01:00) Prague</option>
+                                <option value="(GMT+01:00) Rome">(GMT+01:00) Rome</option>
+                                <option value="(GMT+01:00) Sarajevo">(GMT+01:00) Sarajevo</option>
+                                <option value="(GMT+01:00) Skopje">(GMT+01:00) Skopje</option>
+                                <option value="(GMT+01:00) Stockholm">(GMT+01:00) Stockholm</option>
+                                <option value="(GMT+01:00) Vienna">(GMT+01:00) Vienna</option>
+                                <option value="(GMT+01:00) Warsaw">(GMT+01:00) Warsaw</option>
+                                <option value="(GMT+01:00) West Central Africa">(GMT+01:00) West Central Africa</option>
+                                <option value="(GMT+01:00) Zagreb">(GMT+01:00) Zagreb</option>
+                                <option value="(GMT+02:00) Athens">(GMT+02:00) Athens</option>
+                                <option value="(GMT+02:00) Bucharest">(GMT+02:00) Bucharest</option>
+                                <option value="(GMT+02:00) Cairo">(GMT+02:00) Cairo</option>
+                                <option value="(GMT+02:00) Harare">(GMT+02:00) Harare</option>
+                                <option value="(GMT+02:00) Helsinki">(GMT+02:00) Helsinki</option>
+                                <option value="(GMT+02:00) Istanbul">(GMT+02:00) Istanbul</option>
+                                <option value="(GMT+02:00) Jerusalem">(GMT+02:00) Jerusalem</option>
+                                <option value="(GMT+02:00) Kyiv">(GMT+02:00) Kyiv</option>
+                                <option value="(GMT+02:00) Pretoria">(GMT+02:00) Pretoria</option>
+                                <option value="(GMT+02:00) Riga">(GMT+02:00) Riga</option>
+                                <option value="(GMT+02:00) Sofia">(GMT+02:00) Sofia</option>
+                                <option value="(GMT+02:00) Tallinn">(GMT+02:00) Tallinn</option>
+                                <option value="(GMT+02:00) Vilnius">(GMT+02:00) Vilnius</option>
+                                <option value="(GMT+03:00) Baghdad">(GMT+03:00) Baghdad</option>
+                                <option value="(GMT+03:00) Kuwait">(GMT+03:00) Kuwait</option>
+                                <option value="(GMT+03:00) Minsk">(GMT+03:00) Minsk</option>
+                                <option value="(GMT+03:00) Moscow">(GMT+03:00) Moscow</option>
+                                <option value="(GMT+03:00) Nairobi">(GMT+03:00) Nairobi</option>
+                                <option value="(GMT+03:00) Riyadh">(GMT+03:00) Riyadh</option>
+                                <option value="(GMT+03:00) St. Petersburg">(GMT+03:00) St. Petersburg</option>
+                                <option value="(GMT+03:00) Volgograd">(GMT+03:00) Volgograd</option>
+                                <option value="(GMT+03:30) Tehran">(GMT+03:30) Tehran</option>
+                                <option value="(GMT+04:00) Abu Dhabi">(GMT+04:00) Abu Dhabi</option>
+                                <option value="(GMT+04:00) Baku">(GMT+04:00) Baku</option>
+                                <option value="(GMT+04:00) Muscat">(GMT+04:00) Muscat</option>
+                                <option value="(GMT+04:00) Tbilisi">(GMT+04:00) Tbilisi</option>
+                                <option value="(GMT+04:00) Yerevan">(GMT+04:00) Yerevan</option>
+                                <option value="(GMT+04:30) Kabul">(GMT+04:30) Kabul</option>
+                                <option value="(GMT+05:00) Ekaterinburg">(GMT+05:00) Ekaterinburg</option>
+                                <option value="(GMT+05:00) Islamabad">(GMT+05:00) Islamabad</option>
+                                <option value="(GMT+05:00) Karachi">(GMT+05:00) Karachi</option>
+                                <option value="(GMT+05:00) Tashkent">(GMT+05:00) Tashkent</option>
+                                <option value="(GMT+05:30) Chennai">(GMT+05:30) Chennai</option>
+                                <option value="(GMT+05:30) Kolkata">(GMT+05:30) Kolkata</option>
+                                <option value="(GMT+05:30) Mumbai">(GMT+05:30) Mumbai</option>
+                                <option value="(GMT+05:30) New Delhi">(GMT+05:30) New Delhi</option>
+                                <option value="(GMT+05:30) Sri Jayawardenepura">(GMT+05:30) Sri Jayawardenepura</option>
+                                <option value="(GMT+05:45) Kathmandu">(GMT+05:45) Kathmandu</option>
+                                <option value="(GMT+06:00) Almaty">(GMT+06:00) Almaty</option>
+                                <option value="(GMT+06:00) Astana">(GMT+06:00) Astana</option>
+                                <option value="(GMT+06:00) Dhaka">(GMT+06:00) Dhaka</option>
+                                <option value="(GMT+06:00) Novosibirsk">(GMT+06:00) Novosibirsk</option>
+                                <option value="(GMT+06:00) Urumqi">(GMT+06:00) Urumqi</option>
+                                <option value="(GMT+06:30) Rangoon">(GMT+06:30) Rangoon</option>
+                                <option value="(GMT+07:00) Bangkok">(GMT+07:00) Bangkok</option>
+                                <option value="(GMT+07:00) Hanoi">(GMT+07:00) Hanoi</option>
+                                <option value="(GMT+07:00) Jakarta">(GMT+07:00) Jakarta</option>
+                                <option value="(GMT+07:00) Krasnoyarsk">(GMT+07:00) Krasnoyarsk</option>
+                                <option value="(GMT+08:00) Beijing">(GMT+08:00) Beijing</option>
+                                <option value="(GMT+08:00) Chongqing">(GMT+08:00) Chongqing</option>
+                                <option value="(GMT+08:00) Hong Kong">(GMT+08:00) Hong Kong</option>
+                                <option value="(GMT+08:00) Irkutsk">(GMT+08:00) Irkutsk</option>
+                                <option value="(GMT+08:00) Kuala Lumpur">(GMT+08:00) Kuala Lumpur</option>
+                                <option value="(GMT+08:00) Perth">(GMT+08:00) Perth</option>
+                                <option value="(GMT+08:00) Singapore">(GMT+08:00) Singapore</option>
+                                <option value="(GMT+08:00) Taipei">(GMT+08:00) Taipei</option>
+                                <option value="(GMT+08:00) Ulaan Bataar">(GMT+08:00) Ulaan Bataar</option>
+                                <option value="(GMT+09:00) Osaka">(GMT+09:00) Osaka</option>
+                                <option value="(GMT+09:00) Sapporo">(GMT+09:00) Sapporo</option>
+                                <option value="(GMT+09:00) Seoul">(GMT+09:00) Seoul</option>
+                                <option value="(GMT+09:00) Tokyo">(GMT+09:00) Tokyo</option>
+                                <option value="(GMT+09:00) Yakutsk">(GMT+09:00) Yakutsk</option>
+                                <option value="(GMT+09:30) Adelaide">(GMT+09:30) Adelaide</option>
+                                <option value="(GMT+09:30) Darwin">(GMT+09:30) Darwin</option>
+                                <option value="(GMT+10:00) Brisbane">(GMT+10:00) Brisbane</option>
+                                <option value="(GMT+10:00) Canberra">(GMT+10:00) Canberra</option>
+                                <option value="(GMT+10:00) Guam">(GMT+10:00) Guam</option>
+                                <option value="(GMT+10:00) Hobart">(GMT+10:00) Hobart</option>
+                                <option value="(GMT+10:00) Magadan">(GMT+10:00) Magadan</option>
+                                <option value="(GMT+10:00) Melbourne">(GMT+10:00) Melbourne</option>
+                                <option value="(GMT+10:00) Port Moresby">(GMT+10:00) Port Moresby</option>
+                                <option value="(GMT+10:00) Solomon Is.">(GMT+10:00) Solomon Is.</option>
+                                <option value="(GMT+10:00) Sydney">(GMT+10:00) Sydney</option>
+                                <option value="(GMT+10:00) Vladivostok">(GMT+10:00) Vladivostok</option>
+                                <option value="(GMT+11:00) New Caledonia">(GMT+11:00) New Caledonia</option>
+                                <option value="(GMT+12:00) Auckland">(GMT+12:00) Auckland</option>
+                                <option value="(GMT+12:00) Fiji">(GMT+12:00) Fiji</option>
+                                <option value="(GMT+12:00) Kamchatka">(GMT+12:00) Kamchatka</option>
+                                <option value="(GMT+12:00) Marshall Is.">(GMT+12:00) Marshall Is.</option>
+                                <option value="(GMT+12:00) Wellington">(GMT+12:00) Wellington</option>
+                                <option value="(GMT+13:00) Nuku'alofa">(GMT+13:00) Nuku'alofa</option>
+                                <option value="(GMT+13:00) Samoa">(GMT+13:00) Samoa</option>
+                                <option value="(GMT+13:00) Tokelau Is.">(GMT+13:00) Tokelau Is.</option>
+                            </select>
+                        </div>
+                        <div class="list">
+                            <span class="star">*</span>{$Think.lang.please_input_sn}{/* 请输入序列号 */}
+                            <input type="text" id='serialNumber'>
+<!--                             <span class="txt"><img src="{$Think.HOME_IMGS}/next-icon.png" alt="">{$Think.lang.sn_other}</span> -->
+                        </div>
+                        <span class="txt">The method to get the serial number:<br>
+                         For device with keyboard, please keep press the ESC button for 3 seconds.<br>
+                         For device without keyboard, please keep press the lower-right corner of the device screen.<br>
+                        </span><br>
+                        <div class="list">
+                            <div class="right"><input type="button" value="{$Think.lang.submit}" style="background:#78bc27;color:#fff;" class="btn sbm"></div>
+                        </div>
+                    </form>
+                </div>       
+            </div>  
+    </section><!--.page-container end-->
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script src="{$Think.HOME_JS}/upload/jquery.ui.widget.js"></script>
+<script src="{$Think.HOME_JS}/upload/jquery.iframe-transport.js"></script>
+<script src="{$Think.HOME_JS}/upload/jquery.fileupload.js"></script>
+<script>
+$(function () {
+
+
+    $(".item02-edit").on("click",function(){
+        $(".item02-box").slideToggle(150);
+        $(".item02-box .list").eq(0).find("input").val($(".nextTable table tbody tr td").eq(0).text().trim());
+        $(".item02-box .list").eq(1).find("input").val($(".nextTable table tbody tr td").eq(1).text().trim());
+        $(".item02-box .list").eq(2).find("input").val($(".nextTable table tbody tr td").eq(4).text().trim());
+    })
+    //保存事件
+    $(".item02-save").on("click",function(){
+        if ($(".item02-box .list").eq(0).find("input").val().trim().length == 0) {
+            showErrMsg('{$Think.lang.err1}');
+            return;
+        }
+        if ($(".item02-box .list").eq(1).find("input").val().trim().length == 0) {
+            showErrMsg('{$Think.lang.err2}');
+            return;
+        }
+        if ($(".item02-box .list").eq(2).find("input").val().trim().length == 0) {
+            showErrMsg('{$Think.lang.err5}');
+            return;
+        }
+        $(".nextTable table tbody tr td").eq(0).text($(".item02-box .list").eq(0).find("input").val().trim());
+        $(".nextTable table tbody tr td").eq(1).text($(".item02-box .list").eq(1).find("input").val().trim());
+        $(".nextTable table tbody tr td").eq(4).text($(".item02-box .list").eq(2).find("input").val().trim());
+        $(".page-content .item02-box").slideUp(150);
+    })
+
+    $(".btn.sbm").on('click',function(){
+        var info = new Object();
+        var flag = 0;
+        $('#tr-info td').each(function(){               //客户信息
+            var name_ = $(this).attr('data-name');
+            info[name_] = $(this).text().trim();
+            if ($(this).text().trim().length == 0) {
+                flag = 1;
+            }
+        })
+        info['serialNumber'] = $('#serialNumber').val().trim(); 
+        if (info['serialNumber'].length == 0) {
+             flag = 1;
+        } else if (info['serialNumber'].length > 19) {
+            showErrMsg("{$Think.lang.err5}");
+            return;
+        } else if (info['serialNumber'].length < 13) {
+            showErrMsg("{$Think.lang.err5}");
+            return;
+        }
+        info['timeZone'] = $('#timeZone').val().trim(); 
+        if (info['timeZone'].length == 0) {
+             flag = 1;
+        }
+        if (flag == 1) {
+            showErrMsg("{$Think.lang.err6}");
+            return;
+        } else {
+            loading_msg("{$Think.lang.commit_now}");
+            $.ajax({
+                url: "{:url('/apply_pwdback')}", 
+                data: {"info":JSON.stringify(info)},
+                type:'post', 
+                dataType: "json", 
+                error:function(data){
+                    layer.close(index);
+                    showErrMsg("{$Think.lang.ajax_err}");
+                    return;
+                },  
+                success:function(result){
+                    layer.close(index);
+                    if (result.status == 1) {
+                        window.location.href="{:url('index/User/apply_pwdback_success')}";
+                    } else {
+                        showErrMsg(result.info);
+                    }           
+                },
+            })
+        }
+    })
+    function loading_msg(msg){
+        index = layer.msg(msg, {
+            icon: 16,
+            shade: 0.5,
+            time: 30000,
+            shadeClose: false 
+        });
+    }
+});
+</script>
+</body>
+</html>

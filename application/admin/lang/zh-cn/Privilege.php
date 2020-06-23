@@ -1,0 +1,41 @@
+<?php
+return [
+    'id'                    => 'ID',
+    'pri_name'              => 'Privilege Name',
+    'module_name'           => 'Module Name',
+    'controller_name'       => 'Controller Name',
+    'action_name'           => 'Method Name',
+    'parent_id'             => 'Parent Permission ID',
+    'order_key'             => 'Sort',
+    'add_time'              => 'Creation Time',
+    'icon'                  => 'Icon',
+    
+    //数据验证提示Data validation hints
+    'parent_id_i'           => 'Parent permission must be an integer',
+    'parent_id_r'           => 'Parent permission must not be empty',
+    'pri_name_r'            => 'Privilege name must not be empty',
+    'pri_name_u'            => 'Privilege name has already existed',
+    'pri_name_m'            => 'Privilege name should not exceed 60 characters',
+    'module_name_r'         => 'Module name must not be empty',
+    'module_name_m'         => 'Module name should not exceed 40 characters',
+    'controller_name_r'     => 'Controller name must not be empty',
+    'controller_name_m'     => 'Controller name should not exceed 40 characters',
+    'action_name_r'         => 'Method name must not be empty',
+    'action_name_m'         => 'Method name should not exceed 100 characters',
+    'order_key_r'           => 'Sorting must not be empty',
+    'order_key_i'           => 'Sorting must be an integer',
+    //其他 Others
+    'top_pid'               => 'Top Permission',
+    'top_icon'              => 'Please choose icon',
+    'show_title'            => 'Permission Management',
+    'show_title_add'        => 'Add Permission',
+    'show_title_edit'       => 'Edit Permission',
+    'show_title_lst'        => 'Permission List',
+    //日志 Journal
+    'add_success'           => 'Succeeded in adding permission',
+    'add_error'             => 'Failed to add permission',
+    'edit_success'          => 'Succeeded in editing permission',
+    'edit_error'            => 'Failed to edit permission',
+    'del_success'           => 'Succeeded in deleting permission',
+    'del_error'             => 'Failed to delete permission',
+];

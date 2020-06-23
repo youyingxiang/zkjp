@@ -1,0 +1,14 @@
+{volist name='news_cate_data' id='vo'}
+<div class="newsList clearfix">
+	{if condition="substr($vo.img,3)&&file_exists('.'.substr($vo.img,3)"}
+	<div class="fl newsList-left">
+	    <a href="{if condition='$vo.url_title'}{:url('/news_detail/'.$vo.url_title)}{else/}{:url('/news_detail/'.$vo.id)}{/if}"><img src="{$vo.img}" alt="{$vo.title}"></a>
+	</div>
+	{/if}
+	<div {if condition="substr($vo.img,3)&&file_exists('.'.substr($vo.img,3)"}class="fr newsList-right"{else/}class="fr newsList-right w100"{/if}>
+	    <a href="{if condition='$vo.url_title'}{:url('/news_detail/'.$vo.url_title)}{else/}{:url('/news_detail/'.$vo.id)}{/if}"><h3>{$vo.title}</h3></a>
+	    <div>{$vo.update_time}</div>
+	    <p>{$vo.abstract}<a href="{if condition='$vo.url_title'}{:url('/news_detail/'.$vo.url_title)}{else/}{:url('/news_detail/'.$vo.id)}{/if}"> [{$Think.lang.view_details}]</a></p>
+	</div>
+</div>
+{/volist}

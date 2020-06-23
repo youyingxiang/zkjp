@@ -1,0 +1,29 @@
+{volist name="$lst" id='voo'}
+<div class="mCommentList-unit">
+    <div class="mComment">
+        <div class="mComment-infor clearfix">
+            <span class="name mColorGreen">{$voo.createBy}</span>
+            <span class="time">{$Think.lang.commit_date}：{$voo.createTime}</span>{/* 时间 */}
+            <!-- <span class="state">NEW</span> -->
+        </div>
+        <div class="mComment-con">
+            <div class="details">
+                <p>{$voo.contient}</p> {/* 附件 */}
+                <p>
+                    {$Think.lang.ufile}：
+                    {volist name=':json_zkpai($voo.uploadfile)' id='vooo'}
+                    <a class="mColorGreen" href="https://service.zkteco.com:8443/commonController.action?viewFile&subclassname=com.framework.web.system.pojo.base.TSDocument&fileid={$vooo.fileKey}">{$vooo.name}</a>
+                    {/volist}
+                </p>
+            </div>
+            {if condition="$voo.isHelpful === null"}
+            <div class="bottom">{$Think.lang.yesno}&nbsp;&nbsp;&nbsp;&nbsp;<a class="mColorGreen"  onclick="is_help(this)" data-id='{$voo.id}' data-ishelp='0' href="javascript:void(0);">{$Think.lang.yes}</a>&nbsp;&nbsp;&nbsp;&nbsp;<a data-id='{$voo.id}' class="mColorGreen" onclick="is_help(this)" data-ishelp='1' href="javascript:void(0);">{$Think.lang.no}</a></div>  {/* 是否解决 */}
+            {elseif condition="$voo.isHelpful==0" /}
+            <div class="bottom">{$Think.lang.yes1}</div>  {/* 是否解决 */}
+            {elseif condition="$voo.isHelpful==1" /}
+            <div class="bottom">{$Think.lang.no1}</div>  {/* 是否解决 */}
+            {/if}
+        </div>
+    </div>
+</div>
+{/volist}

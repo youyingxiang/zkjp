@@ -1,0 +1,56 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+    <a href="{:get_img_url($ad['培训视频-banner'][0]['url'])}">
+        <div class="page-banner" style="background-image:url({$ad['培训视频-banner'][0]['img']});">
+            <div class="training-txt txt">
+                {$ad['培训视频-banner'][0]['title']}
+            </div>
+        </div>
+    </a>
+    <div class="w1400">
+        <div class="position"><a href="{:url('/')}">Home Page</a> > <a href="{:url('/service')}">Support</a> > <a href="{:url('/train_center')}">Training Center</a> >  {$title}</div>
+            <div class="tvideos-content slideIn02 clearfix">
+            {volist name='data' id='vo'}
+                <!-- <div class="videos-list">
+                     <video  controls="controls" poster="{$vo.img}">
+                        <source src="{$vo.file_url}" type="video/mp4">
+                        
+                    </video>
+                    <div>
+                        <p>{$vo.title}</p>
+                        <time>{:date("Y-m-d",$vo.update_time)}</time>
+                        <img src="{$Think.HOME_IMGS}/videos-icon.png" alt="">
+                    </div>
+                </div> -->
+
+                <div class="videos-list" >
+                    <a href="{$vo.file_url}" target="_blank" style="background: url({$vo.img}) no-repeat center center/cover;">
+                        <div>
+                            <p>{$vo.title}</p>
+                            <time>{:date("Y-m-d",$vo.update_time)}</time>
+                            <img src="{$Think.HOME_IMGS}/videos-icon.png" alt="">
+                        </div>
+                    </a>
+                </div>
+            {/volist}   
+            </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+$(function(){
+    $(".videos-list").click(function(){  
+        if ($("video")[$(this).index()].paused){
+            $(this).find("div").hide();
+            $("video")[$(this).index()].play();
+        }else{
+             $(this).find("div").show();
+            $("video")[$(this).index()].pause();
+        }
+    })
+})
+</script>
+</body>
+</html>

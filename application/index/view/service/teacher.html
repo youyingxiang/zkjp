@@ -1,0 +1,40 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+    <div class="w1400 teacher">
+        <div class="position"><a href="{:url('/')}">Homepage</a> > <a href="{:url('/service')}">service support</a> > <a href="{:url('/train_center')}">training center</a> > {$title}</div>
+        <div class="teacher-content slideIn02">
+        {volist name='$data' id='vo'}
+            <div class="list">
+                <div class="left">
+                    <img src="{$vo.img}" alt="{$vo.name}">
+                </div>
+                <div class="right">
+                    <h2>{$vo.name}</h2>
+                    <h3>{$vo.address}</h3>
+                    <div class="txt">
+                        {$vo.content}
+                    </div>
+                    <div class="email">
+                        <a href="">
+                            <img src="{$Think.HOME_IMGS}/message.png" alt="">
+                            {$vo.email}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {/volist}    
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+    $(function(){
+        if($(window).width()>1023){
+            $(".course-content .content-list").eq(-2).css("borderBottom","none");
+        }
+    })
+</script>
+</body>
+</html>

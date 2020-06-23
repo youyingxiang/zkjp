@@ -1,0 +1,209 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content03">
+    <a {:check_target($ad['中控智慧团队-banner'][0]['url'])} href="{:get_img_url($ad['中控智慧团队-banner'][0]['url'])}">
+    <div class="page-banner" style="background-image:url({$ad['中控智慧团队-banner'][0]['img']});"><div class="cooperate-txt txt">{$ad['中控智慧团队-banner'][0]['title']}</div></div></a>
+    <div class="w1400">
+        <div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> > <a href="{:url('/aboutus')}">{$Think.lang.about_us}</a> >{$Think.lang.team}</div>
+    </div>
+    <div class="w1400 slideIn02">
+        <div class="team-content">
+            <div class="team-content-title">
+                <div class="team-content-tit-class clearfix">
+<!--                {php}$ii=0;{/php}
+                {volist name='data' id='vo'}               
+                    <a href="javascript:void(0)" class="{if condition='$ii==0'}tit0{$ii+1} fl{else/}tit0{$ii+1} fr{/if}">{$type[$key]}</a>
+                    {php}$ii++;{/php}
+                {/volist}-->
+                    <a href="javascript:void(0)" style="width:100%" class="tit01 fl">{$type[2]}</a> 
+                   <!-- <a href="javascript:void(0)" class="tit02 fr">{$type[2]}</a>-->
+                </div>
+                <p>{$Think.lang.team_des}</p>
+            </div>
+
+           <div id="managerId">
+                <div class="team-content-list-manager swiper-container">
+                    <ul class="clearfix manager-list swiper-wrapper">
+                    {volist name="data['2']" id='vo'}
+                        <li {if condition='$key==0'}data-index='1'{/if} class="{if condition='$key==0'}info{/if} swiper-slide"><img src="{$vo.img}" alt="{$vo.name}"></li>
+                    {/volist}
+                    </ul>
+                    <div class="list-pre swiper-button-prev">
+                    </div>
+                     <div class="list-next swiper-button-next">
+                    </div>
+                </div>
+                <div class="manager-content">
+                    {volist name="data['2']" id='vo'}
+                    <div class="list">
+                        <h3 class="manager-name">{$vo.name}</h3>
+                        <h4>{$vo.job}</h4>
+                        <ul>
+                            {$vo.content}
+                        </ul>
+                    </div>
+                    {/volist}
+                </div> 
+            </div>
+            <!--<div id="professorId" style="display: none;">
+                <div class="team-content-list-manager team-content-list-professor swiper-container">
+                    <ul class="clearfix manager-list swiper-wrapper">
+                    {volist name="data['2']" id='vo'}
+                        <li {if condition='$key==0'}data-index='1'{/if} class="{if condition='$key==0'}info{/if} swiper-slide"><img src="{$vo.img}" alt="{$vo.name}"></li>
+                    {/volist}
+                    </ul>
+                    <div class="list-pre swiper-button-prev">
+                    </div>
+                     <div class="list-next swiper-button-next">
+                    </div>
+                </div>
+                <div class="manager-content professor-content" style="display: none">
+                {volist name="data['2']" id='vo'}
+                    <div class="list">
+                        <h3 class="manager-name">{$vo.name}</h3>
+                        <h4>{$vo.job}</h4>
+                        <ul>
+                            {$vo.content}
+                        </ul>
+                    </div>
+                {/volist}
+                </div>-->
+            </div>
+            
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+$(function(){
+    // 管理团队/中控团队切换
+    $(".team-content-tit-class").find("a").click(function(){
+        $(this).css({"background":"#78bc27","color":"#fff"}).siblings().css({"background":"#fff","color":"#78bc27"});
+    })
+    //人物样式
+    $(".manager-list .swiper-slide").click(function(){
+        $(this).find("img").css("border","2px solid #78bc27");
+        $(this).siblings().find("img").css("border","2px solid #fff");
+    })
+    $(".manager-list .swiper-slide").click(function(){
+        $(this).addClass("info").siblings().removeClass("info");
+    })
+
+    var swiper = new Swiper('#managerId .swiper-container', {
+        nextButton: '#managerId .swiper-button-next',
+        prevButton: '#managerId .swiper-button-prev',
+        loop:false,
+        slidesPerView: 6,
+        simulateTouch:false,
+        observer:true,
+        observeParents:true,
+        slidesPerGroup:1,
+        breakpoints: {
+            1366: {
+              slidesPerView: 5,
+            },
+            1024: {
+              slidesPerView: 4,
+            },
+            768: {
+              slidesPerView: 3,
+            },
+            640: {
+              slidesPerView: 2,
+            },
+            320: {
+              slidesPerView: 2,
+            }
+        }
+    });
+     $("#managerId .manager-list li").click(function(){
+        var _index;
+        var leng=$('#managerId .swiper-slide').length;
+        var arr=$("#managerId .manager-list li");
+        $.each(arr,function (index,dom){
+            if($(this).attr("data-index")=="1"){
+                _index=index;
+            }
+        })
+        var swiper_index=$(this).index();
+        // console.log("当前点击"+swiper_index);
+        $(this).attr("data-index","1").siblings().attr("data-index","0");
+        // console.log("对比值"+_index)
+        if(swiper_index>_index){
+            $("#managerId .swiper-button-next").trigger('click');
+        }else if(swiper_index<_index){
+            $("#managerId .swiper-button-prev").trigger('click');
+        }
+    })
+
+
+    var swiper = new Swiper('#professorId .swiper-container', {
+        nextButton: '#professorId .swiper-button-next',
+        prevButton: '#professorId .swiper-button-prev',
+        loop:false,
+        slidesPerView: 6,
+        simulateTouch:false,
+        observer:true,
+        observeParents:true,
+        slidesPerGroup:1,
+        breakpoints: {
+            1366: {
+              slidesPerView: 5,
+            },
+            1024: {
+              slidesPerView: 4,
+            },
+            768: {
+              slidesPerView: 3,
+            },
+            640: {
+              slidesPerView: 2,
+            },
+            320: {
+              slidesPerView: 1,
+            }
+        }
+    });
+   
+    $("#professorId .manager-list li").click(function (){
+        var _index;
+        var leng=$('#professorId .swiper-slide').length;
+        var arr=$("#professorId .manager-list li");
+        $.each(arr,function (index,dom){
+            if($(this).attr("data-index")=="1"){
+                _index=index;
+            }
+        })
+        var swiper_index=$(this).index();
+        // console.log("当前点击"+swiper_index);
+        $(this).attr("data-index","1").siblings().attr("data-index","0");
+        // console.log("对比值"+_index)
+        if(swiper_index>_index){
+            $("#professorId .swiper-button-next").trigger('click');
+        }else if(swiper_index<_index){
+            $("#professorId .swiper-button-prev").trigger('click');
+        }
+    })
+    $(".team-content-tit-class").find(".tit01").click(function(){
+        $("#professorId").css("display","none");
+        $("#managerId").css("display","block");
+        $(".professor-content").css("display","none");
+    })
+     $(".team-content-tit-class").find(".tit02").click(function(){
+        $("#professorId").css("display","block");
+        $("#managerId").css("display","none");
+        $(".professor-content").css("display","block");
+    })
+    $("#managerId").find("li").click(function(){
+        var _list=$(this).index();
+        $(".manager-content .list:eq("+_list+")").css("display","block").siblings().css("display","none");
+    })
+    $("#professorId").find("li").click(function(){
+        var _list=$(this).index();
+        $(".professor-content .list:eq("+_list+")").css("display","block").siblings().css("display","none");
+    })
+})
+</script>
+</body>
+</html>

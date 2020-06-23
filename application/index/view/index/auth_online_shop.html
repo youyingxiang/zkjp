@@ -1,0 +1,67 @@
+{include file="layout/top" /}
+{include file="layout/header_index" /}
+<div class="page-content02">
+    <div class="page-banner check-banner" style="background-image:url({$ad['授权网店-banner'][0]['img']});">
+        <div class="content slideIn02">
+            <div class="title">{$Think.lang.auth_online_shop_query}：</div>
+            <div class="check-input">
+                <input type="text" id='search_o_v' placeholder="{$Think.lang.input_auth_online_shop}">
+                <input type="button" id='search_o' value="{$Think.lang.search}">
+            </div>
+        </div>
+    </div>
+    <div class="w1400 slideIn02">
+        <div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> > Authorized Online Stores</div>
+        <div class="buy-wrap">
+            {volist name='$odata' id='vo'}
+            <div class="list clearfix">
+                <div class="left fl"><a {:check_target($vo.url)} href='{:get_img_url($vo.url)}'>{$vo.title}</a></div>
+                <div class="right fl">{$vo.desc}</div>
+            </div>
+            {/volist}
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+    $('#search_o').on('click',function(){
+        var search = $(this).prev().val().trim();
+        loading_msg("{$Think.lang.query_now}");
+        $.ajax({
+            url: "{:url('Index/get_byname_search')}", 
+            data: {"search":search},
+            type:'post', 
+            dataType: "html", 
+            error:function(data){
+                layer.close(index);
+                showErrMsg("{$Think.lang.ajax_err}");
+                return;
+            },  
+            success:function(result){
+               layer.close(index);
+               if (result.length>0) {
+                    $('.buy-wrap').empty().html(result);
+               } else {
+                    $('.buy-wrap').empty();
+                    showErrMsg("{$Think.lang.query_null}");
+               }
+            }
+        })
+    })
+    $('#search_o_v').on('blur',function(){
+        if ($(this).val().trim().length == 0) {
+            $('#search_o').trigger('click');
+        }
+    })
+    function loading_msg(msg){
+        index = layer.msg(msg, {
+            icon: 16,
+            shade: 0.5,
+            time: 30000,
+            shadeClose: false 
+        });
+    }
+</script>
+</body>
+</html

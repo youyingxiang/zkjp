@@ -1,0 +1,102 @@
+{include file="layout/top" /}
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title"></h3>
+                    <div class="pull-left">
+                        {:authAction(CONTROLLER_NAME.'/add', 'create')} 
+                    </div>                  
+                </div>
+                <div class="box-body table-responsive">
+                    <table class="table table-bordered table-hover table-sort">
+                        <tr>
+                            <th>{$Think.lang.name}{:table_sort('name')}</th>
+                            <th>{$Think.lang.state}</th>
+                            <th>{$Think.lang.img}</th>
+                            <th>{$Think.lang.order_key}{:table_sort('order_key')}</th>
+                            <th width="250">{$Think.lang.action}</th>
+                        </tr>
+                        {volist name="data" id="vo"}
+                        <tr>
+                            <td style="vertical-align:middle"><span class="editable" data-pk="{$vo.id}" data-name="name" data-url="{:url(CONTROLLER_NAME.'/edit', 'id='.$vo['id'])}" >{$vo.name}</span></td> 
+                            <td style="vertical-align:middle">
+                                <a href="javascript:void(0);" data-id="{$vo.id}" data-field="state" 
+                                data-value="{$vo.state}" data-url="{:url('edit', 'id='.$vo['id'])}" 
+                                class='editimg fa {if condition=" $vo.state == 1 "}fa-check-circle text-green{else /}fa-times-circle text-red{/if}'></a>
+                            </td>
+                            <td style="vertical-align:middle"><img src="{$vo.img|default='/en/static/global/face/no-image.png'}" style="width:40px;border-radius:30%;" /></td>                
+                            <td><span class="editable" data-pk="{$vo.id}" data-name="order_key" data-url="{:url(CONTROLLER_NAME.'/edit', 'id='.$vo['id'])}" >{$vo.order_key}</span></td>
+                            <td> {:authAction(CONTROLLER_NAME.'/relation_f', 'relation_f',$vo.id)}{:authAction(CONTROLLER_NAME.'/relation_v', 'relation_v',$vo.id)}{:authAction(CONTROLLER_NAME.'/edit', 'edit', ['id' => $vo.id])} {:authAction(CONTROLLER_NAME.'/delete', 'delete', $vo.id)} </td>
+                        </tr>
+                        {/volist}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript" src="{$Think.HOME_JS}/layui.js"></script>
+<script type="text/javascript" src="{$Think.HOME_JS}/layer/layer.js"></script>
+<script type="text/javascript">
+$(function(){
+    /*ajax页面加载icheck，有该控件的页面才需要*/
+    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+        checkboxClass: 'icheckbox_minimal-blue',
+        radioClass: 'iradio_minimal-blue'
+    });
+    
+    /*ajax页面加载icheck，有该控件的页面才需要*/
+    $(".select2").select2({language:"zh-CN"});
+    
+    /*全选-反选*/
+    $('.checkbox-toggle').on('ifChecked', function(event){
+        var _this = $(this);
+        var _table = _this.closest('.table');
+        _table.find("tr td input[type='checkbox']").iCheck("check");
+    });
+    $('.checkbox-toggle').on('ifUnchecked', function(event){
+        var _this = $(this);
+        var _table = _this.closest('.table');
+        _table.find("tr td input[type='checkbox']").iCheck("uncheck");
+    });
+    $('.relation_f').click(function(){
+        var t_id = $(this).attr('data-p');
+        var url = "{:url('TrainCategory/relation_f','',false)}"+'/id/'+t_id+'.html';
+        layer.open({
+          type: 2,
+         //skin: 'layui-layer-rim', //加上边框
+          area: ['90%', '90%'], //宽高
+          content:url
+        });
+    })
+    $('.relation_v').click(function(){
+        var t_id = $(this).attr('data-p');
+        var url = "{:url('TrainCategory/relation_v','',false)}"+'/id/'+t_id+'.html';
+        layer.open({
+          type: 2,
+         //skin: 'layui-layer-rim', //加上边框
+          area: ['90%', '90%'], //宽高
+          content:url
+        });
+    })
+    $('.editable').editable({
+        emptytext: "empty",
+        params: function(params) {      //参数
+            var data = {};
+            data['id'] = params.pk;
+            data[params.name] = params.value;
+            return data;
+        },
+        success: function(response, newValue) {
+            var res = $.parseJSON( response );
+            if(res.status == 1){
+            }else{
+                return res.info;
+            }
+        }
+    });
+})
+</script>
+{include file="layout/bottom" /}

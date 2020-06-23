@@ -1,0 +1,30 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+    <a {:check_target($ad['新闻中心-banner'][0]['url'])} href="{:get_img_url($ad['新闻中心-banner'][0]['url'])}">
+    <div class="page-banner check-banner" style="background-image:url({$ad['新闻中心-banner'][0]['img']});"><div class="txt">{$ad['新闻中心-banner'][0]['title']}</div></div></a>
+    <div class="w1400"><div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> &gt; {$Think.lang.news_center}</div></div>
+    <section class="page-container page-containerLR20 marginB30">
+        <div id="dynamicsPanel" class="clearfix">
+            {volist name='$arr_news' id='van' offset="0"}
+            {if condition="!empty($van['child']) && count($van['child']) > 0"}         
+                <div class="dynamicsPanel-items">
+                    <dl class="dynamicsPanel-dl">
+                        <a href="{:url('/category_news/'.$van.id)}"><i><img src="{$van.img}" alt="{$van.name}"></i></a>
+                        <dt class="dynamicsPanel-dt">{$van.name}<a class="dynamicsPanel-more" href="{:url('/category_news/'.$van.id)}">{$Think.lang.more}</a></dt>
+                        {if condition="!empty($van['child'])"}
+                            {volist name="$van['child']" id='vanc'}
+                                <dd class="dynamicsPanel-dd"><a href="{if condition='$vanc.url_title'}{:url('/news_detail/'.$vanc.url_title)}{else/}{:url('/news_detail/'.$vanc.id)}{/if}">{$vanc.title}</a></dd>
+                            {/volist}
+                        {/if}
+                    </dl>
+                </div>
+            {/if}
+            {/volist}
+        </div>         
+    </section><!--.page-container end-->
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+</body>
+</html>

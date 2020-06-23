@@ -1,0 +1,81 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+    <div class="page-banner gg-banner" style="background-image:url({$ad['服务公告-banner'][0]['img']});">
+        <div class="content slideIn02">
+            <div class="gg-input">
+                <input type="text" placeholder="{$Think.lang.input_keyword}">
+                <input type="button" id='search_f' value="{$Think.lang.search}">
+            </div>
+        </div>
+    </div>
+    <div class="gg-content">
+        <div class="w1400">
+            <div class="position add-position"><a href="{:url('/')}">{$Think.lang.home}</a> > <a href="">{$Think.lang.service}</a> >{$crumb_news}</div>
+        </div>    
+        <div class="w1400">
+            <div class="list-con" id='news_content'>
+                
+                <a class="more" id='loadmore' href="javascript:void(0)">{$Think.lang.view_more}<img src="{$Think.HOME_IMGS}/download-icon02.png" alt=""></a>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+    cid = {$cid};
+    time = 0;
+    var search = '';
+    loading_msg("{$Think.lang.query_now}");
+    get_cate_list();
+    $('#loadmore').click(function(){
+        loading_msg("{$Think.lang.query_now}");
+        if ($('#news_content a.more').html() == "{$Think.lang.no_data}") {
+            layer.close(index);
+            return;
+        }
+        search = $(this).prev().val().trim();
+        get_cate_list(search);
+    })
+    $('#search_f').on('click',function(){
+        time = 0;
+        loading_msg("{$Think.lang.query_now}");
+        $("#news_content div").remove()
+        search = $(this).prev().val().trim();
+        get_cate_list(search);
+    })
+    function get_cate_list(search){       
+        $.ajax({
+                url: "{:url('News/get_category_list')}", 
+                data: {"cid":cid,'time':time,"search":search},
+                type:'post', 
+                dataType: "html", 
+                error:function(data){
+                     layer.close(index);
+                     showErrMsg("{$Think.lang.ajax_err}");
+                     return;
+                },  
+                success:function(result){
+                    if(result.length <100){
+                        $('#news_content a.more').html("{$Think.lang.no_data}");                     
+                    } else {
+                        $('#news_content a.more').html('{$Think.lang.load_more}<img src="{$Think.HOME_IMGS}/download-icon02.png" alt="">'); 
+                        $('#loadmore').before(result);                      
+                        time ++;
+                    }
+                    layer.close(index);
+                },
+        })
+    }
+    function loading_msg(msg){
+        index = layer.msg(msg, {
+                icon: 16,
+                shade: 0.5,
+                time: 30000,
+                shadeClose: false 
+            });
+    }
+</script>
+</body>
+</html>

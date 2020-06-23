@@ -1,0 +1,229 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content">
+    <div class="pro-hs-content clearfix  slideIn02">
+        <div class="w1400">
+            <div class="position"><a href="{:url('/product_category')}">{$Think.lang.product_center}</a> > {$Think.lang.order_query}</div>
+            <div class="pro-hs-step">
+                <ul>
+                    <li class="on">
+                        <i><em><img src="{$Think.HOME_IMGS}/pro-hs-step01.png" alt="{$Think.lang.order_query}"></em></i>
+                        01/{$Think.lang.order_query}
+                    </li>
+                    <li class="step-icon on">&nbsp;</li>
+                    <li>
+                        <i><img src="{$Think.HOME_IMGS}/pro-hs-step02.png" alt="{$Think.lang.input_info}"></i>
+                        02/{$Think.lang.input_info}
+                    </li>
+                    <li class="step-icon">&nbsp;</li>
+                    <li>
+                        <i><img src="{$Think.HOME_IMGS}/pro-hs-step03.png" alt="{$Think.lang.commit_success}"></i>
+                        03/{$Think.lang.commit_success}
+                    </li>
+                </ul>
+            </div>
+            <div class="pro-hs-table">
+                <div class="title">{:date("Y-m-d")}      {$Think.lang.order_number}：{$order_number}</div>{/* 订单号 */}
+                {volist name="$productData" id="vo"}
+                <div class="list clearfix">
+                    <label><input name="subBox" type="checkbox" data-pid='{$vo.id}' data-name='{$vo.name}'></label>
+                    <div class="img fl"><a href="{if condition='$vo.url_title'}{:url('/product_detail/'.$vo.url_title)}{else/}{:url('/product_detail/'.$vo.id)}{/if}"><img  src="{$vo.img}" alt="{$vo.name}"></a></div>
+                    <div class="contxt fl clearfix">
+                        <div class="tit textHidden"><a href="{if condition='$vo.url_title'}{:url('/product_detail/'.$vo.url_title)}{else/}{:url('/product_detail/'.$vo.id)}{/if}">{$vo.name}</a></div>
+                        <div class="ms">{$vo.product_des}</div>
+                    </div>
+                    <div class="right clearfix">
+                        <div class="fr delete" data-pid='{$vo.id}'>
+                            <a href="javascript:void(0)">{$Think.lang.delete}</a>{/* 单个删除 */ }
+                        </div>
+                        <div class="num fr">
+                            <span class="reduce" data-pid='{$vo.id}'>-</span>
+                            <input type="text" class='pnum' value="{$idnums[$vo.id]}">
+                            <span class="add" data-pid='{$vo.id}'>+</span>
+                        </div>
+                    </div>
+                </div>
+                {/volist} 
+            </div>
+            <a class="more" href="{:url('/product_category')}">{$Think.lang.choose_more_p}</a>{/* 选择更多产品 */}
+            <div class="cz-box">
+                <div class="all fl">
+                    <input id="checkAll" type="checkbox"><label for="checkAll">{$Think.lang.all_choose}</label>
+                </div>
+                <div class="delete fl"><a href="javascript:void(0)">{$Think.lang.delete}</a></div>{/* 多个删除 */ }
+                <div class="right fr">
+                    <a class="fr seek_price" href="javascript:void(0)">{$Think.lang.seek_price}</a>{/* 寻求报价 */}
+                    <div class="fr">{$Think.lang.choose_p}<span class="num" id='num'>0</span>{$Think.lang.piece}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+    var order_number = "{$order_number}";
+    $('.num .add').click(function () {
+        var value = parseInt($(this).prev("input").val()) + 1;
+        var pid = $(this).attr('data-pid').trim();
+        add_cart(pid,value);
+        $(this).prev("input").val(value);
+        Count();
+    });
+
+    $('.num .reduce').click(function () {
+        var value = parseInt($(this).next("input").val()) - 1;
+        var pid = $(this).attr('data-pid').trim();
+        add_cart(pid,value);
+        if (value > 0) {
+            $(this).next("input").val(value);
+        }
+        Count();
+    });
+
+    $("#checkAll").click(function() {
+        if($(this).is(":checked")){
+            $('input[name="subBox"]').attr("checked",this.checked);
+            $(".pro-hs-table .list").addClass('num');
+        }else{
+            $('input[name="subBox"]').removeAttr("checked");
+            $(".pro-hs-table .list").removeClass('num');
+        }
+        Count();
+    });
+    var $subBox = $("input[name='subBox']");
+    $subBox.click(function(){
+        if($(this).is(":checked")){
+            $(this).parents(".list").addClass('num');
+        }else{
+            $(this).parents(".list").removeClass('num');
+        }
+        $("#checkAll").attr("checked",$subBox.length == $("input[name='subBox']:checked").length ? true : false);
+        Count();
+    });
+    $('.fr.delete').on('click',function(){          //单个删除
+        var id = [];
+        id[0] = $(this).attr('data-pid');
+        ajax_del_pids(id);     
+        $(this).parent().parent().remove();
+        Count()
+    })
+    $('.delete.fl').on('click',function(){          //多个删除
+        var del_arr = [];
+        var di = 0;
+        $(".list.clearfix input[type='checkbox']").each(function(){
+            if ($(this).is(':checked') == true) {
+                del_arr[di] = $(this).attr('data-pid');
+                $(this).parent().parent().remove();
+                di++;
+            }
+            ajax_del_pids(del_arr);
+        })
+        Count()
+    })
+
+    function ajax_del_pids(ids)
+    {
+        $.ajax({
+            url: "{:url('Product/del_order_cookie')}", 
+            data: {'ids':JSON.stringify(ids)},
+            type:'post', 
+            dataType: "json", 
+            error:function(data){
+                showErrMsg("{$Think.lang.ajax_err}");
+                return;
+            },  
+            success:function(result){
+                if (result.status == 1) {
+                    showOkTime(result.info,3);
+                } else {
+                    showErrMsg(result.info);
+                }          
+            }
+        })
+    }
+    function Count(){
+        var count = 0;
+        $(".pro-hs-table .list").each(function(){
+            if($(this).hasClass('num')){
+                var val = $(this).find("input[type=text]").val();
+                if (val) {
+                    count += parseInt(val);
+                }
+            }
+        });
+        $("#num").text(count);
+    }
+    function loading_msg(msg){
+        index = layer.msg(msg, {
+            icon: 16,
+            shade: 0.5,
+            time: 30000,
+            shadeClose: false 
+        });
+    }
+    function add_cart(pid,num){
+        $.ajax({
+            url: "{:url('Product/add_order_cookie')}", 
+            data: {"pid":pid,'idnum':pid+'-'+num},
+            type:'post', 
+            dataType: "json", 
+            error:function(data){
+                showErrMsg("{$Think.lang.ajax_err}");
+                return;
+            },  
+            success:function(result){
+                if (result.status == 1) {
+                    get_cart_sum();
+                    // showOkTime(result.info,3);
+                } else {
+                    window.location.href="{:url('/login','',false)}?redirect_url="+window.location.href;
+                }           
+            },
+        }) 
+    }
+    $('.fr.seek_price').on('click',function(){
+        var arr = [];
+        var i = 0;
+        if ($(".list.clearfix").length == 0) {
+            showErrMsg("{$Think.lang.please_choose_1p}");
+            return;
+        }
+        $(".list.clearfix input[type='checkbox']").each(function(){
+            if ($(this).is(':checked') == true) {
+                arr[i] = [$(this).attr('data-name'),parseInt($(this).parent().parent().find('.pnum').val())];
+                i++;
+            }
+        })
+        if (order_number.trim().length < 3) {
+            return;
+        } else if(arr.length == 0) {
+            showErrMsg("{$Think.lang.please_choose_1p}");
+            return;
+        } else {
+            loading_msg("{$Think.lang.commit_now}");
+            $.ajax({
+                url: "{:url('Product/order_step1_change')}", 
+                data: {"order_number":order_number,'info':JSON.stringify(arr)},
+                type:'post', 
+                dataType: "json", 
+                error:function(data){
+                    layer.close(index);
+                    showErrMsg("{$Think.lang.ajax_err}");
+                    return;
+                },  
+                success:function(result){
+                    layer.close(index);
+                    if (result.status == 1) {
+                        window.location.href="{:url('/order_step2')}";
+                    } else {
+                        showErrMsg(result.info);
+                    }           
+                },
+            })
+        }
+    })
+</script>
+</body>
+</html>

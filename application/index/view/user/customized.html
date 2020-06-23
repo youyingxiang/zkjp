@@ -1,0 +1,121 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content">
+     <div class="w1400"><div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> &gt; <a href="{:url('/user_center')}">{$Think.lang.user_center}</a> &gt; {$title}</div>
+     </div>
+
+    <section class="page-container page-containerLR20 minH500 marginB30">  
+        <section class="mFilterPanel clearfix">
+            <div class="mFilterPanel-searchBox"><input type="text" placeholder="{$Think.lang.customized_order}" value="" /><a id='serchc' class="mFilterPanel-searchBtn" href="javascript:;">{$Think.lang.search}</a></div>
+            <div class="mFilterPanel-tab clearfix" id="nav">
+            <div class="mFilterPanel-tab-item active" data-value=''><span>All</span></div>
+            {volist name=":config('customize_state')" id='vo'}
+                <div class="mFilterPanel-tab-item" data-value='{$vo}'><span>{$vo}</span></div>
+            {/volist}
+            </div>
+        </section>
+        <div class="customize-content">
+            <div>
+                <table cellspacing="0" class="all-customize testing " >
+                    <thead>
+                        <tr>
+                            <td>{$Think.lang.customized_order}</td>
+
+                            <!--<td>{$Think.lang.contact}</td>-->
+
+                            <td>{$Think.lang.machine_model}</td>
+                            <td>{$Think.lang.softinfo}</td>
+                            <td>{$Think.lang.status}</td>
+                            <td>{$Think.lang.requirement}</td>
+                          <!--  <td>{$Think.lang.createTime}</td>-->
+                            <td>{$Think.lang.handoverTime}</td>
+                          <!--  <td>{$Think.lang.charge}</td>-->
+                        </tr>
+                    </thead>
+                    <tbody class='mOrderList'>
+                        
+                        
+                    </tbody>
+                </table>
+            </div> 
+
+        </div>
+        <div class="more"><a id='viewMore' href="javascript:void(0)">{$Think.lang.view_more} <img src="{$Think.HOME_IMGS}/download-icon02.png" alt=""></a></div>  
+    </section><!--.page-container end-->
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+</body>
+<script>
+$(function(){
+    var status = '';
+    var docsn = '';
+    time_ = 1;
+    loading_msg("{$Think.lang.query_now}");
+    get_state_list(status,docsn);
+    $('#nav .mFilterPanel-tab-item').on('click',function(){
+       time_ = 1;
+       status = $(this).attr('data-value').trim();
+       $(this).addClass("active").siblings().removeClass("active");
+       $('.mOrderList').empty();
+       loading_msg("{$Think.lang.query_now}");
+       docsn = '';
+       get_state_list(status,docsn);
+    })
+    
+    $('#viewMore').on('click',function(){
+        loading_msg("{$Think.lang.query_now}");
+        if($(this).html() == "{$Think.lang.no_data}"){
+            layer.close(index);
+            return;
+        };
+        docsn = $('#serchc').prev().val().trim();
+
+        get_state_list(status,docsn);
+    })
+
+    $('#serchc').on('click',function(){
+        loading_msg("{$Think.lang.query_now}");
+        docsn = $(this).prev().val().trim();
+        time_ = 1;
+        $('.mOrderList').empty();
+        get_state_list(status,docsn);
+    })
+
+})
+    function get_state_list(status,docsn){   
+        $.ajax({
+                url: "{:url('User/get_cstate_list')}",
+                data: {"status":status,'time':time_,'docsn':docsn},
+                type:'post',
+                dataType: "html",
+                error:function(data){
+                    layer.close(index);
+                    showErrMsg("{$Think.lang.ajax_err}");
+                    return;
+                },
+                success:function(result){
+                    layer.close(index);
+                    if(result.length < 10){
+                        $('#viewMore').html("{$Think.lang.no_data}");
+                        if(result.length>0)showErrMsg(result);         //有消息提示的时候
+                    } if (result == "The current user does not have permission!") {
+                        showErrMsg(result)
+                    } else {
+                        $('#viewMore').html('{$Think.lang.view_more}');
+                        $('.mOrderList').append(result);
+                        time_ ++;
+                    }
+                },
+        })
+    }
+    function loading_msg(msg){
+        index = layer.msg(msg, {
+            icon: 16,
+            shade: 0.5,
+            time: 30000,
+            shadeClose: false 
+        });
+    }
+</script>
+</html>

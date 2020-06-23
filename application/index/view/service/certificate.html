@@ -1,0 +1,47 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+    <a href="{:get_img_url($ad['认证及流程-banner'][0]['url'])}">
+        <div class="page-banner" style="background-image:url({$ad['认证及流程-banner'][0]['img']});">
+            <div class="training-txt txt">
+                {$ad['认证及流程-banner'][0]['title']}
+            </div>
+        </div>
+    </a>
+    <div class="w1400">
+         <div class="position"><a href="{:url('/')}">Home Page</a> > <a href="{:url('/service')}">Support</a> > <a href="{:url('/train_center')}">Training Center</a> > Training Certification</div>
+            <div class="center-content slideIn02 approve">
+                {$ad['认证及流程-文字'][0]['content']}
+                <div class="approve-content">
+                    <div class="item01 clearfix">
+                    {volist name="$ad['培训证书']" id='vo'}
+                        <div class="list">
+                            <img src="{$vo.img}" alt="{$vo.title}">
+                            <h4 class="textHidden"><a {:check_target($vo.url)} href="{:get_img_url($vo.url)}">{$vo.title}</a></h4>
+                        </div>
+                    {/volist}
+                    </div>
+                    
+                    <div class="item02 clearfix">
+                        <h2>Related downloads</h2>
+                        {volist name='$down' id='vo'}
+                        <div class="list clearfix">
+                            <div class="left fl">
+                                <img src="{$vo.img}" alt="{$vo.title}">
+                            </div>
+                            <div class="right fl">
+                                <h3>{$vo.title}</h3>
+                                <div><img src="{$Think.HOME_IMGS}/download-icon.png" alt="{$vo.title}"><a {if condition="substr($vo.file_url,3)&&file_exists('.'.substr($vo.file_url,3))"}href="{:url('Service/load?id='.$vo.id)}"{else/}href="javascript:void(0)"{/if}>download</a></div>
+                            </div>
+                        </div>
+                        {/volist}
+                    </div>         
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+</body>
+</html>

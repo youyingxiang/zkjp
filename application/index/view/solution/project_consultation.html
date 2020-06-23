@@ -1,0 +1,154 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page03 consult">
+    <a href="{:get_img_url($ad['项目咨询-banner'][0]['url'])}">
+        <div class="page-banner consult-banner" style="background-image:url({$ad['项目咨询-banner'][0]['img']})">
+            <div class="txt">{$ad['项目咨询-banner'][0]['title']}</div>
+        </div>
+    </a>
+    <div class="w1400">
+        <div class="position">
+            <a href="{:url('/')}">{$Think.lang.home}</a> > <a href="{:url('/cases_lst')}">{$Think.lang.solution} </a> > {$title}
+        </div>
+        <div class="consult-content clearfix slideIn02">
+        <form action="" method="post" id='commitp'>
+            <div class="contactUs fl">
+                <div class="contactUs-tit">
+                    <h2>{$Think.lang.contact_information}</h2>
+                </div>
+                <div class="list">
+                    <div class="txt"><span>*</span>{$Think.lang.name}</div> {/* 姓名 */}
+                    <div class="input">
+                        <input type="text" id="contact_name" name='contactName' {if condition="!empty(cookie('input_datap'))"}value="{:cookie('input_datap')['contactName']}"{/if} >
+                    </div>
+                </div>    
+                <div class="list">
+                    <div class="txt">{$Think.lang.job}</div> {/* 工资岗位 */}
+                    <div class="input">
+                        <input type="text" name='position' {if condition="!empty(cookie('input_datap'))"}value="{:cookie('input_datap')['position']}"{/if} >
+                    </div>
+                </div>    
+                <div class="list">
+                    <div class="txt"><span>*</span>{$Think.lang.company_name}</div>{/* 公司名称 */}
+                    <div class="input">
+                        <input type="text" id="company_name" name='companyName' {if condition="!empty(cookie('input_datap'))"}value="{:cookie('input_datap')['companyName']}"{/if}>
+                    </div>
+                </div>   
+                <div class="list">
+                    <div class="txt"><span>*</span>{$Think.lang.phone}</div>{/* 电话 */}
+                    <div class="input">
+                        <input type="text" id="tel_p" name='tel' {if condition="!empty(cookie('input_datap'))"}value="{:cookie('input_datap')['tel']}"{/if}>
+                    </div>
+                </div> 
+                <div class="list">
+                    <div class="txt"><span>*</span>{$Think.lang.email}</div>{/* 邮箱 */}
+                    <div class="input">
+                        <input type="text" id="email_1" class='email_' name='email' {if condition="!empty(cookie('input_datap'))"}value="{:cookie('input_datap')['email']}"{/if}>
+                    </div>
+                </div>   
+                <div class="list">
+                    <div class="txt"><span>*</span>Country</div>
+                    <div class="input">
+                        <select name='country' id="country_se">
+                            <option cid='0' value="">--{$Think.lang.please_choose}--</option>
+                            {volist name='$country' id='vo'}
+                            <option  {if condition="!empty(cookie('input_datap'))"}{if condition="cookie('input_datap')['country']==$vo.countryName"}selected="selected"{/if}{/if} value='{$vo.countryName}'>{$vo.countryName}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                </div>
+                <div class="list">
+                    <div class="txt">City</div>
+                    <div class="input">
+                        <input type="text" name='city' {if condition="!empty(cookie('input_datap'))"}value="{:cookie('input_datap')['city']}"{/if}>
+                    </div>
+                </div> 
+            </div>
+            <div class="requireInfo fl">
+                <div class="requireInfo-tit">
+                    <h2>{$Think.lang.need_info}</h2>
+                </div>     
+                <div class="list">
+                    <div class="txt">{$Think.lang.industry}</div>{/* 所在行业 */}
+                    <div class="input">
+                        <input type="text" name='industry' {if condition="!empty(cookie('input_datap'))"}value="{:cookie('input_datap')['industry']}"{/if}>
+                    </div>
+                </div>     
+                <div class="list">
+                    <div class="txt">{$Think.lang.project_need_product}</div>{/* 项目所需产品 */}
+                    <div class="input">
+                        <input type="text" name='productMsg' {if condition="!empty(cookie('input_datap')['productMsg'])"}value="{:cookie('input_datap')['productMsg']}"{/if}>
+                    </div>
+                </div>    
+                <div class="list">
+                    <div class="txt">{$Think.lang.project_des}</div>{/* 项目描述 */}
+                    <div class="input">
+                        <textarea name="projectDesc"  id="" cols="30" rows="10">{if condition="!empty(cookie('input_datap')['projectDesc'])"}{:cookie('input_datap')['projectDesc']}{/if}</textarea>
+                    </div>
+                </div>   
+                <div class="list">
+                    <div class="txt">{$Think.lang.project_scale}</div>{/* 项目规模 */}
+                    <div class="input">
+                        <select name="projectScale" id="">
+                        {volist name=":config('projectScale')" id='vp'}
+                            <option value="{$vp}">{$vp}</option>
+                        {/volist}
+    
+                        </select>
+                    </div>
+                </div> 
+                <div class="list">
+                    <div class="txt"><span>*</span>{$Think.lang.verify}</div>{/* 验证码 */}
+                    <div class="input verify">
+                        <input type="text" name='verify' id="verify_code">
+                        <img src="{:captcha_src()}" alt="captcha" onclick="this.src='{:captcha_src()}?rnd=' + Math.random();" />
+                    </div>
+                </div>  
+            </div>
+            <div class="submit">
+<!--                 <div>
+                    <input type="checkbox" checked="checked" id='check_msg'>
+                    <span>{$Think.lang.msg1}</span>
+                </div>     -->
+                <input type="button" id='commit_project' value="{$Think.lang.submit}">
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+$(function(){
+ //   verify_code tel_p   email_1  country_se
+/*    $('#commit_project').on('click',function(){
+        if ($('#check_msg').attr('checked') == 'checked') {
+            $('#commitp').submit();
+        } else {
+            showErrMsg("{$Think.lang.msg2}",3);
+        }
+    })*/
+    $('#commit_project').on('click',function(){
+        $('#commitp').submit();
+    })
+    if (getCookie('project_commit_err').trim().length>0) {
+        //showErrMsg(eval(getCookie('project_commit_err')));
+
+/*        var str = '';
+        $("#contact_name").val() == '' ? str= str+'Name and ' : "";
+        $("#company_name").val() == '' ? str= str+'Company name and ' : "";
+        $("#tel_p").val() == '' ? str= str+'Phone and ' : "";
+        $("#email_1").val() == '' ? str= str+'Email and ' : "";
+        $("#country_se").val() == '' ? str= str+'Country and ' : "";
+        $("#verify_code").val() == '' ? str= str+'Verification code and ' : "";
+        str = str.slice(0,-4);
+        str = str + ' Can not be empty';*/
+        showErrMsg("Please fill in the information completely!");
+        delCookie('project_commit_err');
+    }
+
+})
+
+</script>
+</body>
+</html>

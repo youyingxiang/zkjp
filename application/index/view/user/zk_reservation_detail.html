@@ -1,0 +1,84 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content">
+    <div class="w1400"><div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> &gt; <a href="{:url('/user_center')}">{$Think.lang.user_center}</a> &gt;<a href="{:url('/reservation_query')}">{$Think.lang.reservation_query}</a> &gt; {$title}</div></div>
+    <section class="page-container page-containerLR20 minH500 marginB30">
+        <div class="mCaption2"><span>{$Think.lang.my_info}</span></div>
+
+        <div class="myInforBox marginB10">
+            <table class="mTable2">
+                <thead>
+                    <tr>
+                        <th>{$Think.lang.company_name}</th> {/* 公司名称 */}
+                        <th>{$Think.lang.contact_p}</th>    {/* 联系人 */}
+                        <th>{$Think.lang.email}</th>        {/* 邮箱 */}
+                        <th>{$Think.lang.tel}</th>          {/* 电话 */}
+                        <th>{$Think.lang.address}</th>      {/* 联系电话 */}
+                        <th>{$Think.lang.commit_date}</th>  {/* 提交时间 */}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{$detailData.companyName}</td>
+                        <td>{$detailData.contactName}</td>
+                        <td>{$detailData.email}</td>
+                        <td>{$detailData.tel}</td>
+                        <td>{$detailData.address}</td>
+                        <td>{$detailData.createTime}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mCaption2"><span>{$Think.lang.reserv_info}</span></div>{/* 预约信息 */}
+
+        <div class="mOrder-unit2 clearfix marginB10">
+            <div class="mOrder-unit2-info"><p>{$Think.lang.reserv_order}：{$detailData.orderNumber}</p><p class="state mColorGreen">{$Think.lang.reserv_success}</p></div>{/* 预约单号 */}
+            <div class="mOrder-unit2-details clearfix">
+                <div class="mOrder-unit2-details-item">
+                    <p class="name">{$Think.lang.product_type}：</p>{/* 产品类型 */}
+                    <p class="con">{$detailData.product}</p>
+                </div>
+                <div class="mOrder-unit2-details-item">
+                    <p class="name">SN：</p>
+                    <p class="con">{$detailData.serialNumber}</p>
+                </div>
+                <div class="mOrder-unit2-details-item">
+                    <p class="name">{$Think.lang.charge_money}：</p>
+                    <p class="con">{$detailData.fees}</p>
+                </div>
+                <div class="mOrder-unit2-details-item desc">
+                    <p class="name">{$Think.lang.need_desc}：</p>
+                    <p class="con">{$detailData.problemDes}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mCaption2"><span>{$Think.lang.service_info}</span></div>
+
+        <div class="mTableBox marginB10">
+            <table class="mTable2">
+                <thead>
+                    <tr>
+                        <th width="25%">{$Think.lang.service_time}</th>
+                        <th width="25%">{$Think.lang.service_name}</th>
+                        <th width="25%">{$Think.lang.service_link}</th>
+                        <th width="25%">{$Think.lang.service_money}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{if condition="!empty($detailData.visitTime)"}{$detailData.visitTime}{/if}</td>
+                        <td>{$detailData.handleUser}</td>
+                        <td>{$detailData.handleTel}</td>
+                        <td>{$detailData.fees}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section><!--.page-container end-->
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+</body>
+</html>

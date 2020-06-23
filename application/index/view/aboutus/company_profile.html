@@ -1,0 +1,130 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content03">
+    <a href="{:get_img_url($ad['公司简介-banner'][0]['url'])}">
+    <div class="page-banner" style="background-image:url({$ad['公司简介-banner'][0]['img']});"><div class="cooperate-txt txt">{$ad['公司简介-banner'][0]['title']}</div></div></a>
+    <div class="about-company-box slideIn02">
+        <div class="w1400">
+            <div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> > <a href="{:url('/aboutus')}">{$Think.lang.about_us}</a> >{$Think.lang.company_profile}</div>
+        </div>
+        <div class="w1400">
+            <div class="about-company">
+                <div class="group-profile">
+                    <div class="group-profile-tit clearfix">
+                        <div class="group-profile-tit-left">
+                            <video  controls="controls" poster="{$ad['公司简介-集团概况'][0]['img']}">
+                                <source src="{$ad['公司简介-集团概况'][0]['video']}" type="video/mp4">
+                                {$Think.lang.msg_err}
+                            </video>
+                        </div>
+                        <div class="group-profile-tit-right">
+                            <h3>{$ad['公司简介-集团概况'][0]['title']}</h3>
+                            {$ad['公司简介-集团概况'][0]['content']}
+                        </div>
+                    </div>
+                </div>
+                <div class="about-company-group">
+                    <!--<div class="group-content clearfix">
+                        {volist name="$ad['公司简介-中小图']" id='vo'}
+                        <div class="group-list">
+                            <img src="{$vo.img}" alt="{$vo.title}">
+                            <div>{$vo.content}</div>
+                        </div>
+                        {/volist}
+                    </div>-->
+                    <div class="group-txt">
+                      {$ad['公司简介-中文字'][0]['content']}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--    <div class="business-box w1400 slideIn02">
+        <div class="business-tit">
+            <h3>{$Think.lang.main_business}</h3>
+        </div>
+        {volist name="$ad['公司简介-主营业务']" id='vo'}
+        <div class="business-box-list {if condition='$key%2 != 0'}business-box-list02{/if} clearfix">
+            <div class="left">
+                {if condition='$key%2 !=0'}
+                    <img src="{$vo.img}" alt="{$vo.title}">
+                {else/}
+                    <h4>{$vo.title}</h4>
+                    <p>{$vo.content}</p>
+                {/if}
+            </div>
+            <div class="right">
+                {if condition='$key%2 !=0'}
+                    <h4>{$vo.title}</h4>
+                    <p>{$vo.content}</p>
+                {else/}
+                    <img src="{$vo.img}" alt="{$vo.title}">
+                {/if}      
+            </div>
+        </div>
+        {/volist}
+    </div>-->
+    <div class="apparea slideIn02">
+        <div class="w1400">
+            <div class="apparea-tit">
+                <h3>{$Think.lang.application_area}</h3>
+            </div>
+            <div class="apparea-box clearfix">
+            {volist name="$ad['公司简介-应用区域']" id='vo'}
+                <div class="apparea-list">
+                    <div class="list-item">
+                        <img src="{$vo.img}" alt="{$vo.title}">
+                        <p>{$vo.title}</p>
+                    </div>
+                </div>
+            {/volist}  
+            </div>    
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+    $(function(){
+        $("video").click(function(){
+            if ($("video")[0].paused){
+ 
+                $("video")[0].play();
+         
+            }else{
+         
+                $("video")[0].pause();
+            }
+        })
+
+       var doc_arr=[];
+        function resize_init() {
+            doc_arr=($(".business-box .business-box-list02 .left"));
+            if($(document).width()<1025){
+                $(".business-box .business-box-list02 .left").remove();
+                for(var j=0; j < $(".business-box .business-box-list:nth-child(odd)").length; j++){
+                    for(var i=0; i<doc_arr.length;i++){
+                        $(".business-box .business-box-list:nth-child(odd)")[j].append(doc_arr[j])
+                        
+                    }
+                }
+            }else{
+                $(".business-box .business-box-list02 .left").remove();
+                for(var j=0; j < $(".business-box .business-box-list:nth-child(odd)").length; j++){
+                    for(var i=0; i<doc_arr.length;i++){
+                        $(".business-box .business-box-list:nth-child(odd)")[j].prepend(doc_arr[j])
+                        
+                    }
+                }
+            }
+        }
+        resize_init();
+
+        $(window,document).resize(function resize_agin() {
+            resize_init.call(this);
+        })
+
+    })
+</script>
+</body>
+</html>

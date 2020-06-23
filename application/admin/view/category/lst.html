@@ -1,0 +1,97 @@
+{include file="layout/top" /}
+<section class="content">
+{if condition="$type=='news'"}
+<div class="alert alert-danger">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <p>{$Think.lang.category_msg}</p>
+</div>
+{/if}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title"></h3>
+                    <div class="pull-left">
+                        {:authAction(CONTROLLER_NAME.'/add_'.$type, 'create')} 
+                        {:authAction(CONTROLLER_NAME.'/delete', 'delete_all')} 
+                    </div>                 
+                </div>
+                <div class="box-body table-responsive">
+                    <table class="table table-bordered table-hover table-sort">
+                        <tr>
+                            <th>{$Think.lang.name}{:table_sort('name')}</th>
+                            <th>{$Think.lang.state}</th>
+                            {if condition="$type == 'product'||$type == 'news'"}
+                            <th>{$Think.lang.img}</th>
+                            {/if}
+                            <th>{$Think.lang.page}{:table_sort('page')}</th>
+                            <th>{$Think.lang.order_key}{:table_sort('order_key')}</th>
+                            <th width="204">{$Think.lang.action}</th>
+                        </tr>
+                        {volist name="data" id="vo"}
+                        <tr>
+                            <td>
+                                {eq name="vo['level']" value="2"}　　　│　　　├{/eq}
+                                {eq name="vo['level']" value="1"}　　　├{/eq}
+                                <span class="editable" data-pk="{$vo.id}" data-name="name" data-url="{:url(CONTROLLER_NAME.'/edit_'.$type, 'id='.$vo['id'])}" >{$vo.name}</span>
+                            </td>
+                            <td style="vertical-align:middle">
+                                <a href="javascript:void(0);" data-id="{$vo.id}" data-field="state" 
+                                data-value="{$vo.state}" data-url="{:url('edit_'.$type, 'id='.$vo['id'])}" 
+                                class='editimg fa {if condition=" $vo.state == 1 "}fa-check-circle text-green{else /}fa-times-circle text-red{/if}'></a>
+                            </td>
+                            {if condition="$type == 'product'||$type == 'news'"}
+                            <td style="vertical-align:middle"><img src="{$vo.img|default='/static/global/face/no-image.png'}" style="width:20px;border-radius:30%;" /></td>
+                            {/if}
+                            <td><span class="editable" data-pk="{$vo.id}" data-name="page" data-url="{:url(CONTROLLER_NAME.'/edit_'.$type, 'id='.$vo['id'])}" >{$vo.page}</span></td>                     
+                            <td><span class="editable" data-pk="{$vo.id}" data-name="order_key" data-url="{:url(CONTROLLER_NAME.'/edit_'.$type, 'id='.$vo['id'])}" >{$vo.order_key}</span></td>
+                            <td> {:authAction(CONTROLLER_NAME.'/edit_'.$type, 'edit', ['id' => $vo.id])} {:authAction(CONTROLLER_NAME.'/delete_'.$type, 'delete', $vo.id)} </td>
+                        </tr>
+                        {/volist}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+$(function(){
+    /*ajax页面加载icheck，有该控件的页面才需要*/
+    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+        checkboxClass: 'icheckbox_minimal-blue',
+        radioClass: 'iradio_minimal-blue'
+    });
+    
+    /*ajax页面加载icheck，有该控件的页面才需要*/
+    $(".select2").select2({language:"zh-CN"});
+    
+    /*全选-反选*/
+    $('.checkbox-toggle').on('ifChecked', function(event){
+        var _this = $(this);
+        var _table = _this.closest('.table');
+        _table.find("tr td input[type='checkbox']").iCheck("check");
+    });
+    $('.checkbox-toggle').on('ifUnchecked', function(event){
+        var _this = $(this);
+        var _table = _this.closest('.table');
+        _table.find("tr td input[type='checkbox']").iCheck("uncheck");
+    });
+    $('.editable').editable({
+        emptytext: "empty",
+        params: function(params) {      //参数
+            var data = {};
+            data['id'] = params.pk;
+            data[params.name] = params.value;
+            return data;
+        },
+        success: function(response, newValue) {
+            var res = $.parseJSON( response );
+            if(res.status == 1){
+            }else{
+                return res.info;
+            }
+        }
+    });
+})
+</script>
+{include file="layout/bottom" /}

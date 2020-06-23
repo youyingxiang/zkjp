@@ -1,0 +1,179 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+    <div class="page-banner pro-banner" {if condition="empty($banner)"}style="background-image:url({$ad['产品列表-banner'][0]['img']});"{else/}style="background-image:url({$banner});"{/if}><a href="{:get_img_url($ad['产品列表-banner'][0]['url'])}"></a></div>
+    <div class="pro-list-content clearfix slideIn02">
+        <div class="w1400">
+            {$crumbHtml}
+            <div class="pro-search clearfix" style="background-image:url({$ad['产品分类-长图'][0]['img']})">
+                <div class="box fr">
+                    <input type="text" name='search' placeholder="{$Think.lang.search}">
+                    <input type="button" id='search' value="">
+                </div>
+            </div>
+            <div class="pro-left fl">
+                <ul>
+                {volist name='product_cat' id='vo_1p'}
+                    {if condition='$vo_1p.level==0'}
+                    <li>
+                        <span {if condition="in_array($vo_1p.id,$menu_on)"}class='on'{/if}><i></i><a {if condition="$vo_1p.id eq input('id')"}class='on select_1'{/if} href="{:url('/product_category/'.$vo_1p.id)}">{$vo_1p.name}</a></span>
+                        <ul>
+                            {volist name='product_cat' id='vo_2p'}
+                            {if condition="$vo_1p.id==$vo_2p.parent_id"}
+                            <li>
+                                <span {if condition="in_array($vo_2p.id,$menu_on)"}class='on'{/if}><i></i><a {if condition="$vo_2p.id eq input('id')"}class='on'{/if} href="{:url('/product_category/'.$vo_2p.id)}">{$vo_2p.name}</a></span>
+                                <ul>
+                                    {volist name='product_cat' id='vo_3p'}
+                                    {if condition="$vo_2p.id==$vo_3p.parent_id"}
+                                    <li><a {if condition="$vo_3p.id eq input('id')"}class='on'{/if} href="{:url('/product_category/'.$vo_3p.id)}">{$vo_3p.name}</a></li>
+                                    {/if}
+                                    {/volist}
+                                </ul>
+                            </li>
+                            {/if}
+                            {/volist}
+                        </ul>
+                    </li>
+                    {/if}
+                {/volist}
+                </ul>
+            </div>
+            <div class="pro-right clearfix">
+                {volist name='product' id='vopl'}
+                <div class="list">
+                    <div class="img"><span>{if condition="in_array('a',$vopl.flag)"}<img src="{$ad['是否新品'][0]['img']}" alt="{$vopl.name}">{/if}{if condition="in_array('b',$vopl.flag)"}<img {if condition='count($vopl.flag) == 2'}class='flag_img'{/if} src="{$ad['是否项目'][0]['img']}" alt="{$vopl.name}">{/if}</span><a href="{if condition='$vopl.url_title'}{:url('/product_detail/'.$vopl.url_title)}{else/}{:url('/product_detail/'.$vopl.id)}{/if}"><img src="{$vopl.img}" alt="{$vopl.name}"></a></div>
+                    <div class="title textHidden"><a href="{if condition='$vopl.url_title'}{:url('/product_detail/'.$vopl.url_title)}{else/}{:url('/product_detail/'.$vopl.id)}{/if}">{$vopl.name}</a></div>
+                    <div class="button">
+			    <a class="more" href="{if condition='$vopl.url_title'}{:url('/product_detail/'.$vopl.url_title)}{else/}{:url('/product_detail/'.$vopl.id)}{/if}">詳しく見る</a>
+            		{if condition="!empty($vopl.cart_url)"}
+         <a  style="background:url(/static/home/images/url2.png) no-repeat center;background-size:100%;width:10%"  target="_blank" href="{$vopl.cart_url}">&nbsp;</a>
+        {/if} 
+{if condition="!empty($vopl.cart_url2)"}
+         <a  style="background:url(/static/home/images/url1.png) no-repeat center;background-size:100%;width:10%"  target="_blank" href="{$vopl.cart_url2}">&nbsp;</a>
+        {/if}
+{if condition="!empty($vopl.cart_url3)"}
+         <a  style="background:url(/static/home/images/url3.png) no-repeat center;background-size:100%;width:10%"  target="_blank" href="{$vopl.cart_url3}">&nbsp;</a>
+        {/if}
+                    </div>
+                </div>
+                {/volist}                 
+                <div class="clear"></div>
+                {$product->render()}
+            </div>
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+    cid = "{$cid}";
+    function add_cart(obj){
+        var pid = $(obj).attr('data-pid');
+        $.ajax({
+            url: "{:url('Product/add_order_cookie')}", 
+            data: {"pid":pid,'flag':'+'},
+            type:'post', 
+            dataType: "json", 
+            error:function(data){
+                showErrMsg("{$Think.lang.ajax_err}");
+                return;
+            },  
+            success:function(result){
+                if (result.status == 1) {
+                    get_cart_html(false);
+                    showOkTime(result.info,1);
+                } else {
+                    window.location.href="{:url('/login','',false)}?redirect_url="+window.location.href;
+                }           
+            },
+        }) 
+    }
+    $('#search').on('click',function(){
+        var search = $(this).prev().val().trim();
+        if (search.length==0) {
+            showErrMsg("{$Think.lang.val_r}");
+            return;
+        }
+        loading_msg("{$Think.lang.query_now}");
+        $.ajax({
+            url: "{:url('Product/get_byname_search')}", 
+            data: {"search":search,'cid':cid},
+            type:'post', 
+            dataType: "html", 
+            error:function(data){
+                layer.close(index);
+                showErrMsg("{$Think.lang.ajax_err}");
+                return;
+            },  
+            success:function(result){
+               layer.close(index);
+               if (result.length>0) {
+                    $('.pro-right.clearfix').empty().html(result);                    
+                    $('.pro-left.fl').find('.select_1').removeClass("on");
+                    $('.mTabel-pagination-item').on('click',function(){
+                        var url_ = $(this).attr('href');
+                        page_data(url_,search,cid);
+                        return false;
+                    })
+               } else {
+                    $('.pro-right.clearfix').empty();
+                    showErrMsg("{$Think.lang.query_null}");
+               }
+            }
+        })
+    })
+    function loading_msg(msg){
+        index = layer.msg(msg, {
+            icon: 16,
+            shade: 0.5,
+            time: 30000,
+            shadeClose: false 
+        });
+    }
+    function page_data(url_,search,cid)
+    {
+        if (url_ == 'javascript:void(0)') {
+            return false;
+        }
+        loading_msg("{$Think.lang.query_now}");
+        $.ajax({
+            url: url_, 
+            data: {"search":search,'cid':cid},
+            type:'post', 
+            dataType: "html",
+            error:function(data){
+                layer.close(index);
+                showErrMsg("{$Think.lang.ajax_err}");
+                return;
+            },
+            success:function(result){
+                layer.close(index);
+                if (result.length>0) {
+                    $('.pro-right.clearfix').empty().html(result);
+                    $('.pro-left.fl').find('.select_1').removeClass("on");
+                    $('.mTabel-pagination-item').on('click',function(){
+                        var url_ = $(this).attr('href');
+                        page_data(url_,search,cid);
+                        return false;
+                    })
+                } else {
+                    $('.pro-right.clearfix').empty();
+                    showErrMsg("{$Think.lang.query_null}");
+                }
+            }
+        })
+    }
+    // // 动态计算宽度
+    // $(function(){
+    //     var page_width=($(".mTable-pagination").children("a").length)*($(".mTable-pagination").find("a").outerWidth(true));
+    //     $(".mTable-pagination").css("width",page_width+"px");
+
+    //     if($(window).width()>1024){
+    //         $(".mTable-pagination").css("margin-left",-(page_width/2)+"px")
+    //     }
+    	
+        
+    // })
+</script>
+</body>
+</html>

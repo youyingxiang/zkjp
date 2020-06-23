@@ -1,0 +1,45 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+    <a href="{:get_img_url($ad['在线支持-banner'][0]['url'])}"><div class="page-banner check-banner" style="background-image:url({$ad['在线支持-banner'][0]['img']});"><div class="txt">{$ad['在线支持-banner'][0]['title']}</div></div></a>
+    <div class="workorder-content">
+        <div class="w1400">
+            <div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> > <a href="{:url('/service')}">{$Think.lang.service}</a> >Trouble Ticket</div>
+            <div class="item01">
+                <div class="list-con clearfix">
+                    <div class="list">
+                        <div class="box">
+                            <b class="tran300" style="background-image:url({$Think.HOME_IMGS}/workorder-img01.png);"></b>
+                            <div class="box-con">
+                                <div>
+                                    <i style="background:url({$Think.HOME_IMGS}/workorder-icon01.png) no-repeat center center/cover;"></i>
+                                    <a href="{:url('/ticket_save')}">{$Think.lang.ticket_save}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="box">
+                            <b class="tran300" style="background-image:url({$Think.HOME_IMGS}/workorder-img02.png);"></b>
+                            <div class="box-con">
+                                <div>
+                                    <i style="background:url({$Think.HOME_IMGS}/workorder-icon02.png) no-repeat center center/cover;"></i>
+                                    <a href="{:url('/ticket_query')}">{$Think.lang.ticket_query}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // $(".download-content .item02 .down-nav a").on("click",function(){
+    //     $(this).addClass('on').siblings().removeClass('on');
+    // })
+</script>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+</body>
+</html>

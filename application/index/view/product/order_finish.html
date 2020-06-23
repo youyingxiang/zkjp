@@ -1,0 +1,39 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content">
+    <div class="pro-hs-content clearfix slideIn02">
+        <div class="w1400">
+            <div class="position"><a href="{:url('/product_category')}">{$Think.lang.product_center}</a> > {$Think.lang.order_query}</div>
+            <div class="pro-hs-step">
+                <ul>
+                    <li class="on">
+                        <i><em><img src="{$Think.HOME_IMGS}/pro-hs-step01.png" alt="{$Think.lang.order_query}"></em></i>
+                        01/{$Think.lang.order_query}
+                    </li>
+                    <li class="step-icon on">&nbsp;</li>
+                    <li class='on'>
+                        <i><img src="{$Think.HOME_IMGS}/pro-hs-step02.png" alt="{$Think.lang.input_info}"></i>
+                        02/{$Think.lang.input_info}
+                    </li>
+                    <li class="step-icon on">&nbsp;</li>
+                    <li class='on'>
+                        <i><img src="{$Think.HOME_IMGS}/pro-hs-step03.png" alt="{$Think.lang.commit_success}"></i>
+                        03/{$Think.lang.commit_success}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="pro-hs-step03 clearfix">
+            <div class="w1400">
+                <i></i>
+                <div class="ts">{$Think.lang.commit_success}</div>
+                <div class="txt">{$Think.lang.msg1}</div>
+                <a href="{:url('/product_category')}">{$Think.lang.msg2}</a>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+</body>
+</html>

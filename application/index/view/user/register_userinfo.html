@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="description" content="{$Think.lang.keywords}" />
+    <meta name="keywords" content="{$Think.lang.description}" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="email=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<title>{$Think.lang.register_zk_next}</title>
+	<link rel="stylesheet" type="text/css" href="{$Think.HOME_CSS}/public.css">
+	<link rel="stylesheet" type="text/css" href="{$Think.HOME_CSS}/swiper.min.css">
+	<link rel="stylesheet" type="text/css" href="{$Think.HOME_CSS}/page.css">
+    <link rel="stylesheet" type="text/css" href="{$Think.HOME_CSS}/account.css">
+    <style>
+    body,html{ background: #f2f2f2;}
+    </style>
+</head>
+<body class="registerPage">
+    <div class="header-registerPage">
+        <div class="page-container clearfix">
+            <div class="logo fl"><a href="{:url('/')}"><img width="100%" src="{$Think.HOME_IMGS}/logo-black.png" alt=""></a></div>
+        </div>
+    </div>
+
+    <section class="page-container">
+        <div class="mColumn">
+            <div class="con">
+                <section class="mForm tran300">
+                    <div class="mForm-caption tran300">{$Think.lang.vip_register}</div>
+                    <form action="{:url('/register_userinfo')}" method="post" id='registerform_commit'>
+                    <div class="mForm-body">
+                        <div class="mForm-group">
+                            <div class="mForm-field tran300">
+                                <input class="tran300" type="text" name='contactName' placeholder="{$Think.lang.name}" />
+                            </div>
+                            <div class="mForm-group-tips tran300"></div>
+                        </div>
+                        <div class="mForm-group">
+                            <div class="mForm-field tran300 radio">
+                                <div class="mForm-radio"><input id="man" type="radio" checked name="gender" value="0" /><label for="man">{$Think.lang.sex0}</label></div>
+                                <div class="mForm-radio"><input id="woman" type="radio" name="gender" value="1" /><label for="woman">{$Think.lang.sex1}</label></div>
+                            </div>
+                        </div>
+                        <div class="mForm-group">
+                            <div class="mForm-field tran300">
+                                <input class="tran300 password_" name='password' type="password" id='password_' placeholder="{$Think.lang.please_pwd_1}" />
+                            </div>
+                            <div class="mForm-group-tips tran300"></div>
+                        </div>
+                        <div class="mForm-group">
+                            <div class="mForm-field tran300">
+                                <input class="tran300 password_2"  type="password" placeholder="{$Think.lang.please_pwd_2}" />
+                            </div>
+                            <div class="mForm-group-tips tran300"></div>
+                        </div>
+                        <div class="mForm-group">
+                            <div class="mForm-field tran300">
+                                <input class="tran300 email_"  name='email' type="text" placeholder="{$Think.lang.email}" />
+                            </div>
+                            <div class="mForm-group-tips tran300"></div>
+                        </div>
+                        <div class="mForm-group">
+                            <div class="mForm-field tran300">
+                                <input class="tran300" type="text" name='companyName' placeholder="{$Think.lang.company_name}" />
+                            </div>
+                            <div class="mForm-group-tips tran300"></div>
+                        </div>
+                        <div class="mForm-group">
+                            <div class="mForm-field tran300">
+                            <input class="tran300" type="text"  name='industry' placeholder="{$Think.lang.industry}" />
+                            </div>
+                            <div class="mForm-group-tips tran300"></div>
+                        </div>
+                        <div class="mForm-group">
+                            <div class="mForm-field tran300">
+                                <input class="tran300" type="text" name='majorBusiness' placeholder="{$Think.lang.main_business}" />
+                            </div>
+                            <div class="mForm-group-tips tran300"></div>
+                        </div>
+                        <div class="mForm-group">
+                            <div class="mForm-field tran300 selectTwo">
+                                <div class="mForm-field-item">
+                                    <div class="mForm-field-item-select">
+                                        <select name='province' id='province__'>
+                                            <option cid='0' value="0">--{$Think.lang.please_choose}--</option>
+                                            {volist name='province' id='vo'}
+                                            <option cid='{$vo->id}' value='{$vo->departName}'>{$vo->departName}</option>
+                                            {/volist}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="mForm-field-item" id="city_item">
+                                    <div class="mForm-field-item-select">
+                                        <select name='city' id='city__'>
+                                             <option value="0">--{$Think.lang.please_choose}--</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mForm-group-tips tran300"></div>
+                        </div>
+                        <div class="mForm-group">
+                            <div class="mForm-field tran300">
+                                <input class="tran300" type="text" name='address' placeholder="{$Think.lang.detailed_address}" />
+                            </div>
+                            <div class="mForm-group-tips tran300"></div>
+                        </div>
+                         <a class="mForm-btn tran300" id='finish_register' href="javascript:;">{$Think.lang.finish_register}</a>
+                    </div>
+                    </form>
+                </section><!--.mForm end-->
+            </div>
+        </div><!--.mColumn end-->
+    </section><!--.page-container end-->
+
+    <div class="footer-registerPage marginT30">
+        <div class="page-container clearfix">
+            <div class="copy">
+                <div class="item">{$web['copyright']['v']}</div>
+                <div class="item">
+                    <a href="{:url('/index/Index/legal_statement')}">{$Think.lang.legal_statement}</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{:url('/index/Index/privacy_protection')}">{$Think.lang.privacy_protection}</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="">{$Think.lang.sitemap}</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=""><img src="{$Think.HOME_IMGS}/footer-icon03.png" alt="">&nbsp;{$Think.lang.China}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="{$Think.HOME_JS}/jquery.min.js"></script>
+<script type="text/javascript" src="{$Think.HOME_JS}/layui.js"></script>
+<script type="text/javascript" src="{$Think.HOME_JS}/layer/layer.js"></script>
+<script>
+$(function(){
+    $("#province__").on('change',function(){
+        var val = $(this).find("option:selected").attr('cid').trim();
+        if (val.length>0) {
+            $.ajax({
+                url: "{:url('Alone/get_city')}", 
+                data: {'val':val},
+                type:'post', 
+                dataType: "html", 
+                error:function(data){
+                     showErrMsg("{$Think.lang.ajax_err}");
+                     return;
+                },  
+                success:function(result){
+                    if (result.trim().length<10) {
+                        $('#city__').val('');
+                        $('#city_item').hide();
+                    } else {
+                        $('#city_item').show();
+                        $('#city__').empty().html('<option value="0" >{$Think.lang.please_choose}</option>'+result);
+                    }
+                },
+            })
+        }
+    })
+
+    $("input[type='text'],input[type='password']").on('blur', function(){
+        var val = $(this).val().trim();
+        if (val.length == 0) {
+            val_isnull($(this));
+        } else if (val.length>100) {
+            val_length($(this));
+        } else {
+            if ($(this).hasClass('email_')) {
+                if (email_check(val) == false) {
+                    val_isnull_email($(this));
+                } else {
+                    val_is_notnull($(this)); 
+                }
+            } else if ($(this).hasClass('password_')) {
+                if (password_check(val) == false ) {
+                    val_isnull_password($(this));
+                } else {
+                    val_is_notnull($(this));
+                }
+            }else if($(this).hasClass('password_2')) {
+                if (val != $('#password_').val()) {
+                    val_isnull_password_2($(this));
+                } else {
+                    val_is_notnull($(this));
+                }
+            } else {
+                val_is_notnull($(this));
+            }
+        }
+    })
+    $('#finish_register').on('click',function(){
+        var check=0;
+        $(".mForm input[type='text'],input[type='password']").each(function(){
+            if ($(this).val().trim().length == 0) {
+                check=1;
+                val_isnull($(this));
+            } else if ($(this).val().trim().length>100) {
+                check=1;
+                val_length($(this));
+            } else { 
+                if ($(this).hasClass('email_')) {
+                    if (email_check($(this).val().trim()) == false) {
+                        check=1;
+                        val_isnull_email($(this));
+                    } else {
+                        val_is_notnull($(this)); 
+                    }
+                } else if ($(this).hasClass('password_')) {
+                    if (password_check($(this).val().trim()) == false ) {
+                        check=1;
+                        val_isnull_password($(this));
+                    } else {
+                        val_is_notnull($(this));
+                    }
+                } else if ($(this).hasClass('password_2')) {
+                    if ($(this).val().trim() != $('#password_').val()) {
+                        check=1;
+                        val_isnull_password_2($(this));
+                    } else {
+                        val_is_notnull($(this));
+                    }
+                } else {
+                    val_is_notnull($(this));
+                }
+            }
+        });
+        if (check == 0) {
+            $('#registerform_commit').submit();
+        } 
+    })
+
+    function val_length(obj)
+    {
+        obj.parent().next().html("{$Think.lang.val_l}");        //增加错误提示
+        obj.parent().next().addClass('error');                  //增加错误提示的类
+        obj.parent().removeClass('success');                    //移除成功提示的类
+    }
+    function val_is_notnull(obj)
+    {
+        obj.parent().addClass('success');                       //增加提示成功的类
+        obj.parent().next().empty();                            //移除错误提示
+        obj.parent().next().removeClass('error');               //删除错误提示的类
+        
+    }
+    function val_isnull(obj)
+    {
+        obj.parent().next().html("{$Think.lang.val_r}");        //增加错误提示
+        obj.parent().next().addClass('error');                  //增加错误提示的类
+        obj.parent().removeClass('success');                    //移除成功提示的类
+        
+    }
+    function val_isnull_email(obj)
+    {
+        obj.parent().next().html("{$Think.lang.email_val}");    //增加错误提示
+        obj.parent().next().addClass('error');                  //增加错误提示的类
+        obj.parent().removeClass('success');                    //移除成功提示的类
+        
+    }
+    function val_isnull_password(obj)
+    {
+        obj.parent().next().html("{$Think.lang.pwd_val}");    //增加错误提示
+        obj.parent().next().addClass('error');                  //增加错误提示的类
+        obj.parent().removeClass('success');                    //移除成功提示的类
+        
+    }
+    function val_isnull_password_2(obj)
+    {
+        obj.parent().next().html("{$Think.lang.rpwd_val}");     //增加错误提示
+        obj.parent().next().addClass('error');                  //增加错误提示的类
+        obj.parent().removeClass('success');                    //移除成功提示的类
+        
+    }
+    function email_check(val)
+    { 
+        var pattern = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+        return pattern.test(val); 
+    }
+    function password_check(val)  
+    {  
+        var pattern = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
+        return pattern.test(val); 
+    } 
+})
+</script>
+</body>
+</html>

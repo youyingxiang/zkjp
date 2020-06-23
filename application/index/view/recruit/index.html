@@ -1,0 +1,129 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+    <a href="{:get_img_url($ad['招聘-banner'][0]['url'])}"><div class="page-banner check-banner" style="background-image:url({$ad['招聘-banner'][0]['img']});"><div class="txt">{$ad['招聘-banner'][0]['title']}</div></div></a>
+    <section class="page-container page-containerLR20 slideIn02">
+        <div class="mBreadCrumb clearfix">
+            <div class="mBreadCrumb-item"><a href="{:url('/')}">{$Think.lang.home}</a></div>
+            <div class="mBreadCrumb-item"><a href="{:url('/aboutus')}">{$Think.lang.about_us}</a></div>
+            <div class="mBreadCrumb-item">{$r_type}</div>
+        </div>
+
+        <dl class="mFilter marginB10">
+            <dt class="mFilter-dt"><p>{$Think.lang.work}</p></dt>
+            <dd class="mFilter-dd">
+                <a class="mColorGreen mFilter-item" href="{:search_where('province',['province'=>-1])}">{$Think.lang.unlimited}</a>
+                {volist name='workAddress' id='vo'}
+                    <a class="mFilter-item" href="{:search_where('province',['province'=>$vo])}">{$vo}</a>
+           		{/volist}
+            </dd>
+        </dl>
+        <dl class="mFilter">
+            <dt class="mFilter-dt"><p>{$Think.lang.job_type}</p></dt>
+            <dd class="mFilter-dd">
+                <a class="mColorGreen mFilter-item" href="{:search_where('job_type',['job_type'=>-1])}">{$Think.lang.unlimited}</a>
+                {volist name='job_type' id='vo'}
+                	<a class="mFilter-item" href="{:search_where('job_type',['job_type'=>$vo.id])}">{$vo.job_name}</a>
+                {/volist}
+            </dd>
+        </dl>
+         <div style="position: relative;" {if condition="input('id') eq 'a'" }class="mSearchJob social"{else/}class="mSearchJob school"{/if}/>
+            <a {if condition="input('id') eq 'a'" }href="{:url('/recruit_type/b')}"{else /}href="{:url('/recruit_type/a')}"{/if} style="position: absolute;left: 0;top: 25px;width: 178px;height: 65px;"></a>
+            <div class="mSearch"><input class="mSearch-input" type="text" placeholder="{$Think.lang.input_keyword}" /><a class="mSearch-btn search_get" href="javascript:void(0)">{$Think.lang.search}</a></div>
+        </div>
+  
+
+        <section class="mMobileSearchJob clearfix">
+            <div class="mMobileSearchJob-search"><input class="mMobileSearchJob-input" type="text" placeholder="{$Think.lang.input_keyword}" /><a class="mMobileSearchJob-btn search_get" href="javascript:;">{$Think.lang.search}</a></div>
+            <div class="mMobileSearchJob-select">
+                <select id='work_address'>
+                <option value=''>{$Think.lang.unlimited}</option>
+                {volist name='workAddress' id='vo'}
+                    <option {if condition="input('get.province') == $vo"}selected='selected'{/if} value='{$vo}'>{$vo}</option>
+                {/volist}
+                </select>
+            </div>
+            <div class="mMobileSearchJob-select">
+                <select id='jobtype'>
+                <option value=''>{$Think.lang.unlimited}</option>
+                {volist name='job_type' id='vo'}
+                    <option {if condition="input('get.job_type') == $vo.id"}selected='selected'{/if} value='{$vo.id}'>{$vo.job_name}</option>
+                {/volist}
+                </select>
+            </div>
+        </section>
+        <style>
+        
+        </style>
+        
+        <section class="mTableBox" id='recruit_zp'>
+            <table class="mTable">
+                <thead>
+                    <tr>
+                        <th>{$Think.lang.recruit_name}</th>
+                        <th>{$Think.lang.work}</th>
+                        <th>{$Think.lang.job_type}</th>
+                        <th>{$Think.lang.action}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                	{volist name='recruitData' id='vo_data'}
+                    <tr>
+                        <td>{$vo_data.name}{if condition="$vo_data.emergency"}<i class="mJobLabel">{$Think.lang.emergency}</i>{/if}</td>
+                        <td>{$vo_data.province},{$vo_data.city}</td>
+                        <td>{$vo_data->RecruitPost->job_name}</td>
+                        <td><a class="mColorGreen" href="{:url('/recruit_detail/'.$vo_data.id).'?type='.input('id')}">{$Think.lang.view_details}</a></td>
+                    </tr>
+					{/volist}
+                </tbody>
+            </table>
+        </section>
+        {$recruitData->render()}
+    </section><!--.page-container end-->
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+$(function(){
+    type_id = "{:input('id')}";
+    province = "{:input('get.province')}";
+    job_type = "{:input('get.job_type')}";
+    $('.search_get').click(function(){
+        val = $(this).prev().val();
+        if(val.length>0){ 
+            get_search_recruit();
+        }
+    });
+    $('#work_address').on('change',function(){
+        var va1 = $(this).val().trim();
+        window.location.href="http://{:$_SERVER['HTTP_HOST']}/en/recruit_type/"+type_id+"?province="+va1;
+    })
+    $('#jobtype').on('change',function(){
+        var va1 = $('#work_address').val().trim();
+        var va2 = $(this).val().trim();
+        window.location.href="http://{:$_SERVER['HTTP_HOST']}/en/recruit_type/"+type_id+"?province="+va1+"&job_type="+va2;
+    })
+    function get_search_recruit(){  
+        $.ajax({
+                url: "{:url('Recruit/get_search_recruit').'?id='.input('id')}", 
+                data: {"type_id":type_id,'val':val,'province':province,'job_type':job_type},
+                type:'post', 
+                dataType: "html", 
+                error:function(data){
+                    showErrMsg("{$Think.lang.ajax_err}");
+                    return;
+                },  
+                success:function(result){
+                    if (result.length>10) {
+                        $('#recruit_zp').next().remove();
+                        $('tbody').empty().html(result);              
+                    } else {
+                        showErrMsg("{$Think.lang.query_null}");
+                    }
+                },
+        })
+    }
+})
+</script>
+</body>
+</html>

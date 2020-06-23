@@ -1,0 +1,48 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+    <a href="{:get_img_url($ad['合作伙伴好处-banner'][0]['url'])}">
+    <div class="page-banner" style="background-image:url({$ad['合作伙伴好处-banner'][0]['img']});">
+        <div class="w1400">
+            <p class="benefit-banner-tit txt w1400">{$ad['合作伙伴好处-banner'][0]['title']}</p>
+            <div class="benefit-banner-txt txt w1400">{$ad['合作伙伴好处-banner'][0]['content']}</div>
+        </div>
+    </div>
+    </a>
+    <div class="benefit-content slideIn02" style="background-image: url({$ad['合作伙伴好处-中背景'][0]['img']});">
+        <div class="w1400 clearfix">
+        <div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> ><a href="{:url('/partner')}">{$Think.lang.partner}</a> >{$title}</div>
+            <p class="benefit-content-tit">
+                <h2>{$Think.lang.partner_benefit}</h2>
+            </p>
+            {volist name="$ad['合作伙伴好处-图文']" id='vo'}
+            <div class="benefit-content-list clearfix">
+                <div class="fl">
+                <a {:check_target($vo.url)} href="{:get_img_url($vo.url)}">
+                    <img src="{$vo.img}" alt="{$vo.title}">
+                </a>
+                </div>
+                <div class="{if condition='$key==0'}fl{else/}fl w50{/if}">
+                    <h3>{$vo.title}</h3>
+                    <p>{$vo.content}</p>
+                </div>
+            </div>
+            {/volist}
+            <div class="benefit-content-list-img fl"><img src="{$ad['合作伙伴好处-背景小图'][0]['img']}" alt="{$ad['合作伙伴好处-背景小图'][0]['title']}"></div>
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+</body>
+<script>
+$(function(){
+    if($(".benefit-content-list-img").find("img").attr("src")==""){
+        $(".benefit-content .benefit-content-list .w50").css("cssText", "width:90% !important;")
+        if($(window).width()<640){
+            $(".benefit-content .benefit-content-list .w50").css("cssText", "width:85% !important;")
+        }
+    }
+})
+</script>
+</html>

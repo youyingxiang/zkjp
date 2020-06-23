@@ -1,0 +1,112 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content">
+    <div class="w1400"><div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> &gt; <a href="/en/user_center.html">{$Think.lang.user_center}</a> &gt; <a href="/en/authentication.html">{$Think.lang.authentication}</a> &gt; {$Think.lang.apply_gold_vip}</div></div>
+
+    <section class="page-container page-containerLR20 marginB20">
+        <div class="mCaption"><span>{$Think.lang.apply_gold_vip}</span></div>
+
+        <section class="mForm mFormLR tran300">
+            <div class="mForm-body">
+                <div class="mForm-group">
+                    <div class="mForm-colLeft"><span class="mColorGreen">*</span>&nbsp;{$Think.lang.company_name}：</div>
+                    <div class="mForm-colRight">
+                        <div class="mForm-field tran300">
+                            <input class="tran300" type="text" id='company_name' placeholder="{$Think.lang.company_name}" value="" />
+                        </div>
+                        <div class="mForm-group-tips tran300"></div>
+                    </div>
+                </div>
+                <div class="mForm-group">
+                    <div class="mForm-colLeft"><span class="mColorGreen">*</span>&nbsp;{$Think.lang.organization_number}</div>
+                    <div class="mForm-colRight">
+                        <div class="mForm-field tran300">
+                            <input class="tran300" type="text" id='organization_number' placeholder="{$Think.lang.organization_number}"  />
+                        </div>
+                        <div class="mForm-group-tips tran300"></div>
+                    </div>
+                </div>
+                <div class="mForm-group">
+                    <div class="mForm-colLeft"><span class="mColorGreen">*</span>&nbsp;{$Think.lang.verif}</div>
+                    <div class="mForm-colRight">
+                        <div class="mForm-field tran300 yzm2 clearfix">
+                            <input class="tran300" type="text" id='verif' placeholder="{$Think.lang.verif}" />
+                            <!-- <div class="right tran300"><a class="yzm-msgBtn tran300" href="javascript:;">发送短信动态码</a></div> -->
+                            <div class="right tran300"><a class="yzm-imgBtn" href="javascript:;"><img src="{:captcha_src()}"  id="code" alt="captcha" onclick="this.src='{:captcha_src()}?rnd=' + Math.random();" /></a></div>
+                        </div>
+                        <div class="mForm-group-tips tran300 error">{$Think.lang.apply_gold_vip_des}</div>
+                    </div>
+                </div>
+                <style>
+                </style>
+                <div class="mForm-group">
+                    <div class="mForm-colLeft empty"></div>
+                    <div class="mForm-colRight">
+                        <a class="mForm-btn-solid small tran300" id='submit_' href="javascript:;">{$Think.lang.apply_gold_vip2}</a>
+                    </div>
+                </div>
+            </div>
+        </section><!--.mForm end-->
+    </section><!--.page-container end-->
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+    $('#submit_').on('click',function(){
+        var check=0;
+        $(".mForm input[type='text']").each(function(){
+            if ($(this).val().trim().length == 0) {
+                check=1;
+                val_isnull($(this));
+            } else {
+                val_is_notnull($(this));
+            }
+        })
+        if (check == 0) {
+            var company_name = $('#company_name').val();
+            var organization_number = $('#organization_number').val();
+            var verif = $('#verif').val();
+            $.ajax({
+                url: "{:url('/apply_gold_vip')}", 
+                data: {"company_name":company_name,'organization_number':organization_number,'verif':verif},
+                type:'post', 
+                dataType: "json", 
+                error:function(data){
+                     showErrMsg("{$Think.lang.ajax_err}");
+                     return;
+                },  
+                success:function(result){
+                    if (result.status == 0) {
+                        $('#code').trigger('click');
+                        code_err($('#verif'),result.info);
+                    } else {
+                        window.location.href="{:url('/index/User/apply_gold_vip_finish')}";
+                    }
+                },
+            })
+        } 
+        })
+      
+        
+    function val_is_notnull(obj)
+    {
+        obj.parent().addClass('success');                       //增加提示成功的类
+        obj.parent().next().empty();                            //移除错误提示
+        obj.parent().next().removeClass('error');               //删除错误提示的类
+        
+    }
+    function val_isnull(obj)
+    {
+        obj.parent().next().html("{$Think.lang.val_r}");        //增加错误提示
+        obj.parent().next().addClass('error');                  //增加错误提示的类
+        obj.parent().removeClass('success');                    //移除成功提示的类
+        
+    }
+    function code_err(obj,err){
+        obj.parent().next().html(err);    //增加错误提示
+        obj.parent().next().addClass('error');                  //增加错误提示的类
+        obj.parent().removeClass('success');                    //移除成功提示的类
+    }
+</script>
+</body>
+</html>

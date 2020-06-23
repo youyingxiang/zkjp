@@ -1,0 +1,26 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+    <a href="{:get_img_url($ad['核心技术-banner'][0]['url'])}">
+    <div class="page-banner" style="background-image:url({$ad['核心技术-banner'][0]['img']});"><div class="cooperate-txt txt">{$ad['核心技术-banner'][0]['title']}</div></div></a>
+    <div class="w1400">
+        <div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> > <a href="{:url('/aboutus')}">{$Think.lang.about_us}</a> >{$Think.lang.core_technology}</div>
+        <div class="slideIn02">
+            {volist name="$ad['核心技术-内容']" id='vo'}
+            <div class="core">
+                <p class="core-title">{$vo.title}</p>
+                <div class="core-content">
+                    {$vo.content}
+                    <div class="core-img">
+                        <img src="{$vo.img}" alt="{$vo.title}">
+                    </div>
+                </div>
+            </div>
+            {/volist}
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+</body>
+</html>

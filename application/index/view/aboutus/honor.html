@@ -1,0 +1,30 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+    <a href="{:get_img_url($ad['荣誉资质-banner'][0]['url'])}">
+    <div class="page-banner" style="background-image:url({$ad['荣誉资质-banner'][0]['img']});"><div class="cooperate-txt txt">{$ad['荣誉资质-banner'][0]['title']}</div></div></a>
+    <div class="w1400">
+        <div class="position"><a href="{:url('/')}"">{$Think.lang.home}</a> > <a href="{:url('/aboutus')}">{$Think.lang.about_us}</a> >{$Think.lang.honor}</div>
+        <div class="slideIn02">
+            <div class="honor">
+                <div class="honor-title">
+                    <p>{$ad['荣誉资质-文字'][0]['content']}</p>
+                </div>
+                <div class="honor-list clearfix">
+                    {volist name="$ad['荣誉资质-图片']" id='vo'}
+                    <div>
+                        <div class="honor-img">
+                            <img src="{$vo.img}" alt="{$vo.title}">
+                        </div>
+                        <p class="honor-text">{$vo.title}</p>
+                    </div>
+                   {/volist}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+</body>
+</html>

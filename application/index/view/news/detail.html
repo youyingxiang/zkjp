@@ -1,0 +1,35 @@
+{include file="layout/top" /}
+<style>
+     .bd_weixin_popup{height: auto!important;}
+</style>
+<script>window._bd_share_config={"common":{"bdUrl": "","bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};
+    with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=898605931.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+{include file="layout/header" /}
+<div class="page-content">
+    <div class="gg-content">
+        <div class="w1400">
+            <div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> > <a href="{:url('/category_news/'.$type_.id)}">{$type_.name}</a> > {$Think.lang.detail}</div>
+            <div class="partner slideIn02">
+                <p class="partner-tit">{$detailData.title}</p>
+                <div class="partner-header clearfix">
+                    <div class="partner-header-time">
+                        <span>{$Think.lang.release_time}：{$detailData.update_time}</span><span>{$Think.lang.click_time}：<a><script language="javascript" src="{:url('/index/Alone/click/id/'.input('id'))}"></script></a></span>
+                    </div>
+                    <div class="partner-header-share bdsharebuttonbox">    
+                        <span class='fl'>{$Think.lang.share}</span>              
+                        <a href="#" class="weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                        <a href="#" style='margin-left:15px' class="sina bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>               
+                    </div>
+                </div>
+                <div class="partner-content slideIn02">
+                   {$detailData.content}
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+</body>
+</html>

@@ -1,0 +1,62 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page03 consult">
+    <a {:check_target($ad['解决方案列表-banner'][0]['url'])} href="{:get_img_url($ad['解决方案列表-banner'][0]['url'])}">
+        <div class="page-banner consult-banner" style="background-image:url({$ad['解决方案列表-banner'][0]['img']})">
+            <div class="txt">{$ad['解决方案列表-banner'][0]['title']}</div>
+        </div>
+    </a>
+    <div class="w1400">
+        <div class="position clearfix caseList-nav">
+            <div class="fl"><a href="{:url('/')}">{$Think.lang.home}</a> > {$Think.lang.solution}</div>
+        </div>
+        <div class="add-caseList-content slideIn02">
+            <div class="add-caseList-tit">
+                <h2>{$ad['解决方案列表-介绍文字'][0]['title']}</h2>
+                <p>{$ad['解决方案列表-介绍文字'][0]['content']}</p>
+            </div>
+            <div class="clearfix">
+                {volist name='lstData' id='vo'}
+                    <div class="add-caseList-list">
+                        <div class="margin">
+                            <div class="img" style="background-image: url({$vo.scheme_img});">
+                                <div class="text">
+                                    <h3>{$vo.name}</h3>
+                                    <div class='cases_content'>
+                                        {$vo.seo_des}
+                                    </div>
+                                    <a href="{:url('/scheme_detail/'.$vo.id)}">詳しく見る</a>
+                                </div>
+                                <div class="box tran300"></div>
+                            </div>
+                        </div>
+                    </div>
+                {/volist}
+            </div>
+        </div>
+
+        <div class="page-tab slideIn02">
+            {$lstData->render()}
+        </div>
+    </div>
+</div>
+
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+$(function(){
+    $("#page_tab li").on("click",function(){
+        var _index=$(this).index()
+        var _length=$("#page_tab li").length;
+        if(_index!=0 && _index!=_length-1 && _index!=_length-2){
+            $(this).addClass("caseOn").siblings().removeClass("caseOn");
+        }
+    })
+    $(".add-ourcase .table span").click(function(){
+        $(this).addClass("active").siblings().removeClass("active");
+    })
+
+})
+</script>
+</body>
+</html>

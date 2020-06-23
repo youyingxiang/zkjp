@@ -1,0 +1,214 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+
+<div class="page02 contactEN">
+    <div class="page02-banner aboutus clearfix" style="background-image:url({$ad['关于我们-banner'][0]['img']});">
+    	<div class="w1400 aboutus-banner clearfix">
+			<div class="aboutus-banner-left">
+				<h2>{$ad['关于我们-banner'][0]['title']}</h2>
+				<div class="text">{$ad['关于我们-banner'][0]['content']}</div>
+				<a href="{:url('/company_profile')}">{$Think.lang.view_more}</a>
+			</div>
+			<div class="aboutus-banner-right clearfix">
+				{volist name="$ad['关于我们-跳转图标']" id='vo'}
+				<div class="aboutus-banner-list">
+					<a href="{if condition='$vo.url'}{$vo.url}{else/}javascript:void(0){/if}">
+						<img src="{$vo.img}" alt="{$vo.title}">
+						<p>{$vo.title}</p>
+					</a>
+				</div>
+				{/volist}
+			</div>
+    	</div>
+    </div>
+    <div class="aboutus-content slideIn02">
+	<div class="w1400" style="margin-top:50px">
+                    <div class="group-content clearfix">
+                        {volist name="$ad['公司简介-中小图']" id='vo'}
+                        <div class="group-list">
+                            <img src="{$vo.img}" alt="{$vo.title}">
+                            <div>{$vo.content}</div>
+                        </div>
+                        {/volist}
+                    </div>
+</div>
+	<div class="business-box w1400 slideIn02">
+        <div class="business-tit">
+            <h3>{$Think.lang.main_business}</h3>
+        </div>
+        {volist name="$ad['公司简介-主营业务']" id='vo'}
+        <div class="business-box-list {if condition='$key%2 != 0'}business-box-list02{/if} clearfix">
+            <div class="left">
+                {if condition='$key%2 !=0'}
+                    <img src="{$vo.img}" alt="{$vo.title}">
+                {else/}
+                    <h4>{$vo.title}</h4>
+                    <p>{$vo.content}</p>
+                {/if}
+            </div>
+            <div class="right">
+                {if condition='$key%2 !=0'}
+                    <h4>{$vo.title}</h4>
+                    <p>{$vo.content}</p>
+                {else/}
+                    <img src="{$vo.img}" alt="{$vo.title}">
+                {/if}      
+            </div>
+        </div>
+        {/volist}
+    </div>
+<div class="apparea slideIn02">
+        <div class="w1400">
+            <div class="apparea-tit">
+                <h3>{$Think.lang.application_area}</h3>
+            </div>
+            <div class="apparea-box clearfix">
+            {volist name="$ad['公司简介-应用区域']" id='vo'}
+                <div class="apparea-list">
+                    <div class="list-item">
+                        <img src="{$vo.img}" alt="{$vo.title}">
+                        <p>{$vo.title}</p>
+                    </div>
+                </div>
+            {/volist}
+            </div>
+        </div>
+    </div>
+
+		<!--<div class="w1400 aboutus-content-job">
+			<div class="tit">
+				<h3>{$Think.lang.recrui}</h3>
+			</div>
+			<div class="job-box clearfix">
+				{volist name="$ad['关于我们-招贤纳士']" id='vo'}
+				<div class="{if condition='$key==0'}job-left fl{else/}job-right fr{/if}" style="background-image:url({$Think.HOME_IMGS}/aboutus01-bg-{$key}.jpg); ">
+					<h2>{$vo.title}</h2>
+					<p>{$vo.content}</p>
+					<h3><a href="{if condition='$vo.url'}{$vo.url}{else/}javascript:void(0){/if}">{$Think.lang.look}  {$vo.title}<span>></span></a></h3>
+					<img src="{$vo.img}" alt="{$vo.title}">
+				</div>
+				{/volist}
+			</div>
+		</div>-->
+
+	<!--<div class="contat-us-en" style="background:url({$ad['关于我们-大背景']['0']['img']});" id="contact-us-en">
+           <div class="w1400">
+                <a href="{:url('/contactus')}"><h4>{$Think.lang.contact_us}</h4></a>
+
+			   <div class="contact-content clearfix">
+				   {volist name="$ad['关于我们-图标']" id='vo'}
+				   <div class="{if condition='$key==1'}contact-us-list contact-us-list-m fl{else/}contact-us-list fl{/if}" style="background-image: url('{$vo.img}');background-repeat:no-repeat;background-position-x: -225px;" id="test">
+
+
+                       <a {if condition="$vo.url"}href="{$vo.url}"{else/}href="javascript:void(0)"{/if} class="textHidden">
+                            <img src="{$vo.icon}" alt="{$vo.title}">
+                            <p>{$vo.title}</p>
+                       </a>
+
+				   </div>
+				   {/volist}
+			   </div>
+           </div>
+
+        </div>-->
+
+
+		<div class="customer">
+			<div class="w1400">
+				<div class="customer-tit">
+					<h2>{$Think.lang.customer}</h2>
+				</div>
+				<ul class="customer-list clearfix">
+					{volist name="$ad['关于我们-合作客户']" id='vo'}
+					<li><a target="_blank" href="{if condition='$vo.url'}{$vo.url}{else/}javascript:void(0){/if}"><img src="{$vo.img}" alt="{$vo.title}"></a></li>
+					{/volist}
+
+				</ul>
+			</div>
+		</div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+$(function(){
+	var md = "{:input('get.md')}";
+	if (md == 1) {
+  		$('html,body').animate({scrollTop: $('.aboutus-content .aboutus-content-job').eq(0).offset().top-100}, 600);
+	}
+
+    $(".contact-us-list").mouseenter(function(){
+        $(this).animate({"border-radius":"35px"},50)
+    })
+
+    $(".contact-us-list").mouseleave(function(){
+        $(this).animate({"border-radius":"0px"},50)
+    })
+})
+
+
+</script>
+
+<style>
+    .contact-us-list{
+        height: 295px;
+        width: 32%;
+        text-align: center;
+        background-size: cover!important;
+        border: 15px solid #fff;
+        opacity: .8;
+        transition: all .5s;
+        -o-transition: all .5s;
+        -moz-transition: all .5s;
+        -webkit-transition: all .5s;
+    }
+    .contact-us-list img{
+        max-width: 60px;
+        margin: 88px 0 50px;
+    }
+    .contact-us-list p{
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        font-size: 24px;
+        color: #fff;
+        margin-bottom: 70px;
+    }
+
+    .contact-us-list-m {
+        margin: 0 2%;
+    }
+
+    #contact-us-en{
+        padding: 0 0;
+        height: 550px;
+        background-size: cover;
+    }
+
+    #contact-us-en h4{
+        font-size: 28px;
+        color: #fff;
+        text-align: center;
+        padding: 60px 0;
+    }
+
+    @media screen and (max-width:768px){
+         .contact-us-list {
+            margin: 2% 0;
+        }
+
+       .contact-us-list {
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        #contact-us-en{height: auto;}
+    }
+
+    @media screen and (max-width:1024px){
+        #contact-us-en{margin-top: 40px;}
+    }
+</style>
+
+</body>
+</html>

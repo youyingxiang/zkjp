@@ -1,0 +1,75 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content">
+    <div class="w1400"><div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> &gt; <a href="{:url('/user_center')}">{$Think.lang.user_center}</a> &gt;<a href="{:url('/repair_query')}">{$Think.lang.repair_query}</a> &gt; {$title}</div></div>
+    <section class="page-container page-containerLR20 marginB30">
+        <div class="mCaption2"><span>{$Think.lang.my_information}</span></div>
+        <div class="myInforBox marginB10">
+            <table class="mTable2">
+                <thead>
+                    <tr>
+                        <th>{$Think.lang.company_name}</th> {/* 公司名称 */}
+                        <th>{$Think.lang.contact_p}</th>    {/* 联系人 */}
+                        <th>{$Think.lang.email}</th>        {/* 邮箱 */}
+                        <th>{$Think.lang.tel}</th>          {/* 电话 */}
+                        <th>{$Think.lang.address}</th>      {/* 联系电话 */}
+                        <th>{$Think.lang.commit_date}</th>  {/* 提交时间 */}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{$detailDate.customerName}</td>
+                        <td>{$detailDate.contact}</td>
+                        <td>{$detailDate.email}</td>
+                        <td>{$detailDate.tel}</td>
+                        <td>{$detailDate.address}</td>
+                        <td>{$detailDate.createTime}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="wxOrderList">
+            <div class="wxOrder-unit">
+                <div class="wxOrder-unit-infor clearfix"><span>{$Think.lang.doccode}：{$detailDate.doccode}</span><span>{$Think.lang.express}：{$detailDate.express}</span><span>{$Think.lang.trackingNumber}：{$detailDate.trackingNumber}</span>
+                <span>{$Think.lang.backTrackingNumber}：{$detailDate.backTrackingNumber}</span></div>
+                <div class="mOrderList">
+                    {volist name='$detailDate.repairDetailList' id='vo'}
+                    <div class="mOrder-unit2 clearfix">
+                        <div class="mOrder-unit2-info"><p class="state mColorGreen">{:config('status_repair_detail')[$vo.status]}</p></div>
+                        <div class="mOrder-unit2-details clearfix">
+                            <div class="mOrder-unit2-details-item">
+                                <p class="name">{$Think.lang.machine_model}：</p>{/* 产品型号 */}
+                                <p class="con">{$vo.machineModel}</p>
+                            </div>
+                            <div class="mOrder-unit2-details-item">
+                                <p class="name">SN：</p>
+                                <p class="con">{$vo.sn}</p>
+                            </div>
+                            <div class="mOrder-unit2-details-item">
+                                <p class="name">{$Think.lang.charge_money}：</p>{/* 金额 */}
+                                <p class="con">{$vo.chargeMoney}</p>
+                            </div>
+                            <div class="mOrder-unit2-details-item desc">{/* 故障描述 */}
+                                <p class="name">{$Think.lang.malfunction_desc}：</p>
+                                <p class="con">{$vo.malfunctionDesc}</p>
+                            </div>
+                            <div class="mOrder-unit2-details-item">
+                                <p class="name">{$Think.lang.main_description}：</p>{/* 维修内容 */}
+                                <p class="con">{$vo.matainceDesc}</p>
+                            </div>
+
+                        </div>
+                    </div>
+                    {/volist}
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="mOrderList-getMore">查看更多</div> -->
+    </section><!--.page-container end-->
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+</body>
+</html>

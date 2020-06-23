@@ -1,0 +1,38 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+    <a href="{:get_img_url($ad['社会责任-banner'][0]['url'])}">
+        <div class="page-banner check-banner" style="background-image:url({$ad['社会责任-banner'][0]['img']});">
+            <div class="txt">
+                {$ad['社会责任-banner'][0]['title']}
+            </div>
+        </div>
+    </a>   
+    <div class="w1400">
+        <div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> > <a href="{:url('/aboutus')}">{$Think.lang.about_us}</a> >{$title}</div>
+     </div>
+    <section class="page-container page-containerLR20 marginB30">
+        <div class="dutyBox">
+            <div class="dutyBox-ul">
+            {volist name='$dutyCateData' id='vo'}
+                <a class="dutyBox-li" href="{:url('/category_duty/'.$vo.id)}">
+                    <img class="pullImg" src="{$vo.img}"  alt="{$vo.name}"/>
+                    <div class="dutyBox-li-con">
+                        <div class="dutyBox-li-conTable">
+                            <div class="dutyBox-li-conCell">
+                                <p><img src="{$vo.icon}" alt="{$vo.name}" /></p>
+                                <p>{$vo.name}</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            {/volist} 
+            </div>
+            <p>{$ad['社会责任-banner'][0]['content']}</p>
+        </div>
+    </section><!--.page-container end-->
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+</body>
+</html>

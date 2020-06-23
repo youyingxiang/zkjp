@@ -1,0 +1,465 @@
+{include file="layout/top" /}
+<script>window._bd_share_config={"common":{"bdUrl": "","bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};
+    with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860513.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+{include file="layout/header" /}
+<div class="page3-content productInfo">
+    <div class="w1400">
+        {$crumbHtml}
+        <div class="slideIn02">
+            <div class="productInfo-info clearfix">
+                <div class="product-left fl">
+                    <div class="img">
+                       
+			 <img src="{$detailData->productImg[0]->img}" alt="{$detailData.name}" id="img_change">
+                        <div class="next" id="_pdnext"></div>
+                        <div class="pre" id="_pdpre"></div>     
+                    </div>
+                    <ul id="pro_li">
+                    {volist name='$detailData->productImg' id='dpm'}
+                        <li><img src="{$dpm->img}" alt="{$detailData.name}"> </li>
+                    {/volist}
+                    </ul>
+                </div>
+                <div class="product-right fr">
+                    <div class="right-info">
+                        <h1>{$detailData.name}</h1>
+                        <div class="text">{:text_replace($detailData.product_des)}</div>
+			{if condition="!empty($detailData.cart_url)"}
+                      	<a target="_blank" href="{$detailData.cart_url}"><input type="button" value="Amazon"></a>
+			{/if}
+			{if condition="!empty($detailData.cart_url2)"}
+                        <a target="_blank" href="{$detailData.cart_url2}"><input type="button" value="Flipkart"></a>
+                        {/if}
+			{if condition="!empty($detailData.cart_url3)"}
+                        <a target="_blank" href="{$detailData.cart_url3}"><input type="button" value="India Mart"></a>
+                        {/if}
+			{if condition="$detailData.name == 'ZKAccess3.5'"}
+				<a href="{:url('/Index/Service/license_active')}"><input type="button" value="Download Public License"></a>
+			{/if}
+                    </div>
+                    <div class="right-share">
+                        <div class="share">{$Think.lang.share}</div>
+                        <div class="btn bdsharebuttonbox" id="shareId">
+                            <a class="linkedin" href="" data-cmd="linkedin" title="linkedin"></a>
+                            <a class="facebook" href="" data-cmd="fbook" title="facebook"></a>
+                            <a class="twitter" href="" data-cmd="twi" title="twitter"></a>
+                           <!-- <a class="google" href="" data-cmd="buzz" title="google"></a>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {if condition="!empty($detailData['product_trait']['content'][0])"}
+    <div class="productInfo-trait slideIn02" style="background-image: url({$ad['产品详情特点-背景'][0]['img']});">
+        <h2>{$Think.lang.trait}</h2>
+        <div class='trait-content clearfix'>
+        {foreach name="$content_list" item='vo' key="kpt"}
+            <div class="trait-list">
+
+                <img src="{$detailData['product_trait']['img'][$kpt]}" alt="{$detailData.name}">
+                <span>{$vo}</span>
+            </div>
+        {/foreach}
+        </div>
+        {if condition="count($detailData['product_trait']['content'])>4"}
+        <div class="more">
+            <div><a id='moreId' href="javascript:void(0)">{$Think.lang.more}</a><img id="tg_moreId" src="{$Think.HOME_IMGS}/download-icon02.png" alt="{$Think.lang.more}"></div>
+        </div>
+        {/if}
+    </div>
+    {/if}
+    {if condition="strlen($detailData.product_parameter) > 50"}
+    <div class="productInfo-arguments slideIn02">{/* 参数 */ }
+        <div class="w1400">
+            <h2>{$Think.lang.parameter}</h2>
+            {$detailData.product_parameter}
+        </div>    
+    </div>
+    {/if}
+    {if condition="count($detailData['product_material']['title'])>1||!empty($detailData['product_material']['img'][0])||!empty($detailData['product_material']['title'][0])"}
+    <div class="productInfo-materials slideIn02">
+        <div class="w1400">
+            <h2>{$Think.lang.package_material}</h2>{/* 包材 */ }
+            <div class="materials-content clearfix swiper-container">
+                <div class="swiper-wrapper">
+                {volist name="$detailData['product_material']['title']" id='pmt'}
+                    <div class="list swiper-slide">
+                        <div class='box'>
+                            <img src="{$detailData['product_material']['img'][$key]}" alt="{$pmt}">
+                            <a href="javascript:void(0)">{$pmt}</a>
+                        </div>
+                    </div>
+                {/volist}
+                </div>
+            </div>
+            <div class="swiper-button-next" id="pro_next"></div>
+            <div class="swiper-button-prev" id="pro_prev"></div>
+        </div>
+    </div>
+    {/if}
+    {if condition='count($detailData->productFile)>0'}
+    <div class="productInfo-download slideIn02" style="background-image: url({$ad['产品详情下载-背景'][0]['img']});">
+        <div class="w1400">
+            <h2>サポート情報（ダウンロード）</h2>
+            <div class="download-content clearfix">
+            {volist name='$detailData->productFile' id='dp'}
+                <div class="list clearfix">
+                    <div class="list-left fl">
+                        <h3 class=''>{$dp.title}</h3>
+                        <p class='textHidden'>{:round($dp.file_size / 1048576 * 100) / 100 . ' MB'}</p>
+                        <p class='textHidden'>{$dp.update_time}</p>
+                    </div>
+                    <div class="list-right fr">
+                        <a target="_blank" {if condition="file_exists('.'.$dp.file_url)"}href="{:url('Service/load?id='.$dp.id)}"{else/}href="javascript:void(0)"{/if}><img src="{$dp.img}" alt="{$dp.title}"></a>
+                    </div>
+                    <div class="list-bottom fl">
+			    <a target="_blank" {if condition="file_exists('.'.$dp.file_url)"}href="{:url('Service/load?id='.$dp.id)}"{else/}href="javascript:void(0)"{/if}><img src="{$Think.HOME_IMGS}/download-icon.png" alt="">サポート情報（ダウンロード）</a>
+                    </div>
+                </div>
+            {/volist}
+            </div>
+        </div>
+    </div>
+    {/if}
+    {if condition='count($detailData->productSelf)>0'}
+    <div class="productInfo-aboutp w1400 slideIn02">{/* 产品 */ }
+        <h2>{$Think.lang.related_product}</h2>
+        <div class="aboutp-content clearfix swiper-container">
+            <div class="swiper-wrapper">
+            {volist name='$detailData->productSelf' id='dps'}
+                <div class="content-list swiper-slide">                    
+                    <a href="{if condition='$dps.url_title'}{:url('/product_detail/'.$dps.url_title)}{else/}{:url('/product_detail/'.$dps.id)}{/if}" target="_blank"><img src="{$dps->img}" alt="{$dps->name}"></a>
+                    <a href="{if condition='$dps.url_title'}{:url('/product_detail/'.$dps.url_title)}{else/}{:url('/product_detail/'.$dps.id)}{/if}" target="_blank" class="list-a">{$dps->name}</a>
+                </div>
+            {/volist}  
+            </div>    
+        </div>
+        <div class="swiper-button-next" id="swiper-button-next"></div>
+        <div class="swiper-button-prev" id="swiper-button-prev"></div>
+    </div>
+    {/if}
+    {if condition='count($detailData->productCases)>0||count($detailData->productScheme)>0'}
+    <div class="productInfo-works w1400 slideIn02">{/* 案例 */ }
+        <h2>{$Think.lang.related_case}</h2>
+        <div class="works-content clearfix">
+            <div class="works-left fl">
+                <div>
+                {volist name="$detailData->productScheme" id='vdp1'}
+                    <div class="img" style="background-image: url('{$vdp1.scheme_img}');">
+                        <div class="txt">
+                            <h1>{$vdp1.name}</h1>
+                            <p class="tit textHidden"></p>
+                            <div class="cases_content"></div>
+                            <a href="{:url('/scheme_detail/'.$vdp1.id)}">{$Think.lang.know_more}&nbsp;&nbsp;&nbsp;></a>
+                        </div>
+                    </div>
+                {/volist}
+                </div>
+                {if condition="count($detailData->productScheme)>0"}
+                <div class="swiper-button-next" id="img_next"></div>
+                <div class="swiper-button-prev" id="img_prev"></div>
+                {/if}
+            </div>
+            <div class="works-right fr">
+                <h3>{$Think.lang.related_case_2}</h3>
+                <div class="right-content">
+                    {volist name="$detailData->productCases" id='vdp'}
+                    <div class="list textHidden"><a href="{:url('/cases_detail/'.$vdp.id)}">{$vdp.name}</a></div>
+                    {/volist}  
+                    <div class="more textHidden"><a href="{:url('/cases_lst')}">{$Think.lang.more_case} > </a></div>           
+                </div>
+            </div>
+        </div>
+    </div>
+    {/if}
+    <div class="aside posFix">
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+$(function(){
+    $("#tg_moreId").on('click',function(){
+       $("#moreId").trigger("click"); 
+    })
+    $(".aside ul").children().remove();
+    for(var i=0;i<$('.productInfo h2').length;i++){
+        var li="<li><span></span></li>";
+        $(".aside ul").append(li);
+    }
+    $(".posFix ul li").bind("click",function(){
+        var index=$(this).index();
+        $('html,body').animate({scrollTop: $('.productInfo h2').eq(index).offset().top-130}, 600);
+    })
+    $(window).scroll(function(){
+        for(var i=-1;i<$('.productInfo h2').length;i++){
+            var _scTop=$(window).scrollTop();
+            if(($(window).height()/2)>$('.productInfo h2').eq(i).offset().top-$(window).scrollTop()){
+                $('.posFix ul li').eq(i).addClass("li-bg").siblings().removeClass("li-bg");
+                $('.posFix ul li').eq(i).find("span").text($('.productInfo h2').eq(i).text()).parent().siblings().find("span").text("");
+
+            }
+        }
+        if($(window).scrollTop()<180 || $(document).scrollTop()>=$(document).height()-$(window).height()-200){
+            $('.posFix ul li').removeClass("li-bg");
+            $('.posFix ul li').find("span").text("");
+        }
+    });
+    $(".aside ul li").mousemove(function(){
+        var tit_index=$(this).index()
+        $(this).attr("title",$(".productInfo h2").eq(tit_index).text())
+    })
+     // 分享的样式
+    $("#shareId .weixin").hover(function(){
+        $(this).attr("style","background-image:url({$Think.HOME_IMGS}/product-icon-weixin-on.png)");
+    },function(){
+        $(this).attr("style","background-image:url({$Think.HOME_IMGS}/product-icon-weixin.png");
+    })
+    $("#shareId .sina").hover(function(){
+        $(this).attr("style","background-image:url({$Think.HOME_IMGS}/product-icon-sina-on.png)");
+    },function(){
+        $(this).attr("style","background-image:url({$Think.HOME_IMGS}/product-icon-sina.png");
+    })
+    // 产品banner
+    var _arr=$("#pro_li li");
+    var _changenum=0;
+    $("#_pdpre").click(function (){
+         _changenum++;
+        if(_changenum>_arr.length-1){
+            _changenum=0;
+        }
+        $("#img_change").attr("src",$("#pro_li li").eq(_changenum).find("img").attr("src"));
+        if(_changenum>_arr.length-1){
+            _changenum=0;
+        }
+        $("#pro_li li").eq(_changenum).css("borderColor","#484748").addClass("changeOn").siblings().css("borderColor","#ececec").removeClass("changeOn");
+       
+        return _changenum;
+    })
+    $("#_pdnext").click(function (){
+        _changenum--;
+        if (_changenum<0) {
+            _changenum=_arr.length-1;
+        }
+        $("#pro_li li").eq(_changenum).css("borderColor","#484748").addClass("changeOn").siblings().css("borderColor","#ececec").removeClass("changeOn");
+        $("#img_change").attr("src",$("#pro_li li").eq(_changenum).find("img").attr("src"));
+    })
+    $("#img_change").attr("src",$("#pro_li li").find("img").attr("src"));
+    $("#pro_li li").hover(function(){
+        $(this).css("borderColor","#484748").siblings().css("borderColor","#ececec");
+        $("#img_change").attr("src",$(this).find("img").attr("src"));
+    })
+    $("#pro_li li:eq(0)").css("borderColor","#484748");
+    $("#pro_li li:eq(0)").css("borderColor","#484748").addClass("changeOn");
+    // 产品特点
+    var _more = 0;
+    $("#moreId").on("click",function(){
+        if (_more == 0) {
+            $(".productInfo .productInfo-trait .trait-content").css("overflow","visible").css("height","auto");
+            $(this).text("Hidden").parent().find("img").css({"transform":"rotate(180deg)","-ms-transform":"rotate(180deg)","-moz-transform":"rotate(180deg)","-webkit-transform":"rotate(180deg)","-o-transform":"rotate(180deg)"})
+            _more = 1;
+        }else if(_more == 1){
+            $(".productInfo .productInfo-trait .trait-content").css("overflow","hidden").css("height","230px");
+            $(this).text("More").parent().find("img").css({"transform":"rotate(0deg)","-ms-transform":"rotate(0deg)","-moz-transform":"rotate(0deg)","-webkit-transform":"rotate(0deg)","-o-transform":"rotate(0deg)"});
+            _more=0;
+        }
+       
+
+    })
+    // 包材 
+    var num;
+    if($(".materials-content .swiper-wrapper").children('.list').length==1){
+        num=1;
+    }else if($(".materials-content .swiper-wrapper").children('.list').length==2){
+        num=2;
+         if($(window).width()<640){
+            num=1;
+         }
+    }else {
+        num=3;
+        if ($(window).width()<768) {
+            num=2;
+         } 
+         if ($(window).width()<640) {
+            num=1;
+         }
+
+    }
+    var swiper = new Swiper('.materials-content', {
+            slidesPerView: num,
+            nextButton: '#pro_next',
+            prevButton: '#pro_prev',
+            loop:false,
+            centeredSlides: false,
+          
+        });
+    
+    // 相关产品
+    
+    var index;
+    var doc=$(".aboutp-content .swiper-wrapper").children('.content-list');
+    if(doc.length==1){
+        index=1; 
+        $(".productInfo-aboutp .content-list img").css("padding","0")
+    }else if(doc.length==2){
+        index=2;
+        $(".productInfo-aboutp .content-list img").css("padding","0")
+        if($(window).width()<640){
+            index=1;
+        }
+    }else if(doc.length==3){
+        index=3;
+        if ($(window).width()<768) {
+            index=2;
+         }
+         if ($(window).width()<640) {
+            index=1;
+         }
+
+        $(".productInfo-aboutp .content-list img").css("padding","0")
+    }else if(doc.length==4){
+        index=4;
+        if ($(window).width()<768) {
+            index=2;
+         }
+         if ($(window).width()<640) {
+            index=1;
+         }
+    }
+    else{
+        index=5;
+        if ($(window).width()<1024) {
+            index=3;
+        }
+        if ($(window).width()<768) {
+            index=2;
+         }
+         if ($(window).width()<640) {
+            index=1;
+         }
+    }
+    var swiper = new Swiper('.aboutp-content', {
+        slidesPerView: index,
+        spaceBetween : 20,
+        nextButton: '#swiper-button-next',
+        prevButton: '#swiper-button-prev',
+        loop:false,
+        // centeredSlides: true,
+      
+    });
+
+    // 样式判断
+    if($(".trait-content").children('.trait-list').length==1){
+        $(".trait-list").css("width","100%");
+    }else if($(".trait-content").children('.trait-list').length==2){
+        $(".trait-list").css("width","50%")
+        if($(window).width()<1024){
+            $(".trait-list").css("width","100%");
+        }
+    }else if($(".trait-content").children('.trait-list').length==3){
+        $(".trait-list").css("width","33.3%")
+        if($(window).width()<1024){
+            $(".trait-list").css("width","100%");
+        }
+    }
+
+
+    if($(".download-content").children('.list').length==1){
+        $(".download-conten").css("text-align","center")
+        $(".productInfo-download .list").css("float","none").css("display","inline-block")
+    }else if($(".download-content").children('.list').length==2){
+        $(".productInfo-download .list").css("width","50%");
+        $(".download-content").css({"width":"660px","margin":"0 auto"})
+        if($(window).width()<768){
+            $(".productInfo-download .list").css("width","100%");
+            $(".download-content").css("width","100%")
+        }
+    }
+
+    // 相关方案和案例
+    // $(".productInfo-works .works-right .list").on("click",function(e){
+    //     e.preventDefault();
+    // })
+    var _num=0;
+    var _len=$(".productInfo-works .works-left .img").length;
+    $("#img_prev").bind("click",function(){
+        _num--;
+        if (_num<0) {
+            _num=_len-1;
+
+        }
+        $(".productInfo-works .works-left .img").eq(_num).show().siblings().hide();
+        //console.log(_num);
+    })
+     $("#img_next").bind("click",function(){
+        _num++;
+        if (_num==_len) {
+            _num=0;
+
+        }
+        $(".productInfo-works .works-left .img").eq(_num).show().siblings().hide();
+        //console.log(_num);
+    })
+    $('#join_inquiry').on('click',function(){
+        var pid = $(this).attr('data-pid');
+        $.ajax({
+            url: "{:url('Product/add_order_cookie')}", 
+            data: {"pid":pid,'flag':'+'},
+            type:'post', 
+            dataType: "json", 
+            error:function(data){
+                showErrMsg("{$Think.lang.ajax_err}");
+                return;
+            },  
+            success:function(result){
+                if (result.status == 1) {
+                    showOkTime(result.info,3);
+                    get_cart_sum();
+                } else {
+                    window.location.href="{:url('/login','',false)}?redirect_url="+window.location.href;
+                }           
+            },
+        })    
+    })
+    if ($(".trait-content").children('.trait-list').length==1) {
+        $(".trait-list").css("width","100%");
+    }else if($(".trait-content").children('.trait-list').length==2){
+        $(".trait-list").css("width","50%")
+        if($(window).width()<1024){
+            $(".trait-list").css("width","100%");
+        }
+    }else if($(".trait-content").children('.trait-list').length==3){
+        $(".trait-list").css("width","33.3%")
+        if($(window).width()<1024){
+            $(".trait-list").css("width","100%");
+        }
+    }
+    // 20180102
+    $(".add-position span").hover(function(){
+    	$(".productInfo .productInfo-info .product-left").css("z-index","0")
+    },function(){
+    	$(".productInfo .productInfo-info .product-left").css("z-index","1")
+    })
+})
+
+</script>
+
+<style>
+    .productInfo .productInfo-trait .trait-content .trait-list span {
+        color: #fff;
+        line-height: 20px;
+        padding: 20px 0 50px;
+        height: 140px;
+        overflow: hidden;
+        margin-bottom: 20px;
+        display: block;
+    }
+</style>
+</body>
+</html>

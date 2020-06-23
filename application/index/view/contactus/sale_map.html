@@ -1,0 +1,194 @@
+{include file="layout/top" /}
+<style>
+    html,body{ background: #fbfbfb;}
+</style>
+{include file="layout/header" /}
+<div class="page-content02 mapEN">
+    <a href="{:get_img_url($ad['销售地图-banner'][0]['url'])}">
+    <div class="page-banner check-banner" style="background-image:url({$ad['销售地图-banner'][0]['img']});"><div class="txt">{$ad['销售地图-banner'][0]['title']}</div></div></a>
+    <div class="w1400"><div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> &gt; <a href="{:url('/contactus')}">{$Think.lang.contactus}</a> &gt;{$title}</div></div>
+    <section class="page-container page-containerLR20 marginB30">
+        <div id="salesMap">
+            <div id="salesMap-box">
+                <div id="salesMap-con"><i class="salesMap-mark"></i></div>
+            </div>
+            <div id="salesMap-pop">
+            <div class="salesMap-pop-sideBar"></div>
+                <div class="salesMap-list">
+                    <ul id='continent'>
+                        <!-- <li>Dalian(China)</li>
+                        <li class="enOn">Philippines</li>
+                        <li>Russia</li>
+                        <li>Vietnam</li>
+                        <li>Indonesia</li>
+                        <li>Dubai</li>
+                        <li>Dongguan(China)</li>
+                        <li>Shenzhen(China)</li>
+                        <li>Xiamen(China)</li>
+                        <li>Hong Kong</li>
+                        <li>India</li>
+                        <li>Saudi Arabia</li> -->
+                    </ul>
+                </div>
+                <div class="salesMap-pop-content">
+                    <div class="salesMap-pop-infor clearfix">
+                        <div class="salesMap-tit">
+                            <h2>ZKTeco <span id="markCity"></span></h2>
+                            <div class="tel"><img src="{$Think.HOME_IMGS}/map-addr.png" alt="tel"><span id="markAddr"></span></div>
+                            <div class="addr"><img src="{$Think.HOME_IMGS}/map-tel.png" alt="addres"><span id="markTel"></span></div>
+                        </div>
+                    </div>
+                    <div class="salesMap-pop-form">
+                        <section class="mForm mFormLR tran300">
+                            <div class="mForm-body">
+                                <div class="mForm-group">
+                                    <div class="mForm-colLeft">Name</div>
+                                    <div class="mForm-colRight">
+                                        <div class="mForm-field tran300">
+                                            <input class="tran300" name='name' type="text" placeholder="Please input name" {if condition="!empty($user_info)"}value="{$user_info['contactName']}"{/if} />
+                                        </div>
+                                        <div class="mForm-group-tips tran300"></div>
+                                    </div>
+                                </div>
+                                <div class="mForm-group">
+                                    <div class="mForm-colLeft">Tel.</div>
+                                    <div class="mForm-colRight">
+                                        <div class="mForm-field tran300">
+                                            <input class="tran300" type="text" name='tel' placeholder="Please input tel." {if condition="!empty($user_info)"}value="{$user_info['tel']}"{/if} />
+                                        </div>
+                                        <div class="mForm-group-tips tran300"></div>
+                                    </div>
+                                </div>
+                                <div class="mForm-group">
+                                    <div class="mForm-colLeft">Company Name</div>
+                                    <div class="mForm-colRight">
+                                        <div class="mForm-field tran300">
+                                            <input class="tran300" type="text" name='company_name' {if condition="!empty($user_info)"}value="{$user_info['companyName']}"{/if} placeholder="Please input company name" />
+                                        </div>
+                                        <div class="mForm-group-tips tran300"></div>
+                                    </div>
+                                </div>
+                                <div class="mForm-group">
+                                    <div class="mForm-colLeft">Email</div>
+                                    <div class="mForm-colRight">
+                                        <div class="mForm-field tran300">
+                                            <input class="tran300" type="text" name='email' placeholder="Please input email" {if condition="!empty($user_info)"}value="{$user_info['email']}"{/if} />
+                                        </div>
+                                        <div class="mForm-group-tips tran300"></div>
+                                    </div>
+                                </div>
+                                <div class="mForm-group">
+                                    <div class="mForm-colLeft">Country</div>
+                                    <div class="mForm-colRight">
+                                        <div class="mForm-field tran300 select">
+                                            <select name='country'>
+                                                {volist name='country' id='vo'}
+                                                <option {if condition="!empty($user_info)&&$user_info['country'] == $vo.countryName" }selected='true'{/if} value="{$vo.countryName}">{$vo.countryName}</option>
+                                                {/volist}
+                                            </select>
+                                        </div>
+                                        <div class="mForm-group-tips tran300"></div>
+                                    </div>
+                                </div>
+                                <div class="mForm-group">
+                                    <div class="mForm-colLeft">City</div>
+                                    <div class="mForm-colRight">
+                                        <div class="mForm-field tran300">
+                                            <input class="tran300" type="text" name='city' placeholder="Please input city" {if condition="!empty($user_info)"}value="{$user_info['city']}"{/if} />
+                                        </div>
+                                        <div class="mForm-group-tips tran300"></div>
+                                    </div>
+                                </div>
+                                <div class="mForm-group">
+                                    <div class="mForm-colLeft">Address</div>
+                                    <div class="mForm-colRight">
+                                        <div class="mForm-field tran300">
+                                            <input class="tran300" type="text" name='address' placeholder="Please input address" {if condition="!empty($user_info)"}value="{$user_info['address']}"{/if}/>
+                                        </div>
+                                        <div class="mForm-group-tips tran300"></div>
+                                    </div>
+                                </div>
+                                <div class="mForm-group">
+                                    <div class="mForm-colLeft" style="line-height: 26px;">Requirement Description</div>
+                                    <div class="mForm-colRight">
+                                        <div class="mForm-field tran300" style="height: 120px;padding-right: 0;">
+                                            <textarea  name='need_des' style="font-size: 16px; width: 100%;height: 100%;padding: 10px 0;resize: none;"></textarea>
+                                            <!-- <input class="tran300" type="text" placeholder="请填写详细地址" /> -->
+                                        </div>
+                                        <div class="mForm-group-tips tran300"></div>
+                                    </div>
+                                </div>
+                                <div class="mForm-group">
+                                    <div class="mForm-colLeft empty"></div>
+                                    <div class="mForm-colRight">
+                                        <a class="mForm-btn-solid small tran300 commit_sale" href="javascript:;">Submit</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section><!--.mForm end-->
+                    </div>
+                </div><!--.salesMap-pop-content end-->
+            </div>
+        </div>
+    </section><!--.page-container end-->
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+    function changeCity(obj){
+        $(obj).addClass('enOn').siblings().removeClass('enOn');
+        var _mark = mapData[$(obj).attr('data_index')];
+        $('#salesMap-box').attr('role-id', _mark.id);
+        $('#markCity').html(_mark.city);
+        $('#markAddr').html(_mark.address);
+        $('#markTel').html(_mark.tel);
+    }
+
+    function loading_msg(msg){
+        index = layer.msg(msg, {
+            icon: 16,
+            shade: 0.5,
+            time: 30000,
+            shadeClose: false 
+        });
+    }
+    var  mapData = {$mapinfo};
+    $('.commit_sale').on('click',function(){
+        var name = $("input[name='name']").val().trim();
+        var tel = $("input[name='tel']").val().trim();
+        var address = $("input[name='address']").val().trim();
+        var country = $("select[name='country']").val().trim();
+        var city = $("input[name='city']").val().trim();
+        var email = $("input[name='email']").val().trim();
+        var need_des = $("textarea[name='need_des']").val().trim();
+        var company_name = $("input[name='company_name']").val().trim();
+        var sessionId = "{$checkInfo['sessionId']}";
+        var token = "{$checkInfo['token']}";
+        loading_msg("{$Think.lang.commit_now}");
+        $.ajax({
+                url: "{:url('Contactus/commit_contactus')}", 
+                data: {"contactName":name,'tel':tel,'address':address,'country':country,'city':city,"email":email,'companyName':company_name,'demand':need_des,'sessionId':sessionId,'token':token},
+                type:'post', 
+                dataType: "json", 
+                error:function(data){
+                    layer.close(index);
+                    showErrMsg("{$Think.lang.ajax_err}");
+                    return;
+                },  
+                success:function(result){
+                    layer.close(index);
+                    if(result.status == 1){
+                        showOkTime(result.info,1);
+                        setTimeout(f5self,1000);                                  
+                    } else {
+                        showErrMsg(result.info);
+                    }
+                },
+        })
+    })
+    function f5self() {
+        window.location.reload();
+    }
+</script>
+</body>
+</html>

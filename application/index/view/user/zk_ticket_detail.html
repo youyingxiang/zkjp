@@ -1,0 +1,288 @@
+{include file="layout/top" /}
+<style>
+    p a{
+        color:#78bc27;
+    }
+</style>
+{include file="layout/header" /}
+<div class="page-content">
+    <div class="w1400"><div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> &gt; <a href="{:url('/user_center')}">{$Think.lang.user_center}</a> &gt;<a href="{:url('/ticket_query')}">{$Think.lang.check_my_ticket}</a> &gt;Trouble Ticket Details</div></div>
+    <section class="page-container page-containerLR20">
+        <div class="mIssueOrder marginB10">
+            <div class="mIssueOrder-top clearfix">
+                <p>{$Think.lang.some_id}：{$detailData.someId}</p>
+                <p>{$Think.lang.create_y}：{$detailData.createTime}</p>
+            </div>
+            <div class="mIssueOrder-con">
+                <div class="mIssueOrder-con-item">
+                    <div class="name">{$Think.lang.type}：</div>  {/* 类别 */}
+                    <div class="txt">{$detailData.questionType}</div>
+                </div>
+                <div class="mIssueOrder-con-item">
+                    <div class="name">{$Think.lang.title}：</div> {/* 标题 */}
+                    <div class="txt">{$detailData.questTitle}</div>
+                </div>
+                <div class="mIssueOrder-con-item">
+                    <div class="name">{$Think.lang.desc}：</div> {/* 描述 */}
+                    <div class="txt">{$detailData.content}</div>
+                </div>
+                <div class="mIssueOrder-con-item">
+                    <div class="name">{$Think.lang.ufile}：</div> {/* 附件 */}
+                    <div class="txt">
+                        {volist name=':json_zkpai($detailData.uploadfile)' id='vo'}
+                        <p><a class="mColorGreen" href="https://service.zkteco.com:8443/commonController.action?viewFile&subclassname=com.framework.web.system.pojo.base.TSDocument&fileid={$vo.fileKey}">{$vo.name}</a></p>
+                        {/volist}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mReplyPanel marginB20">
+            <div class="mReplyPanel-content marginB20">
+                <div class="mReplyPanel-content-top">{$Think.lang.my_reply}</div>{/* 我的回复 */}
+                <div class="mReplyPaenl-content-detail">
+                    <textarea id='contient' placeholder="{$Think.lang.my_reply}"></textarea>
+                </div>
+            </div>
+            <div class="mReplyPanel-uploadBox marginB20 clearfix">
+                <dl class="mReplyPanel-uploadBox-tips marginB20">
+                    {$Think.lang.wx_msg}
+                </dl>
+                <div class="mReplyPanel-upload">                                {/* 上传 */}
+                    Attachments：<span class="mReplyPanel-upload-btn">Please select attachment</span>
+                    <div class="txt upload_path">
+                        
+                    </div>
+                </div>
+
+            </div>
+            <div class="mReplyPanel-uploadBox marginB20 clearfix">
+                <div class="right"><input class="text yzm fl" id='verify' type="text" placeholder="{$Think.lang.verif}"><img src="{:captcha_src()}" style="height:45px"  id="code" alt="captcha" onclick="this.src='{:captcha_src()}?rnd=' + Math.random();" /></div>
+            </div>
+            <a class="mForm-btn-solid small tran300" href="javascript:void(0);">{$Think.lang.reply}</a>
+        </div>
+        
+        <section class="mCommentList">
+            {volist name="$detailData.handleList" id='voo'}
+            <div class="mCommentList-unit">
+                <div class="mComment">
+                    <div class="mComment-infor clearfix">
+                        <span class="name mColorGreen">{$voo.createBy}</span>
+                        <span class="time">{$Think.lang.commit_date}：{$voo.createTime}</span>{/* 时间 */}
+                        <!-- <span class="state">NEW</span> -->
+                    </div>
+                    <div class="mComment-con">
+                        <div class="details">
+                            <p>{$voo.contient}</p>{/* 附件 */}
+                            <p>{$Think.lang.ufile}：
+                                {volist name=':json_zkpai($voo.uploadfile)' id='vooo'}
+                                <a class="mColorGreen" href="https://service.zkteco.com:8443/commonController.action?viewFile&subclassname=com.framework.web.system.pojo.base.TSDocument&fileid={$vooo.fileKey}">{$vooo.name}</a>
+                                {/volist}
+                            </p>
+                        </div>
+                        {if condition="$voo.isHelpful === null"}
+                        <div class="bottom">{$Think.lang.yesno}&nbsp;&nbsp;&nbsp;&nbsp;<a class="mColorGreen"  onclick="is_help(this)" data-id='{$voo.id}' data-ishelp='0' href="javascript:void(0);">{$Think.lang.yes}</a>&nbsp;&nbsp;&nbsp;&nbsp;<a data-id='{$voo.id}' class="mColorGreen" onclick="is_help(this)" data-ishelp='1' href="javascript:void(0);">{$Think.lang.no}</a></div>  {/* 是否解决 */}
+                        {elseif condition="$voo.isHelpful==0" /}
+                        <div class="bottom">{$Think.lang.yes1}</div>  {/* 是否解决 */}
+                        {elseif condition="$voo.isHelpful==1" /}
+                        <div class="bottom">{$Think.lang.no1}</div>  {/* 是否解决 */}
+                        {/if}
+                    </div>
+                </div>
+            </div>
+            {/volist}
+        </section>        
+    </section><!--.page-container end-->
+    <input id="fileupload" type="file" name="imgFile"  data-url="https://service.zkteco.com:8443/apiv1/upload/uploadFile.action" multiple>
+</div>
+<?php $compatible = 1;?>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script src="{$Think.HOME_JS}/upload/jquery.ui.widget.js"></script>
+<script src="{$Think.HOME_JS}/upload/jquery.iframe-transport.js"></script>
+<script src="{$Think.HOME_JS}/upload/jquery.fileupload.js"></script>
+<script>
+    var someId = "{$detailData.someId}";
+    $('#fileupload').hide();
+/*    $('#fileupload').fileupload({
+        dataType: 'json',
+        add: function (e,data) {
+            var mxsize = 5*1024*1024;
+            var mxlenget = $('.fileUpload_').length;
+            if (parseInt(data.files[0].size) > parseInt(mxsize)) {
+                showErrMsg('Attachment file should not exceed 5MB');
+                return;
+            } else if (parseInt(mxlenget)>3) {
+                showErrMsg('No more than four attachments');
+                return;
+            } else {
+                loading_msg("{$Think.lang.commit_now}");
+                data.submit();
+            }
+        },
+        done: function (e, data) {
+            layer.close(index);
+            if (data.result.code == '00000000') {
+                var d = data.result.payload.results;
+                var attchmentJson = "{'fileKey':'"+d.fileKey +"','name':'"+d.name+"','time':'"+d.time +"','realPath':'"+d.realPath+"'},";
+                var html = '<p><a style="margin-left:90px" href="javascript:void(0)">'+d.name+'<i onclick="delete_self(this)"></i></a><input type="hidden" class="fileUpload_" value='+attchmentJson+'></p>';
+                $('.upload_path').append(html);
+                showOkTime(data.result.msg,3);
+            } else {
+                showErrMsg(data.result.msg);
+            }
+        }
+    });*/
+
+    $('#fileupload').fileupload({
+        dataType: 'json',
+        add: function (e,data) {
+            var mxsize = 5*1024*1024;
+            //var mxlenget = $('.fileUpload_').length;
+            var mxlenget = $('.upload_path').children("input(type='hidden')").length;
+            if (parseInt(data.files[0].size) > parseInt(mxsize)) {
+                showErrMsg('Max. 5mb');
+                return;
+            } else if (parseInt(mxlenget)>3) {
+                showErrMsg('Max. 4 attachments');
+                return;
+            } else {
+                loading_msg("{$Think.lang.commit_now}");
+                data.submit();
+            }
+        },
+        done: function (e, data) {
+            layer.close(index);
+            if (data.result.code == '00000000') {
+                var d = data.result.payload.results;
+                var attchmentJson = "{'fileKey':'"+d.fileKey +"','name':'"+d.name+"','time':'"+d.time +"','realPath':'"+d.realPath+"'},";
+                var html = '<li>'+d.name+'<i onclick="delete_self(this)"></i></li><input type="hidden" value='+attchmentJson+'>';
+                $('.upload_path').append(html);
+                showOkTime(data.result.msg,3);
+            } else {
+                showErrMsg(data.result.msg);
+            }
+        }
+    });
+   
+    $('.mReplyPanel-upload-btn').on('click',function(){     //上传
+        obj = $(this);
+        $('#fileupload').trigger('click');
+    })
+    function loading_msg(msg){
+        index = layer.msg(msg, {
+            icon: 16,
+            shade: 0.5,
+            time: 30000,
+            shadeClose: false 
+        });
+    }
+
+    $('.mForm-btn-solid.small').on('click',function(){      //回复
+        var contient = $('#contient').val().trim();
+        if (contient.length == 0 || someId.trim().length == 0) {
+            showErrMsg('{$Think.lang.reply_notnull}');
+            return;
+        }
+        var uploadfile='';
+        $(".upload_path input[type='hidden']").each(function(){               //上传信息
+            if ($(this).val().trim().length>0) {
+                uploadfile += $(this).val().trim();
+            }
+        })
+        var verify = $('#verify').val().trim();
+        if (verify.length == 0) {
+            showErrMsg('{$Think.lang.verify_notnull}');
+            return;
+        }
+        loading_msg("{$Think.lang.commit_now}");
+            $.ajax({
+                url: "{:url('User/reply_commit')}", 
+                data: {"someId":someId,'uploadfile':uploadfile,'contient':contient,'verify':verify},
+                type:'post', 
+                dataType: "json", 
+                error:function(data){
+                    layer.close(index);
+                    $('#code').trigger('click');
+                    showErrMsg("{$Think.lang.ajax_err}");
+                    return;
+                },  
+                success:function(result){    
+                    layer.close(index);         
+                    $('#code').trigger('click');
+                    if (result.status == 1) {
+                       get_common();
+                    } else {
+                        showErrMsg(result.info);
+                    }           
+                },
+            })
+    })
+    function delete_self(obj)
+    {
+        $(obj).parent().parent().remove();
+    }
+    /**
+     * [is_help 点击是否帮助]
+     * @param  {[type]}  obj [description]
+     * @return {Boolean}     [description]
+     */
+    function is_help(obj)
+    {
+        var id = $(obj).attr('data-id');
+        var isHelpful = $(obj).attr('data-ishelp');
+        loading_msg("{$Think.lang.commit_now}");
+        $.ajax({
+            url: "{:url('User/reply_comment_help')}", 
+            data: {"someId":someId,'id':id,'isHelpful':isHelpful},
+            type:'post', 
+            dataType: "json", 
+            error:function(data){
+                layer.close(index);
+                showErrMsg("{$Think.lang.ajax_err}");
+                return;
+            },  
+            success:function(result){
+                if (result.status == 1) {
+                    //get_common();       //局部更新评论
+                    window.location.reload();
+                } else {
+                    layer.close(index);
+                    showErrMsg(result.info);
+                }           
+            },
+        })
+    }
+    /**
+     * [get_common ajax 获取评论]
+     * @return {[type]} [description]
+     */
+    function get_common()
+    {
+        $.ajax({
+            url: "{:url('User/get_common')}", 
+            data: {"someId":someId},
+            type:'post', 
+            dataType: "html", 
+            error:function(data){
+                layer.close(index);
+                showErrMsg("{$Think.lang.ajax_err}");
+                return;
+            },  
+            success:function(result){
+                layer.close(index);
+                if(result.length <100){
+                    if (result.trim().length>0)showErrMsg(result);//消息的时候提示                                          
+                } else {
+                    showOkTime("{$Think.lang.action_success}",3);
+                    $('#contient').val('');
+                    $('#verify').val('');
+                    $('.upload_path').empty();
+                    $('.mCommentList').empty().html(result);                      
+                }          
+            },
+        })
+    }
+</script>
+</body>
+</html>

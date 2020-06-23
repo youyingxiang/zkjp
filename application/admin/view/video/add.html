@@ -1,0 +1,183 @@
+{include file="layout/top" /}
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-horizontal" method="POST" action="{:url('admin/Video/add')}" onsubmit="return false" >
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab1" data-toggle="tab">{$Think.lang.base_param}</a></li>
+                        <li class="pull-right"><a href="javascript:history.back(-1)" class="btn btn-sm" style="padding:10px 2px;"><i class="fa fa-list"></i> {$Think.lang.back}</a></li>
+                    </ul>
+                    <div class="tab-content" id ='form-content'>                       
+                        <div class="tab-pane active" id="tab1">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$Think.lang.title}</label>
+                                <div class="col-sm-7"><input class="form-control" name="title" value="" placeholder="{$Think.lang.title}"></div>
+                            </div>
+                          
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$Think.lang.img}</label>
+                                <div class="col-sm-7">
+                                    <div class="input-group">
+                                        <input class="form-control" name="img"  placeholder="{$Think.lang.img}" >
+                                        <span class="input-group-btn up_img"><button class="btn btn-success btn-flat" type="button"><i class="fa fa-cloud-upload"> {$Think.lang.Upload}</i></button></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$Think.lang.state}</label>
+                                <div class="col-sm-7">
+                                    <select class="form-control select2" name="state" style="width:100%;">
+                                        <option value="1" >{$Think.lang.status1}</option>
+                                        <option value="0" >{$Think.lang.status0}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$Think.lang.order_key}</label>
+                                <div class="col-sm-7"><input class="form-control" name="order_key" value="1" placeholder="{$Think.lang.order_key}"></div>
+                            </div>
+                            
+           
+                
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$Think.lang.video_link}</label>
+                                <div class="col-md-7" >
+                                    <input class="form-control" name="file_url" id="file_url" value=""  placeholder="{$Think.lang.video_link}" >
+                                    <div id="uploader" class="wu-example">
+                                        <!--用来存放文件信息-->
+                                        <div id="thelist" class="uploader-list"></div>
+                                        <div class="btns">
+<!--                                            <div id="picker">{$Think.lang.select_file}</div>
+                                            <button id="ctlBtn" class="btn btn-default">{$Think.lang.start_upload}</button>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                             
+                         </div>
+                         <!--<input type="hidden" name="file_url" id="file_url">-->
+                         <input type="hidden" name="file_size" id="file_size">
+                         <input type="hidden" name="file_name" id="file_name">
+                    </div>
+                    
+                    <div class="box-footer">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-7">
+                            <div class="btn-group pull-right">
+                                <button type="submit" class="btn btn-info pull-right submits" data-loading-text="&lt;i class='fa fa-spinner fa-spin '&gt;&lt;/i&gt; {$Think.lang.submit}">{$Think.lang.submit}</button>
+                            </div>
+                            <div class="btn-group pull-left">
+                                <button type="reset" class="btn btn-warning">{$Think.lang.reset}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+$(function(){
+
+    /*ajax页面加载icheck，有该控件的页面才需要*/
+    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+        checkboxClass: 'icheckbox_minimal-blue',
+        radioClass: 'iradio_minimal-blue'
+    });
+    $('#fileupload_').fileupload({
+        dataType: 'json',
+        done: function (e, data) {
+            if (data.result.error == 0) {
+                var up_url = data.result.url.trim();
+                obj.prev().val(up_url );
+                if (obj.children('a').length>0) {
+                    obj.children('a').attr('href',up_url);
+                    obj.find('img').attr('src',up_url );
+                }
+            } else {
+                $.amaran({'message':data.result.info});
+            }      
+        }
+    });
+    $(".up_img").on('click',function(){
+        obj = $(this);
+        $('#fileupload_').trigger('click');
+    })
+    /*ajax页面加载icheck，有该控件的页面才需要*/
+    $(".select2").select2({language:"zh-CN"});
+
+
+        $upload = $('#ctlBtn'),
+        uploader = WebUploader.create({               
+            swf: '{$Think.ADMIN_JS}/webuploader/Uploader.swf', //加载swf文件，路径一定要对
+              // 文件接收服务端。
+            server: "{:url('Uploads/webupload?dir=file','',false)}",
+
+              // 选择文件的按钮。可选。
+              // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: {
+                    id: '#picker',
+            },
+            fileNumLimit: 1,
+              // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+            resize: true,
+
+        });
+        uploader.on('error', function(handler) {
+            if (handler == "Q_EXCEED_NUM_LIMIT") {
+                showErrMsg("只能上传一个文件");
+            }else if(handler == "Q_EXCEED_SIZE_LIMIT"){
+                showErrMsg("添加的文件总大小超出");
+            }else if(handler == "Q_TYPE_DENIED"){
+            }
+        });
+        uploader.on( 'fileQueued', function( file ) {
+            $("#thelist").append( '<div id="' + file.id + '" class="item">' +
+                '<h4 class="info">' + file.name + '</h4>' +
+                '<p class="state">等待上传...</p>' +
+            '</div>' );
+        });
+        $("#ctlBtn").click(function(){
+            uploader.upload();
+        })
+        uploader.on( 'uploadProgress', function( file, percentage ) {
+            var $li = $( '#'+file.id ),
+                $percent = $li.find('.progress .progress-bar');
+
+            // 避免重复创建
+            if ( !$percent.length ) {
+                $percent = $('<div class="progress progress-striped active">' +
+                  '<div class="progress-bar" role="progressbar" style="width: 0%">' +
+                  '</div>' +
+                '</div>').appendTo( $li ).find('.progress-bar');
+            }
+
+            $li.find('p.state').text('上传中');
+
+            $percent.css( 'width', percentage * 100 + '%' );
+        });
+        uploader.on( 'uploadSuccess', function( file , response ) {
+            if (response.error == 0) {                          
+                $('#file_url').val(response.url);
+                $('#file_name').val(response.name);
+                $('#file_size').val(response.size);
+                $( '#'+file.id ).find('p.state').text('已上传');             
+            }  else {
+                $( '#'+file.id ).find('p.state').text(response.info);  
+            } 
+            
+        });
+
+        uploader.on( 'uploadError', function( file ) {
+            $( '#'+file.id ).find('p.state').text('上传出错');
+        });
+
+        uploader.on( 'uploadComplete', function( file ) {
+            $( '#'+file.id ).find('.progress').fadeOut();
+        });
+    }) 
+
+</script>
+ 
+{include file="layout/bottom" /}

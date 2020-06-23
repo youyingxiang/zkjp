@@ -1,0 +1,88 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+    <div class="page-banner check-banner" style="background-image:url({$ad['防伪查询-banner'][0]['img']});">
+        <div class="content slideIn02">
+            <div class="title">{$Think.lang.service_title}：</div>
+            <div class="check-input">
+                <input type="text" placeholder="{$Think.lang.input_sn}">
+                <input type="button" id="search_get" value="{$Think.lang.search}">
+            </div>
+        </div>
+    </div>
+    <div class="w1400 slideIn02" id='content_'>
+<!--         <div class="position"><a href="/">{$Think.lang.home}</a> > <a href="{:url('/service')}">{$Think.lang.service}</a> > <a href="">{$Think.lang.after_service}</a> > {$Think.lang.service_title}</div> -->
+        <div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> > <a href="{:url('/service')}">{$Think.lang.service}</a> > {$Think.lang.service_title}</div>
+        <div class="check-wrap" id='table_content'>
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <thead>
+                    <tr>
+                        <td>SN</td>
+                        <td>Model</td>
+                        <td>Manufacture Date</td>
+                        <td>Exclusive Area</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+</body>
+<script>
+    $('#search_get').on('click',function(){
+        val = $(this).prev().val();
+        if(val.trim().length>0){
+            loading_msg("{$Think.lang.query_now}");          
+            get_search_sn(); 
+        }else{
+            showErrMsg("{$Think.lang.val_r}");
+            return; 
+        }
+    });
+    function loading_msg(msg){
+        index = layer.msg(msg, {
+                icon: 16,
+                shade: 0.5,
+                time: 30000,
+                shadeClose: false 
+            });
+    }
+    function get_search_sn(){  
+        $.ajax({
+                url: "{:url('Alone/get_search_sn')}", 
+                data: {'val':val},
+                type:'post', 
+                dataType: "html", 
+                error:function(data){
+                     showErrMsg("{$Think.lang.ajax_err}");
+                     return;
+                },  
+                success:function(result){
+                    if (result.length>10) {
+                        layer.close(index);
+                        $('#table_content').empty().html(result);
+                        $('#content_').addClass('slideIn02');
+                        $('#table_content').removeClass('slideIn02');              
+                    } else {
+                        layer.close(index);
+                        var html =  '<div class="none"><i></i>'+
+                                    '<div class="txt">'+
+                                    '<span>Sorry, our website can only search for the data after January 1st, 2017. For more help,</span>'+
+                                    '<span class="tel">please contact our business colleagues from corresponding area by checking the Sales Map. Thanks.</span>'+
+                                    '</div></div>';
+                        $('#table_content').empty().html(html);
+                        $('#table_content').addClass('slideIn02');
+                        $('#content_').removeClass('slideIn02');
+                        showErrMsg("{$Think.lang.query_null}");
+                    }
+                },
+        })
+    }
+</script>
+</body>
+</html>

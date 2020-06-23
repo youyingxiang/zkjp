@@ -1,0 +1,166 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content">
+    <div class="pro-hs-content clearfix slideIn02">
+        <div class="w1400">
+            <div class="position"><a href="{:url('/product_category')}">{$Think.lang.product_center}</a> > {$Think.lang.order_query}</div>
+            <div class="pro-hs-step">
+                <ul>
+                    <li class="on">
+                        <i><em><img src="{$Think.HOME_IMGS}/pro-hs-step01.png" alt="{$Think.lang.order_query}"></em></i>
+                        01/{$Think.lang.order_query}
+                    </li>
+                    <li class="step-icon on">&nbsp;</li>
+                    <li class="on">
+                        <i><img src="{$Think.HOME_IMGS}/pro-hs-step02.png" alt="{$Think.lang.input_info}"></i>
+                        02/{$Think.lang.input_info}
+                    </li>
+                    <li class="step-icon on">&nbsp;</li>
+                    <li>
+                        <i><img src="{$Think.HOME_IMGS}/pro-hs-step03.png" alt="{$Think.lang.commit_success}"></i>
+                        03/{$Think.lang.commit_success}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="pro-hs-step02 clearfix">
+            <div class="w1400">
+            <form action='' method="post" id='commitp'>
+                <div class="left">
+                    <div class="title">{$Think.lang.link_mode}</div>{/*  联系方式 */}
+                    <div class="list clearfix">
+                        <div class="txt"><span>*</span> {$Think.lang.name}</div>
+                        <div class="input">
+                            <input type="text" name='contactName' {if condition="!empty(cookie('input_order2'))"}value="{:cookie('input_order2')['contactName']}"{/if} >
+                        </div>
+                    </div>
+                    <input type="hidden" name='tel'  {if condition="!empty(cookie('input_order2'))"}value="{:cookie('input_order2')['tel']}"{/if} > 
+                    <input type="hidden" class='email_' name='email' {if condition="!empty(cookie('input_order2'))"}value="{:cookie('input_order2')['email']}"{/if}>
+                  
+                    <div class="list clearfix">
+                        <div class="txt"><span>*</span>Company Name</div>
+                        <div class="input">
+                            <input type="text" name='companyName' {if condition="!empty(cookie('input_order2'))"}value="{:cookie('input_order2')['companyName']}"{/if}>
+                        </div>
+                    </div>
+                    <div class="list clearfix">
+                        <div class="txt"><span>*</span>Country</div>
+                        <div class="input">
+                            <select name='country'>
+                                <option cid='0' value="">--{$Think.lang.please_choose}--</option>
+                                {volist name='$country' id='vo'}
+                                <option  {if condition="!empty(cookie('input_order2'))"}{if condition="cookie('input_order2')['country']==$vo.countryName"}selected="selected"{/if}{/if} value='{$vo.countryName}'>{$vo.countryName}</option>
+                                {/volist}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="list clearfix">
+                        <div class="txt">City</div>
+                        <div class="input">
+                            <input type="text" name='city' {if condition="!empty(cookie('input_order2'))"}value="{:cookie('input_order2')['city']}"{/if}>
+                        </div>
+                    </div>
+                    <div class="list clearfix yzm-list">
+                        <div class="txt"><span>*</span> {$Think.lang.verify}</div>
+                        <div class="input"><input type="text" name='verify'> {/* 验证码 */}
+                        <img src="{:captcha_src()}"  alt="captcha" onclick="this.src='{:captcha_src()}?rnd=' + Math.random();" />
+                        </div>
+                    </div>
+                    <div class="list clearfix yzm-list">
+                        <div class="input"><input type="button" id='commit_product' value="{$Think.lang.submit}"></div>
+                    </div>
+                </div>
+                <div class="right">
+                <input type="hidden" name="orderNo" value="{$order_number}">
+                    <div class="title">{$Think.lang.selected_p}　　{$Think.lang.order_number}：{$order_number}</div>{/* 订单号 */}
+                    {volist name='info' id='vo'}
+                    <div class="list clearfix productobj">
+                        <div class="tit fl">{$vo.0}</div>
+                        <div class="num fl">
+                            <input type="hidden" name="productList[{$key}][productName]" value="{$vo.0}">
+                            <span class="reduce">-</span>
+                            <input type="text"  name="productList[{$key}][productNum]" value="{$vo.1}">                       
+                            <span class="add">+</span>
+                        </div>
+                        <div class="fr"><a class='delete_s' data-key='{$key}' href="javascript:void(0)">{$Think.lang.delete}</a></div>
+                    </div>
+                    {/volist}
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+$(function(){
+    
+    if (getCookie('order_commit_err').trim().length>0) {
+        var cook_msg = eval(getCookie('order_commit_err').replace(/\+/g,' ')) ;
+
+        showErrMsg(cook_msg);
+        delCookie('order_commit_err');
+    }
+
+    $('.delete_s').on('click',function(){          //单个删除
+        var key = $(this).attr('data-key');
+        ajax_del_pids_2(key);
+        $(this).parent().parent().remove();
+    })
+    $('#commit_product').on('click',function(){
+
+        if( $("div").hasClass('productobj') == false){
+            showErrMsg('Please select at least one product.');
+            return;
+        }
+        loading_msg("{$Think.lang.commit_now}");
+        $('#commitp').submit();
+    })
+    $('.num .add').click(function () {
+        var value = parseInt($(this).prev("input").val()) + 1;
+        $(this).prev("input").val(value);
+    });
+    $('.num .reduce').click(function () {
+        var value = parseInt($(this).next("input").val()) - 1;
+        if (value > 0) {
+            $(this).next("input").val(value);
+        }
+    });
+    function ajax_del_pids_2(key)
+    {
+        $.ajax({
+            url: "{:url('Product/del_order_cookie_2')}", 
+            data: {'key':key},
+            type:'post', 
+            dataType: "json", 
+            error:function(data){
+                showErrMsg("{$Think.lang.ajax_err}");
+                return;
+            },  
+            success:function(result){
+                if (result.status == 1) {
+                    showOkTime(result.info,3);
+                } else {
+                    showErrMsg(result.info);
+                }          
+            }
+        })
+    }
+
+
+
+})
+    function loading_msg(msg){
+        index = layer.msg(msg, {
+            icon: 16,
+            shade: 0.5,
+            time: 30000,
+            shadeClose: false 
+        });
+    }
+
+
+</script>
+</body>
+</html>

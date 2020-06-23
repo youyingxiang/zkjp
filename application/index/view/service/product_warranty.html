@@ -1,0 +1,18 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+    <a href="{:get_img_url($ad['服务支持-banner'][0]['url'])}"><div class="page-banner" style="background-image:url({$ad['服务支持-banner'][0]['img']});"><div class="txt">{$ad['服务支持-banner'][0]['title']}</div></div></a>
+    <div class="w1400">
+        <div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> > <a href="{:url('/service')}">{$Think.lang.service}</a> > {$Think.lang.pw_zc}</div>
+        <div class="guarantee-wrap slideIn02">
+            <a href="{:url('index/Service/product_warranty_load')}">{$Think.lang.pw_zc_load}</a>
+            <div class="guarantee-box">
+                {$ad['产品保修政策'][0]['content']}
+            </div>
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+</body>
+</html>

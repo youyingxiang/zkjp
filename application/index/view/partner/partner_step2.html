@@ -1,0 +1,107 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<?php
+header("Cache-control: private");
+?>
+<div class="page-content02">
+    <a href="{:get_img_url($ad['成为合作伙伴2-banner'][0]['url'])}">
+    <div class="page-banner" style="background-image:url({$ad['成为合作伙伴2-banner'][0]['img']});">
+        <div class="w1400">
+            <p class="benefit-banner-tit txt w1400">{$ad['成为合作伙伴2-banner'][0]['title']}</p>
+            <div class="benefit-banner-txt txt w1400">{$ad['成为合作伙伴2-banner'][0]['content']}</div>
+        </div>
+    </div>
+    </a>
+    <div class="partner-step1-content slideIn02">
+        <div class="w1400 clearfix">
+        <div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> ><a href="{:url('/partner')}">{$Think.lang.partner}</a> >{$title}</div>
+            <div class="partner-step1-tit">
+                <h2>{$Think.lang.become_partner}</h2>
+            </div>
+            <div class="step1-banner step2-banner clearfix">
+                <div class="fl step1">Step 1</div>
+                <div class="fl step2">Step 2</div>
+            </div>
+            <div class="partner-step1-info partner-step2-info clearfix">
+                <p>{$Think.lang.msg2}</p>
+            </div>
+            <div class="step2-list">
+                <form action="" method="post" onsubmit="return before_submit()" id="form1">
+                    <div class="list-class">
+                        <label class="agent">
+                            <input type="radio" name="merchant" value="Distributor" checked="checked">
+                            {$Think.lang.agent}
+                        </label>
+                        <label class="supplier">
+                            <input type="radio" name="merchant" value="Supplier">
+                            {$Think.lang.supplier}
+                        </label>
+                    </div>
+                    <div class="intersted">
+                        <label>
+                            <h3>{$Think.lang.intersted}</h3>
+                            <input type="text" name='intersted' placeholder="{$Think.lang.intersted_des}" id="intersted_i">
+                        </label>
+                    </div>
+                    <div class="reason">
+                        <label>
+                            <h3>{$Think.lang.reason}</h3>
+                            <textarea name="reason" id="textId">Please input reason(s) for application</textarea>                
+                        </label>
+                    </div>
+                    <div class="confirm">
+                        <a href="{:url('/partner_step1')}"><input class="pre" type="button" value="{$Think.lang.prev_step}"></a>
+                        <input class="submit" type="submit" value="{$Think.lang.submit}">
+                    </div>
+                    {:token()}
+                </form>
+            </div>
+        </div>   
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+    var textId_f = 0 ;
+    $(function(){
+        $("#textId").focus(function(){
+            $(this).empty();
+            textId_f = 1 ;
+        })
+    })
+
+    function before_submit(){
+
+        var intersted_i = $("#intersted_i").val();
+        var reason_i = $("#textId").val();
+        if(intersted_i.length == 0 || intersted_i == null || reason_i.length == 0 || textId_f == 0 || reason_i == null ){
+            showErrMsg("Product line(s) and reason(s) can't be empty");
+            return false ;
+        }
+
+        $.ajax({
+            url:"{:url('/partner_step2')}",
+            type:"POST",
+            dataType:"json",
+            data:$('#form1').serialize(),
+            success: function (result) {
+                if(result.code == '00000000'){
+                    //alert(123);
+                    $("input[type=reset]").trigger("click");
+                    window.location.href="{:url('index/Partner/partner_step_finish')}";
+                }else{
+                  //  alert(222);
+                    window.location.href="{:url('/partner_step1')}";
+                }
+            },
+            error:function(){
+
+            }
+
+        });
+
+        return false
+    }
+</script>
+</body>
+</html>

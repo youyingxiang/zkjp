@@ -1,0 +1,92 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content">
+    <div class="w1400"><div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> &gt; {$Think.lang.user_center}</div></div>
+    <section class="page-container paddingLR20">
+        <div id="userMainPanel" class="clearfix">
+            <div class="userMainPanel-item">
+                <dl class="userMainPanel-itemBox t1">
+                    <dt class="userMainPanel-itemBox-caption">{$Think.lang.account_manage}</dt>
+                    <dd class="userMainPanel-itemBox-item"><a href="{:url('/user_info')}">{$Think.lang.account_manage_fu}</a></dd>
+                    <dd class="userMainPanel-itemBox-item"><a href="{:url('/update_password')}">Change password</a></dd>
+<!--                     <dd class="userMainPanel-itemBox-item"><a href="{:url('/authentication')}">{$Think.lang.authentication}</a></dd> -->
+                </dl>
+            </div>
+            <div class="userMainPanel-item">
+                <dl class="userMainPanel-itemBox t2">
+                    <dt class="userMainPanel-itemBox-caption">ZKTeco HQ News Centre</dt>
+                    <dd class="userMainPanel-itemBox-item"><a href="https://www.zkteco.com/en/news_center.html">ZKTeco HQ News Centre</a></dd>
+                </dl>
+            </div>
+            <div class="userMainPanel-item">
+                <dl class="userMainPanel-itemBox t3">
+                    <dt class="userMainPanel-itemBox-caption">{$Think.lang.feedback}</dt>
+                    <dd class="userMainPanel-itemBox-item"><a href="{:url('/feedback')}">{$Think.lang.feedback}</a></dd>
+                </dl>
+            </div>
+            <!--<div class="userMainPanel-item">
+               <dl class="userMainPanel-itemBox t4">
+                    <dt class="userMainPanel-itemBox-caption">{$Think.lang.customer_service}</dt>
+                    <dd class="userMainPanel-itemBox-item"><a href="{:url('/ticket_query')}">{$Think.lang.check_problem}</a><span class="mMsg"><i id='num1'>0</i></span></dd>
+                    <dd class="userMainPanel-itemBox-item gold"><a href="{:url('/repair_query')}">{$Think.lang.maintenance_query}</a><span class="mMsg"><i id='num2'>0</i></span></dd>
+                    <dd class="userMainPanel-itemBox-item gold"><a href="{:url('/customized_query')}">Customization enquiry</a><span class="mMsg"><i id='num3'>0</i></span></dd>
+                    <dd class="userMainPanel-itemBox-item gold"><a href="{:url('/apply_pwdback')}">Reset device password</a></dd>
+                </dl>
+            </div>-->
+           <!-- <div class="userMainPanel-item">
+                <dl class="userMainPanel-itemBox t5">
+                    <dt class="userMainPanel-itemBox-caption">{$Think.lang.online_inquiry}</dt>
+                    <dd class="userMainPanel-itemBox-item"><a href="{:url('/order_step1')}">{$Think.lang.product_inquiry}</a></dd>
+                    <dd class="userMainPanel-itemBox-item"><a href="{:url('/project_consultation')}">{$Think.lang.project_consulting}</a></dd>
+                </dl>
+            </div>-->
+            <div class="userMainPanel-item">
+                <dl class="userMainPanel-itemBox t6">
+                    <dt class="userMainPanel-itemBox-caption">{$Think.lang.download}</dt>
+                    <dd class="userMainPanel-itemBox-item"><a href="{:url('/download_history')}">{$Think.lang.download_record}</a></dd>
+                    <dd class="userMainPanel-itemBox-item"><a href="{:url('/download_catgory')}">{$Think.lang.download_center}</a></dd>
+                </dl>
+            </div>
+        </div>
+    </section><!--.page-container end-->
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+    $('.userMainPanel-itemBox-item.gold').hide()
+    $.ajax({
+        url: "{:url('index/Alone/get_num')}", 
+        type:'get', 
+        dataType: "json", 
+        error:function(data){
+            showErrMsg("{$Think.lang.ajax_err}");
+            return;
+        },  
+        success:function(result){
+            if (result.status == 0) {
+                $('#num1').html(0);
+                $('#num2').html(0);
+                $('#num3').html(0);
+            } else {
+                if (typeof(result.info) == 'string') {
+                    $('#num1').html(0);
+                    $('#num2').html(0);
+                    $('#num3').html(0);
+                }
+                $('#num1').html(result.info.ticketNum);
+                $('#num2').html(result.info.repairNum);
+                $('#num3').html(result.info.customizationNum);
+            }
+        },
+    });
+    var userinfo = getCookie('user_info');
+    if (userinfo) {
+        userinfo = eval('(' + userinfo + ')');
+        var userType = userinfo['userType'];
+        if (userType == 1) {
+            $('.userMainPanel-itemBox-item.gold').show()
+        } 
+    }
+</script>
+</body>
+</html>

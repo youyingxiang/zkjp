@@ -1,0 +1,178 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+    <a href="{:get_img_url($ad['培训中心ApplyTraining-banner'][0]['url'])}">
+        <div class="page-banner" style="background-image:url({$ad['培训中心ApplyTraining-banner'][0]['img']});">
+            <div class="training-txt txt">
+                {$ad['培训中心ApplyTraining-banner'][0]['title']}
+            </div>
+        </div>
+    </a>
+    <div class="w1400">
+        <div class="position"><a href="{:url('/')}">Home Page</a> > <a href="{:url('/service')}">Service Support</a> > <a href="{:url('/train_center')}">Training Center</a> >  {$title}</div>
+        <div class="training-content slideIn02">
+            <h2>Do you want to customize your course?</h2>
+            <div class="training-class clearfix">
+                <div class="left fl" >
+                    <a href="{:get_img_url($ad['培训中心ApplyTraining-中图'][0]['url'])}" style="background-image:url({$ad['培训中心ApplyTraining-中图'][0]['img']});"></a>
+                    <p>{$ad['培训中心ApplyTraining-中图'][0]['title']}</p>
+                </div>
+                <div class="right fr">
+                    <a href="{:get_img_url($ad['培训中心ApplyTraining-中图'][1]['url'])}" style="background-image:url({$ad['培训中心ApplyTraining-中图'][1]['img']});"></a>
+                    <p>{$ad['培训中心ApplyTraining-中图'][1]['title']}</p>
+                </div>
+            </div>
+            <div class="apply-training">
+                <h3>Apply Training</h3>
+                <div class="apply-training-content clearfix">
+                    <form  onsubmit="return false"  >
+                        <div class="left fl">
+                            <h4>Contact Information</h4>
+                            <div class="list">
+                                <div class="txt">Name：</div>
+                                <div class="input"><input class="notnull" name='contactName' type="text"></div>
+                            </div>
+                            <div class="list">
+                                <div class="txt">Email：</div>
+                                <div class="input"><input class="notnull email"  name='email' type="text"></div>
+                            </div>
+                            <div class="list">
+                                <div class="txt">Company Name：</div>
+                                <div class="input"><input class="notnull" name='companyName' type="text"></div>
+                            </div>
+                            <div class="list">
+                                <div class="txt">Country：</div>
+                                <div class="input">
+                                    <select name='country' class="notnull">
+                                        {volist name='$country' id='vo'}
+                                        <option value='{$vo.countryName}'>{$vo.countryName}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="list">
+                                <div class="txt">Detailed Address：</div>
+                                <div class="input"><input type="text" class="notnull" name='address'></div>
+                            </div>
+                        </div>
+                        <div class="right fr">
+                            <h4>Training Needs</h4>
+                            <div class="list">
+                                <div class="txt">Related Product：</div>
+                                <div class="input"><input class="notnull" name='relatedProduct' type="text"></div>
+                            </div>
+                            <div class="list">
+                                <div class="txt">Request Description：</div>
+                                <div class="input"><input class="notnull" name='trainingDesc' type="text"></div>
+                            </div>
+                            <div class="list">
+                                <div class="txt">Training Date：</div>
+                                <div class="input"><input class="mFilterPanel-timePickerBox-unit notnull"  type='text' name='trainingTime' id='trainingTime'></div>
+                            </div>
+                            <div class="list">
+                                <div class="txt">Training Type：</div>
+                                <div class="input fixWidth">
+                                    <label>
+                                        <input type="radio" class='Training' checked="true" name="trainingType" value="Online Training">
+                                        <span>Online Training</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" class='Training' name="trainingType" value="Face to Face">
+                                        <span>Face to Face</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="list">
+                                <div class="txt">Language：</div>
+                                <div class="input"><input class="notnull" name='tLanguage' type="text"></div>
+<!--                                 <div class="input">
+                                    <select name="Language" class="notnull">
+                                        <option value="Arabic">Arabic</option>
+                                        <option value="Chinese">Chinese</option>
+                                        <option value="English">English</option>
+                                        <option value="French">French</option>
+                                        <option value="Russian">Russian</option>
+                                        <option value="Spanish">Spanish</option>
+                                    </select>
+                                </div> -->
+                            </div>
+                        </div>
+                        <input type="submit"  id='commit' value="Submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+<script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<script>
+$(function(){
+    $("#trainingTime").datepicker({ dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],dateFormat:"yy-mm-dd"});
+    $('#commit').on('click',function(){
+        var check = 0;
+        var arr = new Object();
+        $(".notnull").each(function(){
+                if ($(this).val().trim().length == 0) {
+                    check = 1;
+                } else if ($(this).hasClass('email')) {
+                    if (email_check($(this).val().trim()) == false) {
+                        check = 2;
+                    } else {
+                        var item = $(this).attr('name');
+                        arr[item] = $(this).val().trim();        
+                    }
+                } else {
+                    var item = $(this).attr('name');
+                    arr[item] = $(this).val().trim();
+                }
+        })
+        if (check == 1) {
+            showErrMsg("{$Think.lang.val_r}");
+        } else if (check == 2) {
+            showErrMsg("{$Think.lang.email_val}");
+        } else {
+            arr['trainingType'] = $('.Training:checked').val().trim();
+            arr['token'] = "{$Request.token}";
+            loading_msg("{$Think.lang.commit_now}"); 
+            $.ajax({
+                    url: "{:url('/apply_training')}", 
+                    data: arr,
+                    type:'post', 
+                    dataType: "json", 
+                    error:function(data){
+                        layer.close(index);
+                         showErrMsg("{$Think.lang.ajax_err}");
+                         return;
+                    },  
+                    success:function(result){
+                        layer.close(index);
+                        if (result.status == 0) {
+                            showErrMsg(result.info);                           
+                        } else {
+                            showOkTime(result.info,3);
+                        }
+                    },
+                })
+        }
+    })
+})
+function loading_msg(msg){
+    index = layer.msg(msg, {
+            icon: 16,
+            shade: 0.5,
+            time: 30000,
+            shadeClose: false 
+        });
+}
+function email_check(val)
+{ 
+
+    var pattern = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+    return pattern.test(val); 
+}
+</script>
+</body>
+</html>

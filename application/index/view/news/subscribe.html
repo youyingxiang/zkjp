@@ -1,0 +1,82 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content">
+    <div class="w1400"><div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> &gt; <a href="{:url('/user_center')}">{$Think.lang.user_center}</a> &gt; {$title}</div></div>
+
+    <section class="page-container page-containerLR20 marginB30">
+        <div class="mCaption marginB20"><span>{$Think.lang.subscribe_news}</span></div>
+        <p class="marginB20">{$Think.lang.sbnews_msg1}</p>
+
+        <div class="addFocusPanel marginB10">
+            <div class="addFocusPanel-con clearfix">
+                {volist name='$nohave_s' id='vo'}
+                <div class="addFocusPanel-unit"><div class="mCheckBox"><input data-id="{$vo.id}" type="checkbox" value="{$key}" name="toFocus" /><label for="">{$vo.name}</label></div></div>
+                {/volist}
+            </div>
+            <a class="addBtn marginT30" data-rol="addFocus" href="javascript:;">{$Think.lang.add}</a>
+        </div>
+
+        <div class="mCaption2 marginB10"><span>{$Think.lang.mysubscibe}</span></div>
+
+        <div class="mFocusedList clearfix">
+        {volist name='$have_s' id='vo'}
+           <div class="mFocusedList-unit" data-id="{$vo.id}" data-val="11"><span>{$vo.name}</span><i></i></div>
+        {/volist}
+        </div>        
+    </section><!--.page-container end-->
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+    //  添加
+    $('[data-rol=addFocus]').on('click', function(e){
+        var res = [];
+        $('.addFocusPanel input[name=toFocus]:checked').each(function(i, item){
+            $('.mFocusedList').append('<div class="mFocusedList-unit" data-id="'+$(item).attr('data-id')+'" data-val="'+ $(item).val() +'"><span>'+ $(item).next('label').text() +'</span><i></i></div>');
+            res[i] = $(item).attr('data-id').trim();
+            console.log(res);
+            $(item).parents('.addFocusPanel-unit').remove();
+        });
+        if (res.length>0) {
+            res = JSON.stringify(res);
+            subscibe("+",res);
+        }   
+    });
+    // 删除
+    $('.mFocusedList').on('click', '.mFocusedList-unit i', function(e){
+        var _dom = $(this).parents('.mFocusedList-unit');
+        var _val = _dom.attr('data-val'), 
+        _txt = _dom.find('span').text();
+        _data_id =  _dom.attr('data-id');
+        $('.addFocusPanel-con').append('<div class="addFocusPanel-unit"><div class="mCheckBox"><input id="" type="checkbox" value="'+ _val +'" name="toFocus" data-id="'+_data_id+'" /><label for="">'+_txt+'</label></div></div>');
+        _dom.remove();
+        var res = $(this).parent().attr('data-id').trim();
+        if (res>0) {
+            subscibe("-",res);
+        }
+    });
+
+    function subscibe(flag,catIds)
+    {
+        $.ajax({
+                url: "{:url('News/subscibe_change')}", 
+                data: {"flag":flag,'news_catId':catIds},
+                type:'post', 
+                dataType: "json", 
+                error:function(data){
+                    layer.close(index);
+                    showErrMsg("{$Think.lang.ajax_err}");
+                    return;
+                },  
+                success:function(result){
+                    if (result.status == 0) {
+                        showErrMsg(result.info);
+                    } else {
+                        showOkTime(result.info,3);
+                    }
+                },
+        })
+    }
+</script>
+</body>
+</html>

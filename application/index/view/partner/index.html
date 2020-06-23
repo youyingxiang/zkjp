@@ -1,0 +1,53 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02 partner1-content">
+    <a href="{:get_img_url($ad['合作伙伴-banner'][0]['url'])}">
+    <div class="page-banner" style="background-image:url({$ad['合作伙伴-banner'][0]['img']});">
+        <div class="partner1-banner-tit txt">{$ad['合作伙伴-banner'][0]['title']}</div>
+        <p class="partner1-banner-content txt">{$ad['合作伙伴-banner'][0]['content']}</p>
+    </div>
+    </a>
+    <div class="w1400">
+        <div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> >{$Think.lang.partner}</div>
+        <div class="slideIn02">
+            <div class="partner1-header clearfix">
+                {volist name="$ad['合作伙伴-中图文']" id='vo'}
+                <div class="partner-list">
+                    <p class="partner-list-tit">{$vo.title}</p>
+                    <p class="partner-list-txt">{$vo.content}</p>
+                    <a href="{if condition='$vo.url'}{$vo.url}{else/}javascript:void(0){/if}"><img src="{$vo.img}" alt="{$vo.title}"></a>    
+                    <p class=shenqingjiaru>
+                        <a href="{if condition='$vo.url'}{$vo.url}{else/}javascript:void(0){/if}">{$Think.lang.know_more}</a> 
+                    </p>   
+                </div>
+                {/volist}
+            </div>
+        </div>
+    </div>
+    {if condition="count($data) > 0"}
+    <div class="partner1-news slideIn02">
+        <div class="w1400 clearfix">
+            <p class="partner1-news-tit">
+                <h2 class="partner1-news-txt">{$Think.lang.case_news}</h2> 
+            </p>
+            {volist name='$data' id='vo'}
+            {if condition="!empty(get_bykey_find($news_cat,'id',$key)['name'])"}
+            <ul class="partner1-news-list">
+                <div class="clearfix">
+                    <h3 class="fl">{:get_bykey_find($news_cat,'id',$key)['name']}</h3>
+                    <a href="{:url('/category_news/'.$key)}" class="fr"><input type="button" value="{$Think.lang.more}"></a>
+                </div>
+                {volist name='$vo' id='voo'}
+                <li><a href="{:url('/news_detail/'.$voo.id)}">{$voo.title}</a></li>
+                {/volist}
+            </ul>
+            {/if}
+            {/volist}        
+        </div>
+    </div>
+    {/if}
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+</body>
+</html>

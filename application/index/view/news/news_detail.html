@@ -1,0 +1,65 @@
+{include file="layout/top" /}
+<script>window._bd_share_config={"common":{"bdUrl": "","bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};
+   with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860591.js?cdnversion='+~(-new Date()/36e5)];
+   // console.log(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5);
+</script>
+{include file="layout/header" /}
+<div class="page3-content">
+    <div>
+        <div class="w1400">
+            <div class="position add-position"><a href="{:url('/')}">{$Think.lang.home}</a> > <a href="/news_center">{$Think.lang.news_center}</a> > {$crumb_news} > {$title}</div>
+            <div class="add-news slideIn02">
+                <div class="partner">
+                    <!--<a href="{$detailData.url}">-->
+                    <p class="partner-tit">{$detailData.title}</p>
+                   <!-- </a>-->
+                    <div class="partner-header clearfix">
+                        <div class="partner-header-time">
+                            <span>{$Think.lang.release_time}：{$detailData.update_time}</span><span>{$Think.lang.click_time}：<a><script language="javascript" src="{:url('/index/Alone/click/id/'.$detailData.id)}"></script></a></span>
+                        </div>                    
+                        <div class="articleBox-share bdsharebuttonbox">
+                            <span class='fl'>{$Think.lang.share}</span>
+                            <a href="#" class="linkedin" href="" data-cmd="linkedin" title="linkedin"></a>
+                            <a class="facebook" href="" data-cmd="fbook" title="facebook"></a>
+                            <a class="twitter" href="" data-cmd="twi" title="twitter"></a>
+                        
+                        </div>
+                    </div>
+                <!--    <a href="{$detailData.url}" style="z-index: 9999;width: 100%;height: 100%">-->
+                    <div class="partner-content">
+
+                            {$detailData.content}
+                        <!--<img src="{$detailData.img}" alt="">-->
+
+                    </div>
+                    <!--</a>-->
+                </div>
+                <div class="news-list">
+                    <div class="news-best">
+                        <h2>ホットニュース</h2>
+                        <ul>
+                        {volist name='$new_news' id='vo'}
+                            <li><a href="{if condition='$vo.url_title'}{:url('/news_detail/'.$vo.url_title)}{else/}{:url('/news_detail/'.$vo.id)}{/if}">{$vo.title}</a></li>
+                        {/volist}    
+                        </ul>
+                    </div>
+                    <div class="news-about">
+                        <h2>関連リンク</h2>
+                        <ul>
+                        {volist name='$news_cat' id='van'}
+                            <li><a href="{:url('/category_news/'.$van.id)}">{$van.name}</a></li>
+                        {/volist}
+                        </ul>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+    $(".add-news").css("min-height",$(".add-news .news-list").outerHeight(true))
+</script>
+</body>
+</html>

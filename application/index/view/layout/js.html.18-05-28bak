@@ -1,0 +1,367 @@
+{volist name='page_js' id='vo2'}
+<link href="https://cdn.bootcss.com/layer/3.1.0/theme/default/layer.css?v=1.2" rel="stylesheet">
+{if condition = "$vo2 == 'layer/layer'"}
+    <script type="text/javascript" src="https://cdn.bootcss.com/layer/3.1.0/layer.js?v=1.2"></script>
+{else/}
+    <script type="text/javascript" src="{$Think.HOME_JS}/{$vo2}.js?version=1.89"></script>
+{/if}
+{/volist}
+<script type="text/javascript" src="{$Think.HOME_JS}/jquery-ui-1.10.4.min.js?version=1.6"></script>
+<script type="text/javascript" src="{$Think.HOME_JS}/jquery.mCustomScrollbar.min.js?version=1.6"></script>
+<!-- <script src="https://www.sobot.com/chat/frame/js/entrance.js?sysNum=ae3c351eb545462da10110d80160d5c2" class="zhiCustomBtn" id="zhichiScript"></script> -->
+{if condition="empty($compatible)" }
+<!-- <script type="text/javascript" src="https://v3.faqrobot.org/robot/minichat/js/minichatEn.js?v=12.1" sysnum="14370257485604393"></script> -->
+{/if}
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W8F9FVH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-118575309-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-118575309-1');
+</script>
+<script>
+    $("#service_24").parent().hide();
+    get_cart_sum();
+    function get_cart_sum() {
+        $.ajax({
+            url: "{:url('Alone/get_cart_sum')}", 
+            type:'get', 
+            dataType: "json", 
+            error:function(data){
+                showErrMsg("{$Think.lang.ajax_err}");
+                return;
+            },  
+            success:function(result){
+                if (result.status == 1) {
+                    if (typeof(result.info) == 'string') {
+                        result.info = 0;
+                    }
+                    $('#cart_num').html(result.info);
+                    $('#cart_num2').html(result.info);       
+                } else {
+                    $('#cart_num').html(0);
+                    $('#cart_num2').html(0);  
+                }
+            },
+        })
+    }
+
+    $.ajax({
+        url: "{:url('/login_state')}", 
+        type:'get', 
+        dataType: "json", 
+        error:function(data){
+            showErrMsg("{$Think.lang.ajax_err}");
+            return;
+        },  
+        success:function(result){
+            var html = '';
+            if (result.status == 0) {
+                html = '<a href="/en/login.html?redirect_url='+result.info+'">Login</a>'+
+                '<a href="/en/register.html">Register</a>';
+            } else {
+                if (typeof(result.info) == 'string') {
+                    result.info = 0;
+                }
+                html = '<a class="islogin" href="/en/user_center.html">User Center<i></i> <span>'+Number(result.info)+'</span></a>'+
+                '<a href="/en/logout.html">Logout</a>';
+                var winWidth = $(window).width();
+                
+                setTimeout(function(){
+                    if(winWidth<460){
+                    $(".header-top .top .login-box,.header-top .top .lang").css("font-size","12px"); 
+                    }
+                    if(winWidth<376){
+                        $(".header-top .top .lang").css("margin-left","0");
+                        $(".header-top .top .login-box a").css("margin-left","10px");
+                    }
+                    if(winWidth<321){
+                        $(".header-top .top .lang").css("margin-left","-7px")
+                        $(".header-top .top .login-box").css("margin-right","-5px")
+                        $(".header-top .top .lang a i").css("margin-right","0")
+                        $(".header-top.page-top .top a").css("margin-left","0")
+                    }
+
+                },50)
+                
+                
+
+
+            }
+            $('#login_state').empty().html(html);
+        },
+    })
+	if (getCookie('login_s').trim().length>0) {
+        showOkTime(eval(getCookie('login_s')),3);
+        delCookie('login_s');
+    }
+    $('#search_p').on('click',function(){
+        var search = $(this).prev().val().trim();
+        if (search.length==0) {
+            showErrMsg("{$Think.lang.val_r}");
+            return;
+         }
+        window.location.href="{:url('/search?keywords=','',false)}"+search;
+    })
+    $('#search_store').on('click',function(){
+        var search = $(this).prev().val().trim();
+        if (search.length==0) {
+            showErrMsg("{$Think.lang.val_r}");
+            return;
+        }
+        window.location.href="{:url('/auth_online_shop?search=','',false)}"+search;
+    })
+    $(document).ready(function(){
+        $(".header-top .header .nav .nav-pro .dropdown,.header-top .lang .check-lang,.productInfo .productInfo-info .product-right div.text,.require .require-content .require-list p").mCustomScrollbar({
+            scrollInertia:800,
+            autoDraggerLength:true,
+            scrollButtons:{scrollSpeed:1000,scrollAmount:2000},
+            scrollEasing:"easeOutCirc",
+        });
+    });
+    // 购物车js开始
+    $(function(){
+        $(".addShoppingCar,.addShoppingCarClose").click(function(){
+            get_cart_html(true);
+        })
+        $(".addTop").click(function(){
+            $('.add-nav ul li.addTop').css("right","0px")
+            $('html,body').animate({scrollTop: 0}, 400);
+        })
+        
+        // var scroll_p=0,scroll_t=0;
+        // $(window).scroll(function(){
+        //       scroll_p = $(this).scrollTop();
+        //       if($(window).scrollTop()>180){
+        //             $('.add-nav ul li.addTop').css("right","36px");
+        //         }
+        //       if(scroll_t<=scroll_p){
+                
+        //       }else{
+        //         if($(window).scrollTop()<180){
+        //             $('.add-nav ul li.addTop').css("right","0px");
+        //         }
+        //         $('.add-nav ul li.addTop').css("right","0px");
+        //       }
+        //       setTimeout(function(){scroll_t = scroll_p;},0);
+        // })
+        
+        // $(window).mousemove(function(){
+        //     var _Top=$(window).scrollTop();
+        //     if(_Top<180){
+        //         $('.add-nav ul li.addTop').css("right","0");
+        //     }else{
+        //         $(".add-nav").hover(function(){
+        //             $('.add-nav ul li.addTop').css("right",0)
+        //         },function(){
+        //             $('.add-nav ul li.addTop').css("right","36px")
+        //         });
+        //     }
+        // })
+        
+    })
+    // 购物车js结束
+    //数量变化
+    function add_cart_(pid,num){
+        $.ajax({
+            url: "{:url('Product/add_order_cookie')}", 
+            data: {"pid":pid,'idnum':pid+'-'+num},
+            type:'post', 
+            dataType: "json", 
+            error:function(data){
+                showErrMsg("{$Think.lang.ajax_err}");
+                return;
+            },  
+            success:function(result){
+                if (result.status == 1) {
+                    // showOkTime(result.info,3);
+                } else {
+                    showErrMsg(result.info);
+                }           
+            },
+        }) 
+    }
+    //实时获取购物车数据
+    function get_cart_html(flag)
+    {
+        $.ajax({
+            url: "{:url('Product/get_cart_html')}", 
+            data: {},
+            type:'post', 
+            dataType: "html", 
+            error:function(data){
+                showErrMsg("{$Think.lang.ajax_err}");
+                return;
+            },  
+            success:function(result){
+                if (result.trim().length > 10) {
+                    if ($(".add-popupCar,.add-nav").hasClass('active') == false) {
+                        $(".add-popupCar,.add-nav").toggleClass("active");
+                    } else if(flag == true) {
+                        $(".add-popupCar,.add-nav").removeClass("active");
+                    }
+                    $('#cart_content').html(result);
+                    Count();
+                    $('.num .add_').click(function () {    //购物车加
+                        var value = parseInt($(this).prev("input").val()) + 1;
+                        var pid = $(this).attr('data-pid').trim();
+                        add_cart_(pid,value);
+                        $(this).prev("input").val(value);
+                        Count();
+                    });
+                    $('.num .reduce_').click(function () { //购物车减
+                        var value = parseInt($(this).next("input").val()) - 1;
+                        var pid = $(this).attr('data-pid').trim();
+                        add_cart_(pid,value);
+                        if (value > 0) {
+                            $(this).next("input").val(value);
+                        }
+                        Count();
+                    });
+                    $('.delete_cart').on('click',function(){          //单个删除
+                        var id = [];
+                        id[0] = $(this).attr('data-pid');
+                        ajax_del_pids(id);     
+                        $(this).parent().parent().remove();
+                        Count()
+                    })
+                    $('.pnum').on('blur',function(){
+                        var pnum = parseInt($(this).val());
+                        if (pnum < 1) pnum = 1;
+                        add_cart_($(this).attr('data-pid').trim(),pnum);
+                    })
+                    function ajax_del_pids(ids)
+                    {
+                        $.ajax({
+                            url: "{:url('Product/del_order_cookie')}", 
+                            data: {'ids':JSON.stringify(ids)},
+                            type:'post', 
+                            dataType: "json", 
+                            error:function(data){
+                                showErrMsg("{$Think.lang.ajax_err}");
+                                return;
+                            },  
+                            success:function(result){
+                                if (result.status == 1) {
+                                    showOkTime(result.info,1);
+                                } else {
+                                    showErrMsg(result.info);
+                                }          
+                            }
+                        })
+                    }
+                    //统计总数
+                    function Count(){
+                        var count = 0;
+                        $("#cart_content .clearfix").each(function(){
+                            if ($(this).hasClass('num')) {
+                                var val = $(this).find('.pnum').val().trim();
+                                if (val) {
+                                    count += parseInt(val);
+                                }
+                            }
+                        });
+                        count_value = 'Total：'+count+' product(s)';
+                        $("#count_num").html(count_value);
+                        $('#cart_num').html(count);
+                        $('#cart_num2').html(count);
+                    }
+                    var order_number = $("input[name='order_number']").val().trim();
+                    $("#check_all").click(function() {
+                        if($(this).is(":checked")){
+                            $('#cart_content input[name="subBox_"]').attr("checked",this.checked);
+                            $("#cart_content .clearfix").addClass('num');
+                        }else{
+                            $('#cart_content input[name="subBox_"]').removeAttr("checked");
+                            $("#cart_content .clearfix").removeClass('num');
+                        }
+                        Count();
+                    });
+                    var $subBox_ = $("#cart_content input[name='subBox_']");
+                    $subBox_.click(function(){
+                        if($(this).is(":checked")){
+                            $(this).parents(".clearfix").addClass('num');
+                        }else{
+                            $(this).parents(".clearfix").removeClass('num');
+                        }
+                        $("#check_all").attr("checked",$subBox_.length == $("#cart_content input[name='subBox']:checked").length ? true : false);
+                        Count();
+                    });
+                    $("#check_all").attr('checked',true).trigger('click');//坑 注意
+                    $("#check_all").attr("checked","checked")   //坑 注意
+                    $('#seekPrice').on('click',function(){
+                        var arr = [];
+                        var i = 0;
+                        if ($("#cart_content .clearfix").length == 0) {
+                            showErrMsg("Please select product(s)");
+                            return;
+                        }
+                        $("#cart_content .clearfix input[type='checkbox']").each(function(){
+                            if ($(this).is(':checked') == true) {
+                                var pnum = parseInt($(this).parent().find('.pnum').val());
+                                if (pnum < 1) pnum = 1;
+                                arr[i] = [$(this).attr('data-name'),parseInt(pnum)];
+                                i++;
+                            }
+                        })
+                        if (order_number.trim().length < 3) {
+                            return;
+                        } else if(arr.length == 0) {
+                            showErrMsg("Please select product(s)");
+                            return;
+                        } else {
+                            $.ajax({
+                                url: "{:url('Product/order_step1_change')}", 
+                                data: {"order_number":order_number,'info':JSON.stringify(arr)},
+                                type:'post', 
+                                dataType: "json", 
+                                error:function(data){
+                                    showErrMsg("{$Think.lang.ajax_err}");
+                                    return;
+                                },  
+                                success:function(result){
+                                    if (result.status == 1) {
+                                        window.location.href="{:url('/order_step2')}";
+                                    } else {
+                                        showErrMsg(result.info);
+                                    }           
+                                },
+                            })
+                        }
+                    })
+
+                } else {
+                    window.location.href="{:url('/login','',false)}?redirect_url="+window.location.href;
+                }
+            }
+        })
+    }
+
+        $(".shenqingjiaru").find("a").each(function(i){
+            if(i==2)
+            {
+                $(this).empty().html("Apply for being partner");
+            }
+
+
+    })
+    var userinfo = getCookie('user_info');
+    if (userinfo) {
+        userinfo = eval('(' + userinfo + ')');
+        var userType = userinfo['userType'];
+        if (userType == 1) {
+            $("#service_24").parent().show();
+        } 
+    }
+
+    $(".MN_sideBar").hide();
+    $(".add-nav ul li.zhiCustomBtn,.footer .right .service a").click(function(){
+        $(".MN_sideBar").trigger("click");
+    })
+</script>

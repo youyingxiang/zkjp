@@ -1,0 +1,204 @@
+<style type="text/css"> 
+.xlnav {
+top:90px !important;
+}
+</style>
+<div class="header-top page-top tran300">
+    <!-- <div class="top tran300">
+        <div class="w1400 slideIn01 clearfix">
+            <div class="fr clearfix">
+                <div class="top-nav fl">
+                    {php}$z=0;{/php}
+                    {volist name="nav[0]" id="vo"}
+                        {if condition="$vo.level == 0"}
+                            {if condition="$z lt 5"}
+                            <a {:check_target($vo.url)} {if condition="empty($vo.url)"}href='javascript:void(0)'{else/}href='{$vo.url}' {/if}>{$vo.name}</a>
+                            {/if}
+                            {php}$z++;{/php}
+                        {/if}
+                    {/volist}
+                </div>
+                <div class="fr add-headerR">
+                    <div class="add-headerA">
+                        <span class="addShoppingCar"><img src="{$Think.HOME_IMGS}/shoppingcar.png" alt=""><i id='cart_num'></i></span>
+                    </div>
+                    <div class="lang fl">
+                        <a href="javascript:void(0)"><i></i>{$Think.lang.select_language}</a>
+                        <div class="check-lang  tran300">
+                        {volist name='$language' id='vo'}
+                            <a {:check_target($vo.url)} {if condition="empty($vo.url)"}href='javascript:void(0)'{else/}href='{$vo.url}' {/if}>{$vo.name}</a>
+                        {/volist}
+                        </div>
+                    </div>
+                    <div class="login-box fl" id='login_state'>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div class="header tran300">
+        <div class="w1400 slideIn02 clearfix">
+            <div class="logo fl"><a href="{:url('/index')}"><img width="100%" src="{$web['logo']['v']}" alt=""></a></div>
+            <div class="nav fl">
+                <ul>
+                {/* 产品分类 */ }
+                {volist name="nav[0]" id="vo"}
+                    {if condition="$vo.level == 0"}
+                               {if condition="$vo.id eq 5"}{/* 产品 */ }
+                                  <li class="nav-pro">
+                                    <a {:check_target($vo.url)} {if condition="empty($vo.url)"} href='javascript:void(0)'{else/}href='{$vo.url}' {/if}>{$vo.name}</a>
+                                    <div class="dropdown tran300 xlnav">
+                                        <div class="content">
+                                          {php}$vp=0;{/php}
+                                          {volist name="product_cat" id="vop"}
+                                          {if condition="($vop.level == 0)"}
+                                          {php}$vp++;{/php}
+                                            <div class="list">
+                                               <a href="{:url('/product_category/'.$vop.id)}"><div class="title clearfix"><i><img src="{$vop.img}" alt="{$vop.name}"></i>{$vop.name}</div></a>
+                                                <div class="select-box">
+                                                    <ul>
+                                                        {php}$vp_=0;{/php}
+                                                        {volist name="product_cat" id="vop_2"}
+                                                            {if condition="($vop_2.parent_id == $vop.id) AND ($vp_ lt 3)"}
+                                                            {php}$vp_++;{/php}
+                                                                <li><a href="{:url('/product_category/'.$vop_2.id)}">{$vop_2.name}</a></li>
+                                                            {/if}
+                                                        {/volist}
+                                                    </ul>
+                                                    <a href="{:url('/product_category/'.$vop.id)}">{$Think.lang.more}>></a>
+                                                </div>
+                                            </div>
+                                          {/if}
+                                          {/volist}
+                                        </div>
+                                    </div>
+                                  </li>
+                               {elseif condition="$vo.id eq 6"/}{/* 解决方案 */ }
+                                <li class="nav-solution">
+                                    <a {:check_target($vo.url)} {if condition="empty($vo.url)"} href='javascript:void(0)'{else/}href='{$vo.url}' {/if}>{$vo.name}</a>
+                                    <div class="dropdown tran300 xlnav">
+                                        <div class="content clearfix">
+                                            <div class="left clearfix">
+                                            {php}$so = 0;{/php}
+                                            {volist name="$scheme" id="solution"}
+                                                {php}$so++;{/php}
+                                                <div <?php echo "class='nav02 fl'";?>>
+                                                    <div class="tit">{$key}</div>
+                                                    <ul class="clearfix">
+                                                        {volist name="solution" id="solution_2" offset="0" length='6'}
+                                                        <li><a href="{:url('/scheme_detail/'.$solution_2.id)}">{$solution_2.name}</a></li>
+                                                        {/volist}
+                                                    </ul>
+						    {if condition="count($scheme)>0"}
+                                                    <a href="{:url('/scheme_lst')}?type={$solution[0]['type']}" style="float: right;color: #78bc27">全てのコンテンツを見る>></a>
+							{/if}
+                                                </div>                                           
+                                             {/volist}
+                                            </div>
+                                            <div class="right clearfix">
+                                            {volist name='cases' id='voc'}
+                                                <div class="list">
+                                                    <a href="{:url('/cases_detail/'.$voc.id)}">
+                                                        <div class="img"><img src="{$voc.img_nav}" alt="{$voc.name}"></div>
+                                                        <div class="tit"><span class="textHidden">{$voc.name}</span></div>
+                                                    </a>
+                                                </div>
+                                            {/volist}
+					    {if condition="count($cases)>0"}
+                                                <a href="{:url('/cases_lst')}" style="float: right;color: #78bc27">Read More Case</a>
+					    {/if}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                               {elseif condition="$vo.id eq 7"/}{/* 服务支持 */ }
+                                <li class="nav-service">
+                                    <a {:check_target($vo.url)} {if condition="empty($vo.url)"} href='javascript:void(0)'{else/}href='{$vo.url}' {/if}>{$vo.name}</a>
+                                    <div class="dropdown tran300 xlnav">
+                                        <div class="content">
+                                            {volist name="nav[0]" id="service"}
+                                            {if condition="($service.parent_id == $vo.id)"}
+                                            <div class="list">
+                                                
+                                                <div class="tit" id='service_{$service.id}'>{$service.name}</div>
+
+                                                <ul>
+                                                    {if condition="$service.id == 19"}{/* 下载分类 */ }
+                                                        {volist name="file_cat" id="file" offset="0" length='7'}
+                                                        <li><a href="{:url('/download_catgory/'.$file.id)}">{$file.name}</a></li>
+                                                        {/volist}
+                                                        <li><a href="{:url('/download_catgory')}">{$Think.lang.more}>></a></li>
+                                                    {else/}
+                                                        {volist name="nav[0]" id="service_2"}
+                                                        {if condition="($service_2.parent_id == $service.id)"}
+                                                        <li><a {:check_target($service_2.url)} {if condition="empty($service_2.url)"} href='javascript:void(0)'{else/}href='{$service_2.url}' {/if}>{$service_2.name}</a></li>
+                                                        {/if}
+                                                        {/volist}
+                                                    {/if}
+                                                </ul>
+
+                                            </div>
+                                            {/if}
+                                            {/volist}
+                                    </div>
+                                </li>
+                               {elseif condition="$vo.id eq 8"/}{/* 如何购买 */ }
+                                    <li class="nav-service">
+					<a {:check_target($vo.url)} {if condition="empty($vo.url)"} href='javascript:void(0)'{else/}href='{$vo.url}' {/if}>{$vo.name}</a>
+                                    	<div class="dropdown tran300 xlnav">
+                                          <div class="content">
+						 {volist name="arr_news1" id="vo"}
+						<div class="list">
+				
+						 <div class="tit" ><a href="{:url('/category_news/'.$vo.id)}" >{$vo.name}</a></div>
+							<ul>
+							{volist name="$vo['child']" id="vo2" offset="0" length='4'} 
+								<li><a href="{if condition='$vanc.url_title'}{:url('/news_detail/'.$vo2.url_title)}{else/}{:url('/news_detail/'.$vo2.id)}{/if}">{$vo2.title}</a></li>
+							{/volist}
+							
+							</ul>
+							<a href="{:url('/category_news/'.$vo.id)}" style="float: right;color: #78bc27">全てのコンテンツを見る>></a>
+						</div>
+						{/volist}
+					</div>
+					</div>
+					</li>
+				{elseif condition="$vo.id eq 69"/}
+					<li class="nav-service">
+                                    <a {:check_target($vo.url)} {if condition="empty($vo.url)"} href='javascript:void(0)'{else/}href='{$vo.url}' {/if}>{$vo.name}</a>
+                                    <div class="dropdown tran300 xlnav">
+                                        <div class="content">
+                                               <div class="list" style="width:80%">
+                                                {volist name="nav[0]" id="service_8"}
+                                                 {if condition="($service_8.parent_id == $vo.id)"}
+                                                <div  style="font-size: 18px;color: #78bc27;padding-bottom: 25px;line-height: 20px;"><a {:check_target($service_8.url)} {if condition="empty($service_8.url)"} href='javascript:void(0)'{else/}href='{$service_8.url}' {/if}>{$service_8.name}</a></div>
+                                                {/if}
+                                                {/volist}
+                                        </div>
+                                        </div>
+                                        </div>
+
+                                </li>
+                               {/if}
+                    {/if}
+                {/volist}
+                </ul>
+            </div>
+            <div class="search fr">
+                <input class="input" type="text" placeholder="サイト内検査">
+                <input type="button" id='search_p'>
+            </div>
+            <div class="menu">
+                <div class="menu-body">
+                    <div class="menuitem">
+                        <div class="rect top-line"></div>
+                    </div>
+                    <div class="menuitem bottom-line">
+                        <div class="rect bottom-line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,165 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02 dot-content">
+    <div class="w1400 slideIn02">
+        <div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> &gt; <a href="{:url('/contactus')}">{$Think.lang.contactus}</a> &gt;Service Site</div>
+    </div>
+    <div id="map-select">
+        <div class="w1400 fl">
+            <select name="province" id='province__'>
+                <option cid='0' value="">{$Think.lang.please_choose}</option>
+                {volist name='province' id='vo'}
+                <option cid='{$vo.departName}' value='{$vo.departName}'>{$vo.departName}</option>
+                {/volist}
+            </select>
+            <select id="select_address" >
+                <option value="0">{$Think.lang.please_choose}</option>
+            </select>
+            <input class="search-btn" id="searchBtn" type="button" value="Search">
+            <div class="clear"></div>
+            <div class="cityList">
+                <div class="tit">Finding a service site for you</div>
+                <div class="list-con search_content">
+                    
+                </div>
+                <!-- <div class="bottom-txt">
+                    没找到想要的结果?你可以在地图上<a href="" target="_blank" style="color:#2b81ff;">添加该地点</a><br/>
+                    百度提醒您：结果有错误？请到<a href="" target="_blank" style="color:#78bc27;">百度地图投诉中心</a>反馈。
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<div id="allmap"></div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<!-- <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=p9eG7ur9bbB0Me5lIKKNKFfZD2jat2RN"></script> -->
+<!-- <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=p9eG7ur9bbB0Me5lIKKNKFfZD2jat2RN"></script> -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMPLUhheThpXZq92XAgysQZ1tCXBRRwhQ&language=en"></script>
+<script type="text/javascript">
+    $(window).load(function(){
+        $("#allmap").height($(window).height()-$(".header-top").height());
+    })
+    
+
+    var markers = [];
+    var map = new google.maps.Map(document.getElementById("allmap"));
+    map.setOptions({ 
+        scrollwheel: false, //禁用滚轮缩放
+        disableDoubleClickZoom: true, //禁用双击放大地图,
+        mapTypeControl: false,
+        streetViewControl: false,
+        fullscreenControl: false,
+        center: new google.maps.LatLng(22.5428,114.0595),
+        zoom:12,
+        mapTypeId:google.maps.MapTypeId.ROADMAP
+    });
+    $("#searchBtn").on("click",function(){
+        var province = $('#province__').val();
+        var city = $('#select_address').val();
+        get_search_cityinfo(province,city);
+        $("#map-select .cityList").slideDown(150);
+        // 清除marker
+        setMapOnAll(null);
+        markers = [];
+    })
+
+
+    //获取搜索城市信息
+    function get_search_cityinfo(province,city)
+    {
+       
+        $.ajax({
+            url: "{:url('Contactus/search_cityinfo')}", 
+            data: {'province':province,'city':city},
+            type:'post', 
+            dataType: "json", 
+            error:function(data){
+                 showErrMsg("{$Think.lang.ajax_err}");
+                 return;
+            },  
+            success:function(result){
+                var html = '';
+                if (result.status == 1) {
+                    for (i=0;i<result.info.length;i++) {
+                        var z = i+1;
+                        if ( i == 0) {
+                            html += '<div class="list on" onclick="active_select(this)">'+
+                               '<i><img src="{$Think.HOME_IMGS}/map-icon'+z+'.png"></i>'+
+                               '<div class="title textHidden">'+result.info[i].title+'</div>'+
+                               '<div class="address">'+result.info[i].address+'</div>'+
+                               '<div class="tel">'+result.info[i].tel+'</div>'+
+                               '<div class="img"><img src="'+result.info[i].img+'"></div>'+
+                               '<input type="hidden" name="lng" value="'+result.info[i].lng+'">'+
+                               '<input type="hidden" name="lat" value="'+result.info[i].lat+'">'+
+                               '<input type="hidden" name="img" value="{$Think.HOME_IMGS}/map-icon'+z+'.png"">'+
+                               '</div>';
+                        } else {
+                            html += '<div class="list" onclick="active_select(this)">'+
+                               '<i><img src="{$Think.HOME_IMGS}/map-icon'+z+'.png"></i>'+
+                               '<div class="title textHidden">'+result.info[i].title+'</div>'+
+                               '<div class="address">'+result.info[i].address+'</div>'+
+                               '<div class="tel">'+result.info[i].tel+'</div>'+
+                               '<div class="img"><img src="'+result.info[i].img+'"></div>'+
+                               '<input type="hidden" name="lng" value="'+result.info[i].lng+'">'+
+                               '<input type="hidden" name="lat" value="'+result.info[i].lat+'">'+
+                               '<input type="hidden" name="img" value="{$Think.HOME_IMGS}/map-icon'+z+'.png"">'+
+                               '</div>';
+                        } 
+                    }
+                    $('.search_content').empty().html(html);
+                } else {
+                    $('.search_content').empty();
+                    showErrMsg(result.info);
+                }
+            },
+        })
+    }
+    function setMapOnAll(map) {
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(map);
+        }
+    }
+    function active_select(obj)
+    {
+        $(obj).addClass("on").siblings().removeClass("on");
+        var lng = parseFloat($(obj).find("input[name='lng']").val());
+        var lat = parseFloat($(obj).find("input[name='lat']").val());
+        var img = $(obj).find("input[name='img']").val();
+        map.setOptions({ 
+            center: new google.maps.LatLng(lat,lng),
+        });
+        var marker = new google.maps.Marker({
+          position: {lat: lat, lng: lng},
+          map: map,
+          icon: img
+        });
+        markers.push(marker);
+    }
+    $("#province__").on('change',function(){
+        var val = $(this).find("option:selected").attr('cid').trim();
+        if (val.length>0) {
+            $.ajax({
+                url: "{:url('Alone/get_city')}", 
+                data: {'val':val},
+                type:'post', 
+                dataType: "html", 
+                error:function(data){
+                     showErrMsg("{$Think.lang.ajax_err}");
+                     return;
+                },  
+                success:function(result){
+                    if (result.trim().length<10) {
+                        $('#select_address').val('');
+                        $('#select_address').hide();
+                    } else {
+                        $('#select_address').show();
+                        $('#select_address').empty().html('<option value="" >{$Think.lang.please_choose}</option>'+result);
+                    }
+                },
+            })
+        }
+    })
+</script>
+</body>
+</html>

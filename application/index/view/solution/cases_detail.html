@@ -1,0 +1,313 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page03">
+	<div class="w1400">
+		<div class="position">
+			<a href="{:url('/')}">{$Think.lang.home}</a> > <a href="{:url('/scheme_lst')}">{$Think.lang.solution} </a> > <a href="{:url('/cases_lst')}">{$Think.lang.cases_lst} </a> >{$title}
+		</div>
+		<div class="case-haier slideIn02">{/* 案例描叙 */ }
+			<div class="haier-tit">
+				<h3 class="haier-txt">{$detailData.name}</h3>
+			</div>
+			<div class="case-haier-content clearfix">
+				<div class="haier-left fl">
+					<img src="{$detailData.img}">
+				</div>
+				<div class="haier-right fr" style="height:auto;">
+					<p>{$detailData.case_des}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+    {if condition="strlen(trim($detailData['need']['title'][0])) > 0  || strlen(trim($detailData['need']['title'][1])) > 0"}
+	<div class="require slideIn02">{/* 客户需求 */ }
+		<div class="w1400">
+			<div class="require-tit">
+				<h3 class="require-txt">{$Think.lang.need}</h3>
+			</div>
+			<div class="require-content clearfix">
+			{volist name="$detailData['need']['title']" id='vnt' key="knt"}
+				<div class="require-list fl">
+					<h3>{$vnt}</h3>
+					<?php $need = str_replace("\r\n", "<br />",$detailData['need']['content'][$key]);$need = str_replace("\n", "<br/>", $need);$need = str_replace("\r", "<br/>", $need);?>
+					<p>{$need}</p>
+				</div>
+			{/volist}
+			</div>
+		</div>
+	</div>
+    {/if}
+	<div class="w1400 slideIn02">{/* 实施方案 */ }
+		<div class="project">
+			<div class="project-tit">
+				<h3 class="project-txt">{$Think.lang.implementation}</h3>
+			</div>
+			<div class="project-tab">
+				{$detailData.implementation}
+			</div>
+		</div>
+		<div class="project-img">
+			<img src="{$detailData.imple_img}" >
+		</div>
+		{volist name="$detailData->casesFile" id='vcf'}{/* 下载资源 */ }
+		<div class="add-download" style="overflow: visible;width: 100%;display: block">
+            <a {if condition="file_exists('.'.$vcf.file_url)"}href="{:url('Service/load?id='.$vcf.id)}"{else/}href="javascript:void(0)"{/if}>
+                <b style="background-image: url({$vcf.img})"></b>
+                <div class="text">
+                    <h4>{$vcf.title}</h4>
+                    <span>{$Think.lang.download}</span>
+                </div>
+            </a>
+        </div>
+        {/volist}
+	</div>
+	{if condition='count($detailData->casesProduct)>0'}
+	<div class="case-product slideIn02">{/* 相关产品 */ }
+		<div class="w1400">
+			<div class="product-tit">
+				<h3 class="product-txt">{$Think.lang.relevant_product}</h3>
+			</div>
+			<div class="product-content product-set clearfix swiper-container swiper-container-product">
+				<div class="swiper-wrapper">
+				{volist name='$detailData->casesProduct' id='vcp'}
+					<div class="product-list fl swiper-slide">
+						<a href="{:url('/product_detail/'.$vcp->id)}">
+							<div class="product-img">
+								<img src="{$vcp->img}" alt="{$vcp->name}">
+							</div>
+							<p>{$vcp->name}</p>
+						</a>
+					</div>
+				{/volist}
+				</div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+			</div>
+		</div>
+	</div>
+	{/if}
+	{if condition='count($detailData->casesSelf)>0'}
+	<div class="case-product case-about slideIn02">
+		<div class="w1400">
+			<div class="product-tit">
+				<h3 class="product-txt">{$Think.lang.relevant_cases}</h3>
+			</div>
+			<div class="product-content case-set clearfix swiper-container swiper-container-case">
+				<div class="swiper-wrapper">
+				{volist name='$detailData->casesSelf' id='vdc'}
+					<div class="product-list fl swiper-slide">
+						<a href="{:url('/cases_detail/'.$vdc->id)}">
+							<div class="product-img">
+								<img src="{$vdc.img}" alt="{$vdc.name}">
+							</div>
+							<p>{$vdc.name}</p>
+						</a>
+					</div>
+				{/volist}
+				</div>
+			</div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+		</div>
+	</div>
+	{/if}
+	<div class="case-bottom slideIn02" style="background: url({$ad['案例详情-底部图片'][0]['img']});">
+		<div class="w1400">
+			<a {if condition="$ad['案例详情-底部图片'][0]['url']"}href="{$ad['案例详情-底部图片'][0]['url']}"{else/}href="javascript:void(0)"{/if}><input type="button" value="{$ad['案例详情-底部图片'][0]['title']}"></a>
+		</div>
+	</div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+
+<script>
+	if ($(".require-content").children('.require-list').length==1){
+        $(".require-list").css("width","100%");
+    }else if($(".require-content").children('.require-list').length==2){
+        $(".require-list").css("width","50%")
+        if($(window).width()<768){
+            $(".require-list").css("width","100%");
+        }
+    }else if($(".require-content").children('.require-list').length==3){
+        $(".require-list").css("width","33.3%")
+        if($(window).width()<768){
+            $(".require-list").css("width","100%");
+        }
+    }
+
+//产品案例样式居中判断
+
+var _productLength=$(".swiper-container-product .swiper-wrapper").children('.product-list').length;
+
+    if(_productLength==1){
+
+        $(".swiper-container-product").css("text-align","center");
+        $(".swiper-container-product .product-list,.swiper-container-product .swiper-wrapper").css("display","inline-block").css("float","none")
+
+
+        if($(window).width()<640){
+            $(".product-set").children('.product-list').css("width","100%")
+        }
+    }else if (_productLength==2) {
+        $(".swiper-container-product .product-list img").css("height","100%");
+        $(".swiper-container-product .product-list").css("width","50%");
+        if($(window).width()<640){
+            $(".swiper-container-product .product-list").css("width","100%")
+        }
+    }else if (_productLength==3) {
+        $(".swiper-container-product .product-list").css("width","33.3%");
+        if($(window).width()<768){
+            $(".swiper-container-product .product-list").css("width","50%")
+        }
+        if($(window).width()<640){
+            $(".swiper-container-product .product-list").css("width","100%")
+        }
+    }else if($(window).width()<640){
+        $(".swiper-container-product .product-list").css("width","100%")
+    }
+
+
+    var _caseLength=$(".swiper-container-case .swiper-wrapper").children('.product-list').length;
+
+    if(_caseLength==1){
+
+        $(".swiper-container-case").css("text-align","center");
+        $(".swiper-container-case .product-list,.swiper-container-case .swiper-wrapper").css("display","inline-block").css("float","none")
+
+        $(".page03 .case-product .product-list img").css("max-width","300px")
+        if($(window).width()<640){
+            $(".product-set").children('.product-list').css("width","100%")
+        }
+    }else if (_caseLength==2) {
+        $(".swiper-container-case .product-list img").css("height","100%");
+        $(".swiper-container-case .product-list").css("width","50%");
+        if($(window).width()<640){
+            $(".swiper-container-case .product-list").css("width","100%")
+        }
+    }else if (_productLength==3) {
+        $(".swiper-container-case .product-list").css("width","33.3%");
+        if($(window).width()<768){
+            $(".swiper-container-case .product-list").css("width","50%")
+        }
+        if($(window).width()<640){
+            $(".swiper-container-case .product-list").css("width","100%")
+        }
+    }else if($(window).width()<640){
+        $(".swiper-container-case .product-list").css("width","100%")
+    }
+
+
+    // 相关产品
+
+    var index;
+    var doc=$(".swiper-container-product .swiper-wrapper").children('.product-list');
+    if(doc.length==1){
+        index=1;
+        $(".swiper-container-product .product-list img").css("padding","0").css("max-width","350px");
+    }else if(doc.length==2){
+        index=2;
+        $(".swiper-container-product .product-list img").css("padding","0")
+        if($(window).width()<640){
+            index=1;
+        }
+    }else if(doc.length==3){
+        index=3;
+        if ($(window).width()<768) {
+            index=2;
+         }
+         if ($(window).width()<640) {
+            index=1;
+         }
+
+        $(".swiper-container-product .product-list img").css("padding","0")
+    }else if(doc.length==4){
+        index=4;
+        if ($(window).width()<1024) {
+            index=3;
+        }
+        if ($(window).width()<768) {
+            index=2;
+         }
+         if ($(window).width()<640) {
+            index=1;
+         }
+    }
+    else{
+        index=5;
+        if ($(window).width()<1024) {
+            index=3;
+        }
+        if ($(window).width()<768) {
+            index=2;
+         }
+         if ($(window).width()<640) {
+            index=1;
+         }
+    }
+    var index_case;
+    var doc=$(".swiper-container-case .swiper-wrapper").children('.product-list');
+    if(doc.length==1){
+        index_case=1;
+        $(".swiper-container-case .product-list img").css("padding","0")
+    }else if(doc.length==2){
+        index_case=2;
+        $(".swiper-container-case .product-list img").css("padding","0")
+        if($(window).width()<640){
+            index_case=1;
+        }
+    }else if(doc.length==3){
+        index_case=3;
+        if ($(window).width()<768) {
+            index_case=2;
+         }
+         if ($(window).width()<640) {
+            index_case=1;
+         }
+
+        $(".swiper-container-case .product-list img").css("padding","0")
+    }else if(doc.length==4){
+        index_case=4;
+        if ($(window).width()<1024) {
+            index_case=3;
+        }
+        if ($(window).width()<768) {
+            index_case=2;
+         }
+         if ($(window).width()<640) {
+            index_case=1;
+         }
+    }
+    else{
+        index_case=5;
+        if ($(window).width()<1024) {
+            index_case=3;
+        }
+        if ($(window).width()<768) {
+            index_case=2;
+         }
+         if ($(window).width()<640) {
+            index_case=1;
+         }
+    }
+
+
+    var swiper = new Swiper('.swiper-container-product', {
+        slidesPerView: index,
+        spaceBetween : 20,
+        nextButton: '.swiper-container-product .swiper-button-next',
+        prevButton: '.swiper-container-product .swiper-button-prev',
+        loop:false,
+        preventClicks:false,
+    });
+    var swiper = new Swiper('.swiper-container-case', {
+        slidesPerView: index_case,
+        spaceBetween : 20,
+        nextButton: '.case-about .swiper-button-next',
+        prevButton: '.case-about .swiper-button-prev',
+        loop:false,
+        preventClicks:false,
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+    <a href="{:get_img_url($ad['中控智慧文化-banner'][0]['url'])}">
+    <div class="page-banner" style="background-image:url({$ad['中控智慧文化-banner'][0]['img']});"><div class="cooperate-txt txt">{$ad['中控智慧文化-banner'][0]['title']}</div></div></a>
+    <div class="w1400">
+        <div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> > <a href="{:url('/aboutus')}">{$Think.lang.about_us}</a> >{$Think.lang.culture}</div>
+            <div class="slideIn02">
+                <div class="culture">
+                        <p class="culture-title">{$ad['企业文化'][0]['title']}</p>
+                        <p class="culture-text">{$ad['企业文化'][0]['content']}</p>
+                        <div class="culture-box clearfix">
+                            {volist name="$ad['企业文化图片']" id='vo'}
+                            <div class="culture-content">
+                                <img src="{$vo.img}" alt="{$vo.title}">
+                                <div class="text">{$vo.content}</div>
+                            </div>
+                            {/volist}
+                        </div>
+                </div>
+                <div class="culture">
+                    <p class="culture-title">{$ad['公司文化'][0]['title']}</p>
+                    <p class="culture-text">{$ad['公司文化'][0]['content']}</p>
+                    <div class="culture-company">
+                        <div class="top">
+                            <img src="{$ad['公司文化图片'][0]['img']}" alt="{$ad['公司文化'][0]['title']}">
+                        </div>
+                    </div>
+                </div>
+                <div class="culture">
+                    <p class="culture-title">{$ad['企业活动'][0]['title']}</p>
+                    <p class="culture-text">{$ad['企业活动'][0]['content']}</p>
+                    <div class="culture-active clearfix">
+                    {volist name="$ad['企业活动图片']" id='vo'}
+                        <img src="{$vo.img}" alt="{$vo.title}">
+                    {/volist}   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+</body>
+</html>

@@ -1,0 +1,211 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+    <a href="{:get_img_url($ad['预约查询-banner'][0]['url'])}">
+    <div class="page-banner check-banner" style="background-image:url({$ad['预约查询-banner'][0]['img']});"><div class="txt">{$ad['预约查询-banner'][0]['title']}</div></div></a>
+    <div class="w1400 slideIn02">
+        <div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> > <a href="{:url('/service')}">{$Think.lang.service}</a> > {$title}</div>
+        <div class="height20"></div>
+        <div class="weixiu-content">
+            <div class="item02">
+                <div class="weixiu-title">{$Think.lang.customer_info} <a class="item02-edit" href="javascript:void(0)">[{$Think.lang.edit}]</a></div>
+                <div class="table-box clearfix">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <thead>
+                            <tr>
+                                <td>{$Think.lang.company_name}</td>{/* 公司名称 */}
+                                <td>{$Think.lang.contact_p}</td>{/* 联系人 */}
+                                <td>{$Think.lang.email}</td>{/* 邮箱 */}
+                                <td>{$Think.lang.tel}</td>{/* 电话 */}
+                                <td>{$Think.lang.address}</td>{/* 公司地址 */}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id='tr-info'>
+                                <td>
+                                    {if condition="!empty(json_decode(cookie('user_info'),true))"}{:json_decode(cookie('user_info'),true)['companyName']}{/if}
+                                </td>
+                                <td>
+                                    {if condition="!empty(json_decode(cookie('user_info'),true))"}{:json_decode(cookie('user_info'),true)['contactName']}{/if}
+                                </td>
+                                <td>
+                                    {if condition="!empty(json_decode(cookie('user_info'),true))"}{:json_decode(cookie('user_info'),true)['email']}{/if}
+                                </td>
+                                <td>
+                                    {if condition="!empty(json_decode(cookie('user_info'),true))"}{:json_decode(cookie('user_info'),true)['tel']}{/if}
+                                </td>
+                                <td>
+                                    {if condition="!empty(json_decode(cookie('user_info'),true)['address'])"}{:json_decode(cookie('user_info'),true)['address']}{/if}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="item02-box">
+                    <div class="list" style="width:50%;">
+                        <div class="left"><span>*</span>{$Think.lang.company_name}</div>{/* 公司名称 */}
+                        <div class="right"><input class="text" name='companyName'  type="text"></div>
+                    </div>
+                    <div class="list" style="width:50%;">
+                        <div class="left"><span>*</span>{$Think.lang.contact_p}</div>{/* 联系人 */}
+                        <div class="right"><input class="text" name='contactName' type="text"></div>
+                    </div>
+                    <div class="list" style="width:50%;">
+                        <div class="left"><span>*</span>{$Think.lang.address}</div>{/* 公司地址 */}
+                        <div class="right"><input class="text"  type="text"></div>
+                    </div>
+                    <div class="list">
+                        <div class="right"><input type="button" value="{$Think.lang.save}" style="background:#78bc27;color:#fff;" class="btn item02-save"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="item04 clearfix">
+                <div class="weixiu-title"><span>{$Think.lang.need_info}</span></div>   {/* 需求信息 */}
+                <div class="list fl" style="width:33.33%;">
+                    <div class="left"><span>*</span>{$Think.lang.product_type}</div>{/* 产品型号 */}
+                    <div class="right">
+                    <select class="text model" id='product'>
+                        {volist name=":config('product_type')" id ='vo'}
+                        <option value="{$vo}">{$vo}</option>
+                        {/volist}
+                    </select>
+                    </div>
+                </div>
+                <div class="list fl" style="width:33.33%;">
+                    <div class="left">SN</div>
+                    <div class="right"><input class="text sn" id='serialNumber' placeholder="{$Think.lang.please_input}SN" type="text"></div>
+                </div>
+                <div class="list fl" style="width:33.33%;">
+                    <div class="left">{$Think.lang.datetime}</div>      {/* 预约时间 */}
+                    <div class="right"><input class="text sn" id='date_time' placeholder="{$Think.lang.datetime}" type="text"></div>
+                </div>
+                <div class="clear"></div>
+                <div class="list">
+                    <div class="left"><span>*</span>{$Think.lang.need_des}</div> {/* 需求描述 */}
+                    <div class="right"><textarea class="ms" id='problemDes' placeholder="{$Think.lang.need_des}"></textarea></div>
+                </div>
+                <div class="list clearfix">
+                    <div class="right"><input class="text yzm fl" id='verify' type="text" placeholder="{$Think.lang.verify}"><img src="{:captcha_src()}"  id="code" alt="captcha" onclick="this.src='{:captcha_src()}?rnd=' + Math.random();" /></div>
+                </div>
+                <div class="list">
+                    <div class="right"><input type="button" value="{$Think.lang.submit}" style="background:#78bc27;color:#fff;" class="btn sbm"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<link href="{$Think.HOME_JS}/datepicker/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" type="text/css" /> 
+<script type="text/javascript" charset="utf-8" src="{$Think.HOME_JS}/datepicker/jquery-ui-1.9.2.custom.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="{$Think.HOME_JS}/datepicker/datepicker_zh-cn.js"></script>    
+<script>
+    $("#code").trigger('click');        //linux 验证码需要触发一次
+    $("#date_time").datepicker();
+    $("#addBtn").on("click",function(){
+        var model = $(".model").val();
+        var sn = $(".sn").val();
+        var ms = $(".ms").val();
+        if(model == '' || sn == '' || ms == ''){
+            showErrMsg("{$Think.lang.err6}");
+        }else{
+            $(".weixiu-content .item04 table tbody").append("<tr><td>"+ model +"</td><td>"+ sn +"</td><td>"+ ms +"</td></tr>")
+            $(".model,.sn,.ms").val('');
+        }
+    })
+    $(".item02-edit").on("click",function(){
+        $(".item02-box").slideToggle(150);
+        $(".weixiu-content .item02 .item02-box .list").eq(0).find("input").val($(".item02 .table-box table tbody tr td").eq(0).text().trim());
+        $(".weixiu-content .item02 .item02-box .list").eq(1).find("input").val($(".item02 .table-box table tbody tr td").eq(1).text().trim());
+        $(".weixiu-content .item02 .item02-box .list").eq(2).find("input").val($(".item02 .table-box table tbody tr td").eq(4).text().trim());
+    })
+    //保存事件
+    $(".item02-save").on("click",function(){
+        if ($(".weixiu-content .item02 .item02-box .list").eq(0).find("input").val().trim().length == 0) {
+            showErrMsg('{$Think.lang.err1}');
+            return;
+        }
+        if ($(".weixiu-content .item02 .item02-box .list").eq(1).find("input").val().trim().length == 0) {
+            showErrMsg('{$Think.lang.err2}');
+            return;
+        }
+        if ($(".weixiu-content .item02 .item02-box .list").eq(2).find("input").val().trim().length == 0) {
+            showErrMsg('{$Think.lang.err5}');
+            return;
+        }
+        $(".item02-box").slideUp(150);
+        $(".item02 .table-box table tbody tr td").eq(0).text($(".weixiu-content .item02 .item02-box .list").eq(0).find("input").val().trim());
+        $(".item02 .table-box table tbody tr td").eq(1).text($(".weixiu-content .item02 .item02-box .list").eq(1).find("input").val().trim());
+        $(".item02 .table-box table tbody tr td").eq(4).text($(".weixiu-content .item02 .item02-box .list").eq(2).find("input").val().trim());
+    })
+    $(".btn.sbm").on('click',function(){
+        var i1 = 0;
+        var info = [];                                  //客户信息
+        var flag = 0;
+        $('#tr-info td').each(function(){               //客户信息
+            info[i1] = $(this).text().trim();
+            if ($(this).text().trim().length == 0) {
+                flag = 1;
+            }
+            i1++;
+        })
+        var problemDes = $('#problemDes').val().trim();     //产品描述
+        if (problemDes.length == 0) {
+            flag = 1;
+        }
+        var appointmentTime = $('#date_time').val().trim(); //预约时间
+        if (appointmentTime.length == 0) {
+            flag = 1;
+        }
+        var serialNumber = $('#serialNumber').val().trim(); //sn码
+        // if (serialNumber.length == 0) {
+        //     flag = 1;
+        // }
+        var product = $('#product').val().trim();           //产品型号||产品设备
+        if (product.length == 0) {
+            flag = 1;
+        }
+        var verify = $('#verify').val().trim();
+        if (verify.length == 0) {
+             flag = 1;
+        }
+        if (flag == 1) {
+            showErrMsg("{$Think.lang.err6}");
+            return;
+        } else {
+            loading_msg("{$Think.lang.commit_now}");
+            $.ajax({
+                url: "{:url('Service/reservation_commit')}", 
+                data: {"info":JSON.stringify(info),'problemDes':problemDes,'appointmentTime':appointmentTime,'serialNumber':serialNumber,'product':product,'verify':verify},
+                type:'post', 
+                dataType: "json", 
+                error:function(data){
+                    layer.close(index);
+                    $('#code').trigger('click');
+                    showErrMsg("{$Think.lang.ajax_err}");
+                    return;
+                },  
+                success:function(result){
+                    layer.close(index);
+                    $('#code').trigger('click');
+                    if (result.status == 1) {
+                        window.location.href="{:url('index/Service/reservation_finish')}";
+                    } else {
+                        showErrMsg(result.info);
+                    }           
+                },
+            })
+        }  
+    })
+    function loading_msg(msg)
+    {
+        index = layer.msg(msg, {
+            icon: 16,
+            shade: 0.5,
+            time: 30000,
+            shadeClose: false 
+        });
+    }
+</script>
+</body>
+</html>

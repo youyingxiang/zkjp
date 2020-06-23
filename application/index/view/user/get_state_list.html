@@ -1,0 +1,23 @@
+{volist name='lst' id='vo'}
+<div class="mOrder-unit">
+    <div class="mOrder-unit-info clearfix">
+        <p class="time">{$Think.lang.commit_date}：{$vo.createTime}</p>
+        <p class="orderNo">{$Think.lang.doccode}：<a class="mColorGreen" href="{:url('/zk_repair_detail/'.$vo.doccode)}">{$vo.doccode}</a></p>
+        <p class="name">{$Think.lang.contact}：{$vo.contact}</p>
+    </div>
+    <div class="mOrder-unit-details">
+        <table class="mTable" style="word-break: break-all">
+            <tbody>
+                {volist name='$vo.repairDetailList' id='voo'}
+                <tr>
+                    <td><a class="mColorGreen" href="{:url('/zk_repair_detail/'.$vo.doccode)}">{$voo.machineModel}</a></td>        {/* 产品型号 */}
+                    <td>{$voo.malfunctionDesc}</td>     {/* 故障描述 */}
+                    <td>{$voo.sn}</td>                  {/* 产品序列号 */}
+                    <td>{:config('status_repair_detail')[$voo.status]}</td>              {/* 维修状态 */}
+                <!--     <td><a class="mColorGreen" href="{:url('/zk_repair_detail/'.$vo.doccode)}">{$Think.lang.order_detail}</a></td> -->
+                </tr>
+                {/volist}
+        </table>
+    </div>
+</div>
+{/volist}

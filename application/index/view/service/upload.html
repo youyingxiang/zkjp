@@ -1,0 +1,212 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<style>
+.file_active{
+	width:300px;
+	float:left;
+	margin-left:90px;
+}
+.r{
+float:left;
+}
+.list.clearfix{
+   margin-bottom:20px
+}
+.import {
+	width: 80px;
+	height: 25px;
+	border: 1px solid #e6e6e6;
+	background: #e6e6e6;
+	color: #666;
+	line-height:25px;
+	text-align: center;
+	border-radius: 3px;
+	font-size: 15px;
+}
+.btnn{
+    width: 100px;
+    height: 30px;
+    border: 1px solid #78bc27;
+    background: none;
+    color: #78bc27;
+    line-height: 15px;
+    text-align: center;
+    border-radius: 3px;
+    font-size: 10px;
+}
+#test{
+	margin-bottom:10px
+}
+</style>
+<div class="page-content02">
+    <a href="{:get_img_url($ad['服务支持-banner'][0]['url'])}"><div class="page-banner" style="background-image:url({$ad['服务支持-banner'][0]['img']});"><div class="txt">{$ad['服务支持-banner'][0]['title']}</div></div></a>
+    <div class="w1400">
+         <div class="position"><a href="{:url('/')}">Home Page</a> > <a href="{:url('/service')}">Support</a> > <a href="{:url('/index/Service/license_active')}">License Activation</a> > {:input('get.type')}</div>
+      
+                    
+        <div class="item02 clearfix" style="margin-left:50px;margin-bottom:50px;">
+            
+	     <div class="list clearfix">
+                <div class="left fl">
+                   <!-- <img class="import" src="{$Think.HOME_IMGS}/export.png" alt="Import SN file">-->
+		<h3 style="width:100px"><a> SN File</a></h3>
+                </div>	
+                <div class="right fl" style="margin-left:70px;">
+                <h3 class="import"><a>Select File</a></h3>
+                </div>
+		<div class="file_active">
+                <a>No files were selected</a>
+                </div>
+            </div>
+            <div class="list clearfix">
+                <div class="left fl">
+                    <!--<img class="import" src="{$Think.HOME_IMGS}/export.png" alt="Import UPK file">-->
+		<h3 style="width:100px"><a>UPK File</a></h3>
+                </div>
+                <div class="right fl" style="margin-left:70px">
+                <h3 class='import'><a>Select File</a></h3>
+                </div>
+		<div class="file_active">
+		<a>No files were selected</a>
+		</div>
+            </div>
+	    <div class="list clearfix">
+                <div class="r" id="active_ok">
+                     <input type="button" value="Download" style="background:#78bc27;color:#fff;" class="btnn">
+                </div>
+                <div style="float:left;margin-left:70px"  id="active_fail">
+                     <input type="button" value="Cancel" class="btnn">
+                </div>
+
+            </div>
+	    <div class="list clearfix">
+		<div>
+		<div class="right fl ms" disabled style="resize:none;font-size:15px!important;color:#E57A14;margin-top:10px;width:700px;height:200px;border: 1px solid #e6e6e6;resize: none;padding:5px">
+  &nbsp&nbsp&nbsp Notes</br>
+  &nbsp&nbsp&nbsp 1. SN file and UPK file need to be uploaded at the same time to get the License file.</br>
+  &nbsp&nbsp&nbsp 2. Make sure SN hasn't been activated by online mode before in your software.</br>
+  &nbsp&nbsp&nbsp 3. SN file format is XX_SN.xml, Please contact your sales to get SN file.</br>
+  &nbsp&nbsp&nbsp 4. UPK file format is XX_upk.xml, it is generated from software offline activation mode.</br>
+  &nbsp&nbsp&nbsp 5. Ensure that you are using a matching SN and UPK.</br></br>
+  &nbsp&nbsp&nbsp You can download bellow user manual to check detailed operation steps.</br>
+  <img style="width:30px;height:30px;margin-left:10px;margin-top:5px;float:left"src ="{$Think.HOME_IMGS}/pdf.ico"><div style="float:left;margin-top:12px;margin-left:10px"><a id="test" style="color: #78bc27" target="_blank" href="{$Think.HOME_IMGS}/ZKBioSecurity.pdf">ZKBioSecurity offline license self-help download manual.pdf</a></div>
+		</div></div>
+	    </div>
+	    
+        </div>      
+    </div>
+	<input id="fileupload" type="file" name="imgFile"  data-url="{:url('/admin/Uploads/upload')}?dir=file" multiple>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script src="{$Think.HOME_JS}/upload/jquery.ui.widget.js"></script>
+<script src="{$Think.HOME_JS}/upload/jquery.iframe-transport.js"></script>
+<script src="{$Think.HOME_JS}/upload/jquery.fileupload.js"></script>
+<script>
+$(function () {
+	var file;
+	$('#fileupload').hide();
+	$('#fileupload').fileupload({
+	    dataType: 'json',
+	    add: function (e,data) {
+		file = data.files[0];
+                var mxsize = 5*1024*1024;
+                if (parseInt(data.files[0].size) > parseInt(mxsize)) {
+                    showErrMsg('附件文件最大不超过5MB',3);
+                    return;
+                } else if (data.files[0].type != "text/xml") {
+		  // console.log(data.files[0].type);
+		   showErrMsg('The file format is incorrect.',3);
+		   return;
+		}else {
+                    loading_msg("Uploading.");
+                    data.submit();
+                }
+            },
+	    done: function (e, data) {
+		layer.close(index);
+                if (data.result.error == 0) {
+			//layer.close(index);
+			obj.parent().parent().children('.file_active').children('a').text(file.name);
+			obj.parent().parent().children('.file_active').attr('data-path',data.result.url);
+			//obj.last().children('a').html(file.name);
+			//console.log(data);
+		} else {
+			showErrMsg('The file format is incorrect.',3);
+		}
+	    }
+	});
+	$('#active_fail').on('click',function(){
+	   var foo = $('.file_active');
+	   (foo).each(function() {
+		$(this).children('a').text("No files were selected");
+		$(this).removeAttr('data-path');
+	   })
+	})
+	$('#active_ok').on('click',function(){
+		var foo = $('.file_active');
+		var arr = new Object();
+		$(foo).each(function() {
+		   var attr;
+		   var name;
+		   name =  $(this).children('a').text();
+		   attr =  $(this).attr('data-path');
+		   if (typeof(attr) == "undefined") {
+		   	showErrMsg('Please upload SN and UPK together,then you can download the license',3);
+                   	return;
+		   } else {
+		   	arr[name]=attr;
+		   }	
+		})
+		
+		var length = 0;
+		for(var ever in arr) {
+    			length++;
+		}
+		//console.log(length)
+		
+		if (length == 2) {
+		loading_msg("Downloading, please wait.");  
+		$.ajax({
+                    url: "{:url('/index/Service/active')}", 
+                    data: arr,
+                    type:'post', 
+                    dataType: "json", 
+                    error:function(data){
+                        showErrMsg("{$Think.lang.ajax_err}");
+                        return;
+                    },  
+                    success:function(result){
+                        layer.close(index);
+			//$('#active_fail').trigger('click');
+			if (result.status == 1) {
+			   $('#active_fail').trigger('click');
+                       	   //showOkTime("Success",3);
+			   window.location.href = "{:url('/index/Service/downloadxml')}"+'?id='+result.info.id;
+			} else {
+			   showErrMsg(result.info,3);
+			}
+                           
+                     }
+            	})
+		} else {
+			showErrMsg('Please upload SN and UPK together,then you can download the license',3);
+                        return;
+		}
+	})
+	function loading_msg(msg){
+            index = layer.msg(msg, {
+                icon: 16,
+                shade: 0.5,
+                time: 30000,
+                shadeClose: false 
+            });
+        }
+	$('.import').on('click',function(){
+            obj = $(this);
+            $('#fileupload').trigger('click');
+        })
+})
+</script>
+</body>
+</html>

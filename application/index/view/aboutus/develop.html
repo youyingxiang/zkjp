@@ -1,0 +1,140 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<style>
+    img[src=""]{
+    opacity: 0;
+    }
+</style>
+<div class="page-content03">
+    <a href="{:get_img_url($ad['发展历程-banner'][0]['url'])}">
+    <div class="page-banner" style="background-image:url({$ad['发展历程-banner'][0]['img']});"><div class="team-txt txt">{$ad['发展历程-banner'][0]['title']}</div></div></a>
+    <div class="w1400">
+        <div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> > <a href="{:url('/aboutus')}">{$Think.lang.about_us}</a> >{$Think.lang.develop}</div>
+    </div>
+    <div class="w1400 slideIn02">
+        <div class="exp-content">
+            <div style='position:relative'>
+                <div class="exp-content-tit swiper-container">
+                    <div class="swiper-wrapper">
+                    {volist name='year' id='vo'}
+                    <div class="swiper-slide" {if condition='$key == 0'}data-index='1'{/if}><span {if condition='$key == 0'}class="exp-info"{/if}>{$vo.nianfen}</span></div>
+                    {/volist}
+                    </div>
+                </div>
+                <div class="swiper-button-next next-btn"></div>
+                <div class="swiper-button-prev prev-btn"></div> 
+            </div>
+            <div class="experience-conent" id='experience-conent'>
+               
+            </div>
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+$(function(){
+    year = $(".exp-content-tit").find(".exp-info").html().trim();
+    get_develop_list();
+    $(".exp-content-tit").find(".swiper-slide").click(function(){
+        year = $(this).html().trim();
+        if (year.length>0) {
+            get_develop_list();
+        }
+    })
+    $(".exp-content-tit .swiper-slide").click(function(){
+        $(this).find("span").addClass("exp-info").parent().siblings().find("span").removeClass("exp-info");
+        year = $(this).find("span").html().trim();
+        if (year.length>0) {
+            get_develop_list();
+        }
+    })
+    var swiper = new Swiper('.swiper-container', {
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        loop:false,
+        slidesPerView: 10,
+        simulateTouch:false,
+        observer:true,
+        observeParents:true,
+        slidesPerGroup:1,
+        breakpoints: {
+            1366: {
+              slidesPerView: 8,
+            },
+            1024: { 
+              slidesPerView: 6,
+            },
+            768: {
+              slidesPerView: 4,
+            },
+            640: {
+              slidesPerView: 3,
+            },
+            320:{
+                slidesPerView: 2,
+            }
+
+        }
+    });
+    var _index;
+    $(".exp-content .exp-content-tit .swiper-wrapper div").click(function(){
+        var leng=$('.swiper-slide').length;
+        // var trans=parseInt($(".yearClass").css("transform").replace(/[^0-9\-,]/g,'').split(',')[4]);
+        // console.log(trans)
+        var arr=$(".exp-content .exp-content-tit .swiper-wrapper div");
+        $.each(arr,function (index,dom){
+            if($(this).attr("data-index")=="1"){
+                _index=index;
+            }
+        })
+        var swiper_index=$(this).index();
+        // console.log("当前点击"+swiper_index);
+        $(this).attr("data-index","1").siblings().attr("data-index","0");
+        // console.log("对比值"+_index)
+        if(swiper_index>_index){
+            $(".swiper-button-next").trigger('click');
+        }else if(swiper_index<_index){
+            $(".swiper-button-prev").trigger('click');
+        }    
+    })
+
+    function get_develop_list(){  
+        $.ajax({
+                url: "{:url('Aboutus/get_develop_lst')}", 
+                data: {'year':year},
+                type:'post', 
+                dataType: "html", 
+                error:function(data){
+                     alert("{$Think.lang.ajax_err}");
+                     return;
+                },  
+                success:function(result){
+                    if (result.length >100) {
+                        $('#experience-conent').empty().html(result);                      
+                    };
+                },
+        })
+    }
+    $(".next-btn").hover(function(){
+        $(this).find("img").attr("src","{$Think.HOME_IMGS}/team-right-on.png")
+    },function(){
+         $(this).find("img").attr("src","{$Think.HOME_IMGS}/team-right.png")
+    })
+    $(".prev-btn").hover(function(){
+        $(this).find("img").attr("src","{$Think.HOME_IMGS}/team-left-on.png")
+    },function(){
+         $(this).find("img").attr("src","{$Think.HOME_IMGS}/team-left.png")
+    })
+
+    function click(){
+        $(".yearClass").find(".swiper-slide").click(function(){
+            $(".experience-conent:eq("+$(this).index()+")").css("display","block").siblings().css("display","none");
+        }) 
+    }
+    click();
+
+})
+</script>
+</body>
+</html>

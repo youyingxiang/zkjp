@@ -1,0 +1,14 @@
+{include file="layout/top" /}
+<div>
+        <div class="guarantee-wrap slideIn02">
+            <div class="guarantee-box">
+            {if condition="input('get.type') == 1" }
+                {$web['registration_protocol']['v']}
+            {else /} 
+            	{$web['privacy_protection']['v']} 
+            {/if}
+            </div>
+        </div>
+</div>
+</body>
+</html>

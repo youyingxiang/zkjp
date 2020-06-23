@@ -1,0 +1,90 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content">
+    <div class="w1400"><div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> > <a href="{:url('/service')}">{$Think.lang.service}</a> >{$title}</div></div>
+
+    <section class="page-container page-containerLR20 minH500 marginB30">
+        <section class="mFilterPanel clearfix ">
+            <div class="mFilterPanel-caption mColorGreen">{$title}</div>
+            <div class="mFilterPanel-searchBox"><input type="text" placeholder="{$Think.lang.input_keyword}" value="" /><a class="mFilterPanel-searchBtn" href="javascript:;">{$Think.lang.search}</a></div>
+        </section>
+
+        <div class="myInforBox marginT30">
+            <table class="mTable2">
+                <thead>
+                    <tr>
+                        <th>{$Think.lang.file_name}</th>  {/* 资料名称 */}
+                        <th>{$Think.lang.update_time}</th>{/* 更新时间 */}
+                        <th>{$Think.lang.download_time}</th>{/* 下载时间 */}
+                        <th>{$Think.lang.action}</th>    {/* 操作 */}      
+                    </tr>
+                </thead>
+                <tbody id='fhcontent'>
+                
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mOrderList-getMore">{$Think.lang.view_more}</div>   
+    </section><!--.page-container end-->
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+$(function(){
+    time = 0;
+    loading_msg("{$Think.lang.query_now}");
+    get_fh_list();
+    $('.mOrderList-getMore').click(function(){
+        loading_msg("{$Think.lang.query_now}");
+        var search = $('.mFilterPanel-searchBtn').prev().val().trim();
+        if($(this).html() == "{$Think.lang.no_data}"){
+            layer.close(index);
+            return;
+        };
+        get_fh_list(search);
+    })
+    $('.mFilterPanel-searchBtn').on('click',function(){
+        time = 0;
+        $('#fhcontent').empty();
+        loading_msg("{$Think.lang.query_now}");
+        var search = $(this).prev().val().trim();
+        get_fh_list(search);
+    })
+})  
+    //获取下载记录
+    function get_fh_list(search=''){      
+        $.ajax({
+                url: "{:url('Service/get_fh_list')}", 
+                data: {'time':time,'search':search},
+                type:'post', 
+                dataType: "html", 
+                error:function(data){
+                    layer.close(index);
+                    showErrMsg("{$Think.lang.ajax_err}");
+                    return;
+                },  
+                success:function(result){
+                    layer.close(index);
+                    if(result.length <30){
+                        $('.mOrderList-getMore').html("{$Think.lang.no_data}");
+                        if(result.length>0)showErrMsg(result);         //有消息提示的时候                            
+                    } else {
+                        $('.mOrderList-getMore').html('{$Think.lang.view_more}'); 
+                        $('#fhcontent').append(result);                      
+                        time ++;
+                    }
+                },
+        })
+    }
+    function loading_msg(msg){
+        index = layer.msg(msg, {
+            icon: 16,
+            shade: 0.5,
+            time: 30000,
+            shadeClose: false 
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<style>
+.approve-contentq .item02 .list{
+    padding-bottom: 30px
+}
+.rightd{margin-bottom:10px;float:right;margin-right:200px;width:120px;height:40px;line-height:38px;text-align:center;display: block;border:1px solid #e6e6e6}
+.rightd img {
+vertical-align:middle;
+margin-top:-3px;
+margin-right:10px;
+display: inline-block;
+}
+</style>
+<div class="page-content02">
+    <a href="{:get_img_url($ad['服务支持-banner'][0]['url'])}"><div class="page-banner" style="background-image:url({$ad['服务支持-banner'][0]['img']});"><div class="txt">{$ad['服务支持-banner'][0]['title']}</div></div></a>
+    <div class="w1400">
+         <div class="position"><a href="{:url('/')}">Home Page</a> > <a href="{:url('/service')}">Support</a> > License Activation</div>
+      
+<div class="approve-contentq" style="margin-bottom:50px;">                    
+        <div class="item02 clearfix" style="border-left:1px solid #e6e6e6">
+            <div class="list clearfix" style="border-bottom:1px solid #e6e6e6;margin-top:20px">
+		<div class="left fl" style="margin-left:70px;margin-bottom:20px">
+			<img src="{$Think.HOME_IMGS}/im1.png" alt="ZKBioSecurity License Activation">
+		</div>
+		<div class="right fl" style="margin-left:10px;">
+			<h3><a href="{:url('/active_upk')}?type=ZKBioSecurity License Activation">ZKBioSecurity Offline Activation License
+</a></h3>
+		</div>
+  		<div class="rightd">
+                <a href="{:url('/active_upk')}?type=ZKBioSecurity License Activation"><img src="/en/static/home/images/download-icon.png" alt="Download">Download</a>
+                </div>
+		<div class="ms clear" style="margin-left: 70px; margin-top: -10px; margin-bottom: 5px;">
+		For software offline activation, you can download software license here.
+		</div>	
+            </div>
+<!--            <div class="list clearfix" style="border-bottom:1px solid #e6e6e6;margin-top:20px">
+                <div class="left fl" style="margin-left:70px;margin-bottom:20px">
+                    <img src="{$Think.HOME_IMGS}/im2.png" alt="ZKBioAccess License Activation">
+                </div>
+                <div class="right fl" style="margin-left:10px;">
+                    <h3><a href="{:url('/active_upk')}?type=ZKBioAccess License Activation">ZKBioAccess Offline Activation License</a></h3>
+                </div>
+		<div class="rightd">
+                <a  href="{:url('/active_upk')}?type=ZKBioAccess License Activation"><img src="/en/static/home/images/download-icon.png" alt="Download">Download</a>
+                </div>
+		<div class="ms clear" style="margin-left: 70px; margin-top: -10px; margin-bottom: 5px;">For software offline activation, you can download software license here.</div>
+            </div>-->
+            <div class="list clearfix" style="border-bottom:1px solid #e6e6e6;margin-top:20px">
+                <div class="left fl" style="margin-left:70px;margin-bottom:20px">
+                    <img src="{$Think.HOME_IMGS}/im3.png" alt="ZKAccess3.5 Public License">
+                </div>
+                <div class="right fl" style="margin-left:10px;">
+                    <h3><a href="{:url('/download_public_key')}"> ZKAccess3.5 Public License</a></h3>
+                </div>
+		<div class="rightd">
+                <a  href="{:url('/download_public_key')}"><img src="/en/static/home/images/download-icon.png" alt="Download">Download</a>
+                </div>
+		<div class="ms clear" style="margin-left: 70px; margin-top: -10px; margin-bottom: 5px;">You can  get a public key to activate ZKAccess3.5 access control module which supports the maximum of 2000 users and 25 doors.</div>
+            </div>
+</div>
+        </div>      
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+</body>
+</html>

@@ -1,0 +1,112 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+    <a href="{:get_img_url($ad['培训中心-网络课程banner'][0]['url'])}">
+        <div class="page-banner" style="background-image:url({$ad['培训中心-网络课程banner'][0]['img']});">
+            <div class="training-txt txt">
+                {$ad['培训中心-网络课程banner'][0]['title']}
+            </div>
+        </div>
+    </a>
+    <div class="w1400">
+        <div class="position"><a href="{:url('/')}">Home Page</a> > <a href="{:url('/train_center')}">Training Center</a> >Learning Center</div>
+            <div class="center-content slideIn02 weblesson">
+                <h2>{$ad['培训中心-网络课程文字'][0]['title']}</h2>
+                <div class="txt">
+                   {$ad['培训中心-网络课程文字'][0]['content']}
+                </div>
+                <div class="weblesson-content">
+                    <div class="weblesson-bg" style="background-image:url({$ad['培训中心-网络课程中图片'][0]['img']}); ">
+                        <h2>Training Program Schedule</h2>
+                        <div>
+                            Select your timezone
+                        </div>
+                        <select  id="timezone_">
+                            <option value="1">GMT+8 Beijing</option>
+                            <option value="2">GMT-5 Central daylight saving time.</option>
+                            <option value="3">GMT-6 Central standard time</option>
+<!--                            <option value="4">GMT-5 Mexico</option>
+                            <option value="5">GMT+4 UAE</option>
+                            <option value="6">GMT+1 Spain</option>
+                            <option value="7">GMT+2 South Africa</option>-->
+                        </select>
+                    </div>
+                    <ul class="clearfix">
+                    {php}$ii=0;{/php}
+                    {volist name='$data' id='vo'}
+                    {if condition="count($vo)>0"}
+                    {php}$ii++;{/php}
+                        <li {if condition='$ii == 1'}class="webon"{/if}>{:config('month_date')[$key]}</li>
+                    {/if}
+                    {/volist}
+                    </ul>
+                    <div class="tab">
+                    {volist name='$data' id='vo'}
+                    {if condition="count($vo)>0"}
+                        <table border="1" cellspacing="0" class="tableuncase">
+                            <thead>
+                                <tr>
+                                    <td>Date</td>
+                                    <td>Time</td>
+                                    <td>Course Title</td>
+                                    <td>Type</td>
+                                    <td>Language</td>
+                                    <td>Course Length</td>
+                                    <td>Trainer</td>
+                                    <td>Register</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {volist name='$vo' id='voo'}
+                                <tr>
+                                    <td>{$voo.c_date}</td>
+                                    <td class="timezone__" data-1='{$voo.time1}' data-2='{$voo.time2}' data-3='{$voo.time3}'>{$voo.time1}</td>
+                                  <!--   <td>{$voo.name}</td>                 //原本的1 -->
+
+                                    <td><a href="{:url('/course_detail/'.$voo.id)}">{$voo.name}</a></td>       <!--  //改后的1 -->
+                                    <td>{$voo.type}</td>
+                                    <td>{$voo.language}</td>
+                                    <td>{$voo.time_long} minutes</td>
+                                <!--     <td>{$voo.teatcher}</td>                                  //原本的2 -->
+
+                                    <td><a href="{:url('/teacher/'.$voo.id)}">{$voo.teatcher}</a></td>          <!-- //改后的2 -->
+                                    <!-- <td><a href="{:url('/course_detail/'.$voo.id)}">Click Here</a></td>                //原本的3-->
+
+                                    <td><a href="{$voo.url}" target="_blank">Click Here</a></td>                         <!-- //改后的3 -->
+                                </tr>
+                            {/volist}   
+                            </tbody>
+                        </table>
+                    {/if}
+                    {/volist}      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+    $(function(){
+         $(".weblesson-content .tab table").eq(0).show();
+        if($(window).width()>1023){
+            $(".course-content .content-list").eq(-2).css("borderBottom","none");
+        }
+        $(".weblesson-content ul li").on("click",function(){
+            $(this).addClass("webon").siblings().removeClass("webon");
+            $(".weblesson-content .tab table").eq($(this).index()).show().siblings().hide();
+        })
+
+        $('#timezone_').on('change',function(){
+            var ind = $(this).val();
+            var ind_time = 'data-'+ind;
+            $('.timezone__').each(function(){
+                $(this).html($(this).attr(ind_time));
+            })
+        })
+        $(".weblesson-content .tab table thead tr").css("text-transform","none")
+    })
+</script>
+</body>
+</html>

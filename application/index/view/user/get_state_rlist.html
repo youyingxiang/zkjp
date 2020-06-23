@@ -1,0 +1,23 @@
+{volist name='$lst' id='vo'}
+<div class="mOrder-unit book">
+    <div class="mOrder-unit-info clearfix">
+        <p class="time">{$Think.lang.commit_date}：{$vo.createTime}</p>
+        <p class="orderNo">{$Think.lang.rorder_number}：{$vo.orderNumber}</p>
+        <p class="name">{$Think.lang.contact}：{$vo.contactName}</p>
+    </div>
+    <div class="mOrder-unit-details">
+        <table class="mTable">
+            <tbody>
+                <tr>
+                    <td>{$vo.product}</td>
+                    <td>{$vo.problemDes}</td>
+                    <td>{$vo.serialNumber}</td>
+                    <td>{$vo.appointmentTime}</td>
+                    <td>{:config('status_reservstion')[$vo.status]}</td>
+                    <td><a class="mColorGreen" href="{:url('/zk_reserv_detail/'.$vo.orderNumber)}">{$Think.lang.order_detail}</a></td>
+                </tr> 
+            </tbody>
+        </table>
+    </div>
+</div>
+{/volist}

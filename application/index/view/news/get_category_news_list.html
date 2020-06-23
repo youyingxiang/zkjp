@@ -1,0 +1,12 @@
+{volist name='news_cate_data' id='vo'}
+<li class="news-li">
+    <div class="newsBox">
+        <div class="newsBox-cover"><a href="{if condition='$vo.url_title'}{:url('/news_detail/'.$vo.url_title)}{else/}{:url('/news_detail/'.$vo.id)}{/if}"><img src="{$vo.img}" alt="{$vo.title}"/></a></div>
+        <dl>
+            <dt class="newsBox-title"><a href="{if condition='$vo.url_title'}{:url('/news_detail/'.$vo.url_title)}{else/}{:url('/news_detail/'.$vo.id)}{/if}">{$vo.title}</a></dt>
+            <dd class="newsBox-time">{$vo.update_time}</dd>
+            <dd class="newsBox-abs">{$vo.abstract}</dd>
+        </dl>
+    </div>
+</li>
+{/volist}

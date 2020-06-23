@@ -1,0 +1,20 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content">
+    <div class="w1400"><div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> &gt; <a href="{:url('/user_center')}">{$Think.lang.user_center}</a> &gt; {$Think.lang.feedback}</div></div>
+
+    <section class="page-container page-containerLR20 marginB30">
+        <div class="mCaption"><span>{$Think.lang.feedback}</span></div>
+        
+        <section class="mForm mFormLR tran300" style="margin: 0 auto;">
+            <div class="mActionTips-center tran300 success">
+                <p class="con fontSize-24">{$Think.lang.commit_finfish}</p>
+                <div class="actions fontSize-18">{$Think.lang.thinkyou_feedback}</div>
+            </div>
+        </section><!--.mForm end-->
+    </section><!--.page-container end-->
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+</body>
+</html>

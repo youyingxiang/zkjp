@@ -1,0 +1,147 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content">
+    <div class="w1400"><div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> &gt; <a href="{:url('/user_center')}">{$Think.lang.user_center}</a> &gt; Check My Ticket</div></div>
+
+    <section class="page-container page-containerLR20 minH500 marginB30">
+        <section class="mFilterPanel clearfix ">
+            <div class="mFilterPanel-caption mColorGreen" id="all_tickets" style="cursor:pointer">{$Think.lang.all_ticket}</div>{/* 所有问题工单 */}
+
+           <!--  <div class="mFilterPanel-searchBox" style="float: left">
+                 <a class="mFilterPanel-searchBtn" href="/ticket_save.html" style="left: 15%">{$Think.lang.add}</a>
+            </div> -->
+
+            <div class="right clearfix">
+
+                <div class="mFilterPanel-timePickerBox clearfix">
+                    <span class="mobile-hidden">{$Think.lang.commit_date}&nbsp;&nbsp;&nbsp;&nbsp;</span><input class="mFilterPanel-timePickerBox-unit" type='text' id='start_time' placeholder='{$Think.lang.start_time}'><span class="mobile-hidden">&nbsp;-&nbsp;</span><input id='end_time'type='text' class="mFilterPanel-timePickerBox-unit" placeholder='{$Think.lang.end_time}'>
+                </div>
+                <div class="mFilterPanel-selectBox" style="position: relative;">
+                    <select id='status'>
+                        {volist name=":config('status_ticket_lst')" id='vo'}
+                        <option value="{$key}">{$vo}</option>
+                        {/volist}
+                    </select>
+                   
+                </div>
+                <div class="mFilterPanel-searchBox pr"><input type="text" id='someId' placeholder="{$Think.lang.t_msg1}" value="" /><a class="mFilterPanel-searchBtn" id='search' href="javascript:;">{$Think.lang.search}</a> <a class="mFilterPanel-searchBtn" href="/en/ticket_save.html" style="right: -5px">{$Think.lang.add}</a></div>
+            </div>
+        </section>
+
+        <div class="myInforBox marginT30">
+            <table class="mTable2">
+                <thead>
+                    <tr>
+                        <th>{$Think.lang.some_id}</th>          {/* 工单ID */}
+                        <th>{$Think.lang.question_type}</th>    {/* 类别 */}   
+                        <th>{$Think.lang.quest_title}</th>      {/* 问题 */}
+                        <th>{$Think.lang.commit_date}</th>      {/* 提交时间 */}
+                        <th>{$Think.lang.lastUpdate_time}</th>  {/* 更新时间 */}
+                        <th>{$Think.lang.status}</th>           {/* 处理状态 */}
+                        <th>{$Think.lang.detail}</th>           {/* 详情 */}
+                    </tr>
+                </thead>
+                <tbody class='mOrderList'>
+                    
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mOrderList-getMore">{$Think.lang.view_more}</div>
+    </section><!--.page-container end-->
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<!-- <link href="{$Think.HOME_JS}/datepicker/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" type="text/css" /> 
+<script type="text/javascript" charset="utf-8" src="{$Think.HOME_JS}/datepicker/jquery-ui-1.9.2.custom.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="{$Think.HOME_JS}/datepicker/datepicker_zh-cn.js"></script>  -->                     <!--  之前的日期选择器 -->
+<link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+<script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<!-- <link rel="stylesheet" href="jqueryui/style.css">     -->                                                                                   <!-- 修改后的日期选择器 -->
+<script>
+
+    $("#start_time,#end_time").datepicker({ dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],dateFormat:"yy-mm-dd"});
+    time = 1;
+    loading_msg("{$Think.lang.query_now}");
+    var status='';
+    var someId='';
+    var startTime = '';
+    var endTime ='';
+    var pageSize ='';
+    get_state_tlist();
+    $('.mOrderList-getMore').click(function(){              //加载更多
+        loading_msg("{$Think.lang.query_now}");
+        if($(this).html() == "{$Think.lang.no_data}"){
+            layer.close(index);
+            return;
+        };
+        someId = $('#someId').val().trim();
+        status = $('#status').val().trim();
+        startTime = $('#start_time').val().trim().length>0?$('#start_time').val().trim()+' 00:00:01':'';
+        endTime = $('#end_time').val().trim().length>0?$('#end_time').val().trim()+' 23:59:59':'';
+        get_state_tlist(status,someId,startTime,endTime);
+    })
+    $('#search').on('click',function(){
+        someId = $('#someId').val().trim();
+        status = $('#status').val().trim();
+        startTime = $('#start_time').val().trim().length>0?$('#start_time').val().trim()+' 00:00:01':'';
+        endTime = $('#end_time').val().trim().length>0?$('#end_time').val().trim()+' 23:59:59':'';
+        loading_msg("{$Think.lang.query_now}");
+        time = 1;
+        $(".mOrderList").empty();
+        get_state_tlist(status,someId,startTime,endTime)
+    })
+
+    $("#all_tickets").on('click',function(){
+        pageSize = 999 ;
+        someId='';
+        status='';
+        startTime='';
+        endTime='';
+        $('#someId').val("");
+        $('#status').val("");
+        $('#start_time').val("");
+        $('#end_time').val("");
+
+        loading_msg("{$Think.lang.query_now}");
+        time = 1;
+        $(".mOrderList").empty();
+        get_state_tlist(status,someId,startTime,endTime,pageSize)
+    })
+
+
+    function get_state_tlist(status,someId,startTime,endTime,pageSize){
+        $.ajax({
+                url: "{:url('User/get_state_tlist')}", 
+                data: {"status":status,'curPage':time,'startTime':startTime,'endTime':endTime,'someId':someId,'pageSize':pageSize},
+                type:'post', 
+                dataType: "html", 
+                error:function(data){
+                    layer.close(index);
+                    showErrMsg("{$Think.lang.ajax_err}");
+                    return;
+                },  
+                success:function(result){
+                    layer.close(index);
+                    if(result.length <100){
+                        $('.mOrderList-getMore').html("{$Think.lang.no_data}");
+                        if (result.trim().length>0)showErrMsg(result);//消息的时候提示                                          
+                    } else {
+                        $('.mOrderList-getMore').html('{$Think.lang.view_more}'); 
+                        $('.mOrderList').append(result);                      
+                        time ++;
+                    }
+                },
+        })
+    }
+    function loading_msg(msg){
+        index = layer.msg(msg, {
+            icon: 16,
+            shade: 0.5,
+            time: 30000,
+            shadeClose: false 
+        });
+    }
+</script>
+</body>
+</html>

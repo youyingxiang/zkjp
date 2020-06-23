@@ -1,0 +1,106 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+    <a href="{:get_img_url($ad['成为合作伙伴1-banner'][0]['url'])}">
+    <div class="page-banner" style="background-image:url({$ad['成为合作伙伴1-banner'][0]['img']});">
+        <div class="w1400">
+            <p class="benefit-banner-tit txt w1400">{$ad['成为合作伙伴1-banner'][0]['title']}</p>
+            <div class="benefit-banner-txt txt w1400">{$ad['成为合作伙伴1-banner'][0]['content']}</div>
+        </div>
+    </div>
+    </a>
+    <div class="partner-step1-content slideIn02">
+        <div class="w1400 clearfix">
+        <div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> ><a href="{:url('/partner')}">{$Think.lang.partner}</a> >{$title}</div>
+            <div class="partner-step1-tit">
+                <h2>{$Think.lang.become_partner}</h2>
+            </div>
+            <div class="step1-banner clearfix">
+                <div class="fl step1">Step 1</div>
+                <div class="fl step2">Step 2</div>
+            </div>
+            <div class="partner-step1-info clearfix">
+                <h2 class="fl">{$Think.lang.base_info}</h2>
+                <p class="fl">{$Think.lang.msg1}</p>
+            </div>
+            <div class="partner-step1-list clearfix fl">
+                <form action="{:url('/partner_step2')}" method="post" id='step1_commit'>
+                    <div class="list-left fl">
+                        <div class="company">
+                            <label>
+                                <span><strong>*</strong>{$Think.lang.company_name}：</span>                           
+                                <input type="text"  {if condition="!empty(cookie('input_data'))"}value="{:cookie('input_data')['companyName']}"{/if} name='companyName' placeholder="{$Think.lang.please_input} {:strtolower($Think.lang.company_name)}">
+                            </label>
+                        </div>
+                        <div class="name">
+                            <label>
+                                <span><strong>*</strong>{$Think.lang.name}：</span>
+                                <input type="text" {if condition="!empty(cookie('input_data'))"}value="{:cookie('input_data')['contactName']}"{/if} name='contactName' placeholder="{$Think.lang.please_input} {:strtolower($Think.lang.name)}">
+                            </label>
+                        </div>
+                        <div class="phone-number">
+                            <label>
+                                <span><strong>*</strong>{$Think.lang.phone}：</span>
+                                <input type="text" {if condition="!empty(cookie('input_data'))"}value="{:cookie('input_data')['tel']}"{/if} name='tel' placeholder="{$Think.lang.please_input} {:strtolower($Think.lang.phone)}">
+                            </label>
+                        </div>
+                        <div class="email">
+                            <label>
+                                <span><strong>*</strong>{$Think.lang.email}：</span>
+                                <input type="text" name='email' {if condition="!empty(cookie('input_data'))"}value="{:cookie('input_data')['email']}"{/if} placeholder="{$Think.lang.please_input} {:strtolower($Think.lang.email)}">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="list-right fr">
+                        <div class="company-website">
+                            <label>
+                                <span>{$Think.lang.web}：</span>
+                                <input type="text" name='website' {if condition="!empty(cookie('input_data'))"}value="{:cookie('input_data')['website']}"{/if} placeholder="{$Think.lang.please_input} {:strtolower($Think.lang.web)}">
+                            </label>
+                        </div>
+                        <div class="job">
+                            <label>
+                                <span>{$Think.lang.job}：</span>
+                                <input type="text" name='position' {if condition="!empty(cookie('input_data'))"}value="{:cookie('input_data')['position']}"{/if} placeholder="{$Think.lang.please_input} {:strtolower($Think.lang.job)}">
+                            </label>
+                        </div>
+                        <div class="city">
+                            <label>
+                                <span>Country：</span>
+                                <select name='country'>
+                                    <option cid='0' value="">--{$Think.lang.please_choose}--</option>
+                                    {volist name='$country' id='vo'}
+                                    <option  {if condition="!empty(cookie('input_datap'))"}{if condition="cookie('input_datap')['country']==$vo.countryName"}selected="selected"{/if}{/if} value='{$vo.countryName}'>{$vo.countryName}</option>
+                                    {/volist}
+                                </select>
+                            </label>
+                        </div>
+                        <div class="address">
+                            <label>
+                                <span>{$Think.lang.address}：</span>
+                                <input type="text" name='address' {if condition="!empty(cookie('input_data'))"}value="{:cookie('input_data')['address']}"{/if} placeholder="{$Think.lang.please_input} {:strtolower($Think.lang.address)}">
+                            </label>
+                        </div>
+                        {:token()}
+                    </div>
+                </form>
+            </div>
+            <div class="clear">
+                <a href="javascript:void(0)" id='finish_step1'><input type="button"  class="btn" value="{$Think.lang.next_step}"></a>
+            </div>
+        </div>   
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+    $('#finish_step1').on('click',function(){
+        $('#step1_commit').submit();
+    })
+    if (getCookie('next_step_err').trim().length>0) {
+        showErrMsg(eval(getCookie('next_step_err')),3);
+        delCookie('next_step_err');
+    }
+</script>
+</body>
+</html>

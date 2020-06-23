@@ -1,0 +1,146 @@
+{include file="layout/top" /}
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-horizontal" method="POST" action="{:url('admin/Recruit/add')}" onsubmit="return false" >
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab1" data-toggle="tab">{$Think.lang.base_param}</a></li>
+                        <li><a href="#tab2" data-toggle="tab">{$Think.lang.content}</a></li>
+                        <li class="pull-right"><a href="javascript:history.back(-1)" class="btn btn-sm" style="padding:10px 2px;"><i class="fa fa-list"></i> {$Think.lang.back}</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab1">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$Think.lang.name}</label>
+                                <div class="col-sm-7"><input class="form-control" name="name" value="" placeholder="{$Think.lang.name}"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$Think.lang.address}</label>
+                                <div class="col-sm-3">
+                                    <select class="form-control select2" id="province" name="province">
+                                    <option value="" >{$Think.lang.please_choose}</option>
+                                        {volist name='province' id='vo'}
+                                            <option value="{$vo}">{$vo}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                                <div class="col-sm-3" id='city'>
+                                    <input type="text" name='city' placeholder='请输入详细地点' class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$Think.lang.type}</label>
+                                <div class="col-sm-7">
+                                    <label class="checkbox-inline"><input type="checkbox" name="type[]" value="a" class="minimal"> {$Think.lang.flag_1}</label>
+                                    <label class="checkbox-inline"><input type="checkbox" name="type[]" value="b" class="minimal"> {$Think.lang.flag_2}</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$Think.lang.job_id}</label>
+                                <div class="col-sm-7">
+                                    <select class="form-control select2" name="job_id" style="width:100%;">
+                                        {volist name='postData' id="vo"}
+                                           <option value="{$vo.id}">{$vo.job_name}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$Think.lang.work_nature}</label>
+                                <div class="col-sm-7">
+                                    <select class="form-control select2" name="work_nature" style="width:100%;">
+                                        {volist name='nature' id="vo"}
+                                           <option value="{$key}">{$vo}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$Think.lang.num}</label>
+                                <div class="col-sm-7"><input class="form-control" name="num" value="1" placeholder="{$Think.lang.num}"></div>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label class="col-sm-2 control-label">{$Think.lang.url}</label>
+                                <div class="col-sm-7"><input class="form-control" name="url" value="" placeholder="{$Think.lang.url}"></div>
+                            </div> -->
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$Think.lang.order_key}</label>
+                                <div class="col-sm-7"><input class="form-control" name="order_key" value="1" placeholder="{$Think.lang.order_key}"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$Think.lang.emergency}</label>
+                                <div class="col-sm-7">
+                                    <select class="form-control select2" name="emergency" style="width:100%;">
+                                        <option value="1" >{$Think.lang.yes_no1}</option>
+                                        <option value="0" >{$Think.lang.yes_no0}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$Think.lang.state}</label>
+                                <div class="col-sm-7">
+                                    <select class="form-control select2" name="state" style="width:100%;">
+                                        <option value="1" >{$Think.lang.status1}</option>
+                                        <option value="0" >{$Think.lang.status0}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab2">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"></label>
+                                <div class="col-sm-8"><textarea class="form-control" name="content" placeholder="{$Think.lang.content}"></textarea></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box-footer">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-7">
+                            <div class="btn-group pull-right">
+                                <button type="submit" class="btn btn-info pull-right submits" data-loading-text="&lt;i class='fa fa-spinner fa-spin '&gt;&lt;/i&gt; {$Think.lang.submit}">{$Think.lang.submit}</button>
+                            </div>
+                            <div class="btn-group pull-left">
+                                <button type="reset" class="btn btn-warning">{$Think.lang.reset}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<script>
+$(function(){
+    /*ajax页面加载icheck，有该控件的页面才需要*/
+    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+        checkboxClass: 'icheckbox_minimal-blue',
+        radioClass: 'iradio_minimal-blue'
+    });
+    
+    /*ajax页面加载icheck，有该控件的页面才需要*/
+
+
+    KindEditor.create('textarea[name="content"]',{
+        width : '100%',   //宽度
+        height : '500px',   //高度
+        resizeType : '0',   //禁止拖动
+        allowFileManager : true,   //允许对上传图片进行管理
+        uploadJson : '{:url("Uploads/upload")}',   //文件上传地址
+        fileManagerJson : '{:url("Uploads/manager")}',   //文件管理地址
+        //urlType : 'domain',   //带域名的路径
+        formatUploadUrl: true,   //自动格式化上传后的URL
+        autoHeightMode: false,   //开启自动高度模式
+        afterBlur: function () { this.sync(); }   //同步编辑器数据
+    });
+    $('#city').hide();
+    $('#province').on('change',function(){
+        val = $(this).find("option:selected").val().trim();
+        if (val.length>0) {
+          $('#city').show(); 
+        }
+    })
+})
+</script>
+{include file="layout/bottom" /}

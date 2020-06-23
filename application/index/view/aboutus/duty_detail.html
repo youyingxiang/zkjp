@@ -1,0 +1,24 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+    
+    <div class="page-banner check-banner" style="background-image:url({$detailData.banner});"><div class="txt"></div></div>
+    <div class="w1400"><div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> &gt; <a href="{:url('/aboutus')}">当社について</a>&gt; <a href="{:url('/duty')}">{$Think.lang.duty}</a> &gt; 高齢者訪問</div></div>
+    <section class="page-container page-containerLR20 marginB30">
+        <div class="articleBox">
+            <article class="articleBox-detail">{$detailData.content}</article>
+            <div class="articleBox-nav">
+                {if condition='!empty($prev)'}
+                <p class="articleBox-link"><a href="{:url('/duty_detail/'.$prev.id)}">{$Think.lang.prev1}：{$prev.title}</a></p>
+                {/if}
+                {if condition='!empty($next)'}
+                <p class="articleBox-link"><a href="{:url('/duty_detail/'.$next.id)}">{$Think.lang.next1}：{$next.title}</a></p>
+                {/if}
+            </div>
+        </div>
+    </section><!--.page-container end-->
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+</body>
+</html>

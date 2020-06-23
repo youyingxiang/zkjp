@@ -1,0 +1,163 @@
+<?php
+/*
+ * 后台模块配置文件
+ */
+return [
+    // 默认AJAX 数据返回格式,可选json xml ...
+    'default_ajax_return'    => 'html',
+    // 是否开启多语言
+    'lang_switch_on'         => true,
+    // 默认语言
+    'default_lang'           => 'zh-cn',
+    
+    // URL伪静态后缀
+    'url_html_suffix'        => 'html',
+    //分页配置
+    'paginate'               => [
+                 'type'      => '\\expand\\Bootstrap',
+                 'var_page'  => 'page',
+                 'list_rows' => 15,
+                ],
+    'md5_code'               => 'yxxhelowword',  
+    'lifetime'               => 12000,   
+    'ad_index_list' => [
+              '首页-轮播图'    => 'Homepage – slideshow 1920*1080 1920*1080', 
+              '首页-中文字'    => 'Homepage - Chi.', 
+              '首页-中小图'    => 'Homepage 640*397',
+              '首页-底部长图'  => 'Homepage - bottom rectangular image  1920*374', 
+              '首页-轮播视频'  => 'Homepage - video slideshow', 
+              '首页-微信'      => 'Homepage - Wechat 120*120',  
+              '首页-底部图标'  => 'Homepage – bottom icon 25*26',  
+     ],
+    'ad_news_list' => [
+              '新闻中心-banner'    => 'News center-banner 1920*300',  
+              '新闻列表-banner'    => 'News list-banner 1920*300',  
+              '新闻详情-banner'    => 'News details-banner 1920*300',  
+     ],
+    'ad_recruit_list' => [
+              '招聘-banner' => 'Recruitment-banner 1920*390',  
+     ],
+    'ad_service_list' => [
+              '服务支持-banner'=> 'Service support -banner 1920*390', 
+              '常见问题-banner'=> 'FAQ-banner 1920*390', 
+              '防伪查询-banner'=> 'Anti-spoof inquiry-banner 1920*390',  
+              '服务公告-banner'=> 'Service announcement-banner 1920*390',  
+              '维修登记-banner'=> 'Maintenance registration-banner 1920*390',  
+              '预约查询-banner'=> 'Inquiry reservation-banner 1920*390',  
+              '提交工单-banner'=> 'Submit order-banner 1920*390',  
+              '在线支持-banner'=> 'Online support 1920*390',  
+              '培训中心-banner'=> 'Training center-banner 1920*390',  
+              '培训中心-文字'  => 'Training center - text', 
+              '培训中心-网络课程文字'  => 'Training center, network course text', 
+              '培训中心-网络课程banner'  => 'Training center, network course text banner 1920*390',  
+              '培训中心-网络课程中图片'  => 'Training center, network course image 1400*300', 
+              '培训视频-banner'=> 'Training video – banner 1920*390',  
+              '培训课程文件-banner'=> 'Training center document – banner 1920*390',  
+              '培训Technology-banner'=> 'Technology training – banner 1920*390', 
+              '培训中心ApplyTraining-banner' => 'Training center Apply for training  1920*390', 
+              '培训中心ApplyTraining-中图' => 'Training center Apply for training – middle-sized image 721*200', 
+              '认证及流程-banner'  => 'Certifications and procedures banner 1920*390', 
+              '认证及流程-文字'  => 'Certifications and procedures - text', 
+              '培训证书'  => 'Training certificate 250*170', 
+              '产品保修政策'   => 'Product warranty policies', 
+              '服务支持-中文字'=> 'Service supports – Chi.', 
+    ],
+    'ad_aboutus_list' => [
+              '关于我们-banner'     => 'About us – banner 1920*710',  
+              '发展历程-banner'     => 'Development history 1920*390',  
+              '中控智慧文化-banner'     => 'ZKTeco Culture – banner 1920*390',  
+              '中控智慧团队-banner'     => 'ZKTeco Team – banner 1920*390',  
+              '公司简介-banner'     => 'Corporate overview – banner 1920*390',  
+              '合作共赢-banner'     => 'Mutually-winning cooperation – banner 1920*390',  
+              '核心技术-banner'     => 'Core techniques – banner  1920*390', 
+              '荣誉资质-banner'     => 'Honour – banner 1920*390', 
+              '质量管理-banner'     => 'Quality management – banner 1920*390',  
+              '社会责任-banner'     => 'Social responsibility – banner 1920*300', 
+              '关于我们-跳转图标'   => 'About us – Go to icon 40*41', 
+              '关于我们-招贤纳士'   => 'About us – recruitment  689*399', 
+              '关于我们-大背景'     => 'About us – Recruitment – General background 1920*550', 
+              '关于我们-图标'       => 'About us – icon 900*300', 
+              '关于我们-合作客户'   => 'About us – partners 199*399', 
+              '企业文化'            => 'Corporate culture - text', 
+              '企业文化图片'        => 'Corporate culture – image 680*300', 
+              '公司文化'            => 'Corporate culture - text', 
+              '公司文化图片'        => 'Corporate culture – image 1920*794',  
+              '企业活动'            => 'Corporate activities - text', 
+              '企业活动图片'        => 'Enterprise activities – image 742*500',  
+              '公司简介-集团概况'   => 'Corporate introduction – enterprise overview', 
+              '公司简介-中小图'     => 'Corporate introduction – middle and small image 340*200',  
+              '公司简介-中文字'     => 'Corporate introduction – Chi.', 
+              '公司简介-主营业务'   => 'Corporate introduction – major business 400*230', 
+              '公司简介-应用区域'   => 'Corporate introduction - applications 126*125', 
+              '合作共赢-中-大图'    => 'Mutually winning cooperation – middle and large image 1140*370', 
+              '合作共赢-合作多样式' => 'mutually winning cooperation - multiplicity', 
+              '核心技术-内容'       => 'Core technique - content 1440*400', 
+              '荣誉资质-图片'       => 'Honour - image 170*181', 
+              '荣誉资质-文字'       => 'Honour – Chi. - text', 
+              '质量管理-视频'       => 'Quality management - video', 
+              '质量管理-中-图文'    => 'Quality management – middle – image and text 664*173', 
+              '质量管理-认证证书'   => 'Quality management - certificates 210*295', 
+              '质量管理-证书标志'   => 'Quality management – certificate icon 215*74', 
+    ],
+    'ad_partner_list' => [
+              '合作伙伴-banner'         => 'Cooperation partner - banner 1920*300', 
+              '合作伙伴好处-banner'     => 'Benefits of becoming our cooperation partner - banner 1920*391', 
+              '合作伙伴介绍-banner'     => 'Cooperation partner introduction - banner 1920*391', 
+              '成为合作伙伴1-banner'    => 'Become our cooperation partner 1 - banner 1920*391', 
+              '成为合作伙伴2-banner'    => 'Become our cooperation partner 2 - banner 1920*391', 
+              '合作伙伴-中图文'         => 'Cooperation partner – middle image and text 72*62', 
+              '合作伙伴好处-图文'       => 'Benefits of becoming our cooperation partner – image and text 90*88', 
+              '合作伙伴好处-中背景'     => 'Benefits of becoming our cooperation partner – middle background 1920*716', 
+              '合作伙伴好处-背景小图'   => 'Benefits of becoming our cooperation partner – background small image 468*326', 
+              '合作伙伴介绍-介绍文字'   => 'Cooperation partner introduction – introduction text',
+              '合作伙伴介绍-分类图文'   => 'Cooperation partner introduction – category image and text 702*440', 
+
+    ],
+    'ad_product_list' => [
+              '产品列表-banner'         => 'Product list - banner 1920*490', 
+              '产品详情特点-背景'       => 'Product details and features - background 1920*450', 
+              '产品详情下载-背景'       => 'Product details download - background 1920*450', 
+              '是否新品'                => 'New product or not 45*45', 
+              '是否项目'                => 'Project or not 45*45', 
+              '产品分类-长图'           => 'Product category – long image 1400*500',            
+
+    ],
+    'ad_solution_list' => [
+              '案例详情-底部图片'       => 'Case details – bottom image 1920*200', 
+              '行业详情-底部图片'       => 'Industry details – bottom image 52*51', 
+              '行业详情-底部背景'       => 'Industry details – bottom background 465*300', 
+              '项目咨询-banner'         => 'Project consultation - banner 1920*300', 
+              '案例列表-banner'         => 'Case list - banner 1920*300', 
+              '案例列表-介绍文字'       => 'Case list – introduction text', 
+              '解决方案列表-介绍文字'   => 'Solution list – introduction text', 
+              '解决方案列表-banner'     => 'Solution list - banner 1920*300' 
+    ],
+    'ad_contactus_list' => [
+              '联系我们-banner'         => 'Contact us - banner 1920*390', 
+              '联系我们-文字内容'       => 'Contact us – text content', 
+              '联系我们-右图标'         => 'Contact us – right icon 900*300', 
+              '总部地址-banner'         => 'Headquarter address - banner 1920*390', 
+              '销售地图-banner'         => 'Sales map - banner 1920*390' 
+    ],
+    'ad_online_store_list' => [
+              '如何购买-导航-左图'           => 'How to buy – navigation – left image 300*160', 
+              '如何购买-导航-图标'           => 'How to buy – navigation – left image icon 16*18', 
+              '授权网店-banner'              => 'Authorized online shop - banner 1920*391', 
+    ],
+    'flag_news'       => [
+              'a' => 'Pinned', 
+              'b' => 'Recommended', 
+    ],
+    'auth_cate_down'  => [
+          0 => 'Silver member', 
+          1 => ' Golden member',
+    ],
+    'continent'   =>  [
+          1 => 'Asia',
+          2 => 'Africa',
+          3 => 'North America',
+          4 => 'South America',
+          5 => 'Europe',
+          6 => 'Oceania',
+    ]
+];

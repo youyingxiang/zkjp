@@ -1,0 +1,35 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+
+        <div class="page-banner check-banner" style="background-image:url({$typeInfo['banner']});">
+            <div class="txt">
+            </div>
+        </div>
+ 
+    <div class="w1400"><div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> &gt; <a href="{:url('/aboutus')}">当社について</a>&gt; <a href="{:url('/duty')}">{$Think.lang.duty}</a> &gt; 高齢者訪問</div></div>
+    <section class="page-container page-containerLR20 marginB30">
+        <div class="dutyDo">
+            <p>{$typeInfo['content']}</p>
+            <div class="dutyDo-project">
+            {volist name='typeData' id='vo'}
+                <div class="dutyDo-projectItem clearfix">
+                    <div class="dutyDo-projectItem-cover" style="background: url({$vo.img}) no-repeat center center; background-size: cover;"></div>
+                    <div class="dutyDo-projectItem-con">
+                        <div class="dutyDo-projectItem-conTable">
+                            <div class="dutyDo-projectItem-conCell">
+                                <a href="{:url('/duty_detail/'.$vo.id)}"><p class="dutyDo-projectItem-name">{$vo.title}</p></a>
+                                <p>{$vo.abstract}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {/volist} 
+            </div>
+        </div>
+    </section><!--.page-container end-->
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+</body>
+</html>

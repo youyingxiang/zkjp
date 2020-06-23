@@ -1,0 +1,149 @@
+{include file="layout/top" /}
+<style>
+    body,html{ background: #f2f2f2;}
+</style>
+{include file="layout/header" /}
+
+ <div class="page-content">
+        <section class="page-container marginT30 marginB30">
+            <div class="mColumn">
+
+                <div class="con">
+                    <section class="mForm tran300">
+                        <div class="mForm-tab">
+                            <div class="mForm-tab-item active tran300" data-rel="defaultType"><span>{$Think.lang.login1}</span></div>
+                        </div>
+                        <div class="mForm-body" data-rel="defaultType">
+                        <form action='' method="post" id='phone_email'>
+                        <input type="hidden" name="type" value='phone_email'>
+                            <div class="mForm-group">
+                                <div class="mForm-field tran300 icon-user">
+                                    <input class="tran300 email_" type="text" name="phone_email" {if condition="isset($return_data.phone_email)"}value="{$return_data.phone_email}"{/if} placeholder="{$Think.lang.phone_email}" />
+                                </div>
+                                <div class="mForm-group-tips tran300"></div>
+                            </div>
+                            <div class="mForm-group">
+                                <div class="mForm-field tran300 icon-psw">
+                                    <input class="tran300 entersubmit" type="password" name='password' placeholder="{$Think.lang.password}" />
+                                </div>
+                                <div class="mForm-group-tips tran300"></div>
+                            </div>
+                            <a class="mForm-btn tran300" id="login_1" href="javascript:;">{$Think.lang.login}</a>
+                            <div class="mForm-links clearfix">
+                                {$Think.lang.no_account}，<a class="mColorGreen" href="{:url('/register')}">{$Think.lang.now_register}</a>
+                                <span class="right tran300"><a class="mColorGreen" href="{:url('/password_retrieval')}">{$Think.lang.forgot_password}</a></span>
+                            </div>
+                            <input type="hidden" name="__token__" value="{$Request.token}" />
+                        </form>
+                        </div>
+
+
+                    </section><!--.mForm end-->
+                </div>
+            </div><!--.mColumn end-->
+        </section><!--.page-container end-->
+    </div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+    $('.entersubmit').keydown(function(event){
+        if(event.keyCode==13){
+            $(this).parent().parent().next().trigger('click');
+        }
+    });
+    if (getCookie('register_s') == 1) {
+        showOkTime("{$Think.lang.register_s}",3);
+        delCookie('register_s');
+    } else if (getCookie('login_err').trim().length>0) {
+       var login_err_show = getCookie('login_err').replace(/\+/g,' ');
+        showErrMsg(eval(login_err_show));
+        delCookie('login_err');
+    } else if (getCookie('login_timeout').trim().length>0) {
+        showErrMsg(eval(getCookie('login_timeout')));
+        delCookie('login_timeout');
+    }
+    var select_type = "{$return_data.phone_num}";
+    if (select_type.trim().length>0) {
+        $('#click2').trigger('click');
+    }
+    $('#login_1').on('click',function(){
+        var check = 0;
+        $("#phone_email input[type='text']").each(function(){
+            var val = $(this).val().trim();
+            if (val.length == 0) {
+                check = 1;
+                val_isnull($(this));
+            } else {
+                if ($(this).hasClass('email_')) {
+                    if (email_check(val) == false) {
+                        check = 1;
+                        val_isnull_email($(this));
+                    } else {
+                        val_is_notnull($(this));
+                    }
+                } else {
+                    val_is_notnull($(this));
+                }
+            }
+        })
+        if (check == 0) {
+            $('#phone_email').submit();
+        }
+    })
+
+    function loading_msg(msg){
+        index = layer.msg(msg, {
+            icon: 16,
+            shade: 0.5,
+            time: 30000,
+            shadeClose: false
+        });
+    }
+
+    function val_isnull_email(obj)
+    {
+        obj.parent().next().html("{$Think.lang.email_val}");    //增加错误提示
+        obj.parent().next().addClass('error');                  //增加错误提示的类
+        obj.parent().removeClass('success');                    //移除成功提示的类
+
+    }
+    function val_isnull(obj)
+    {
+        obj.parent().next().html("{$Think.lang.val_r}");        //增加错误提示
+        obj.parent().next().addClass('error');                  //增加错误提示的类
+        obj.parent().removeClass('success');                    //移除成功提示的类
+
+    }
+    function val_is_notnull(obj)
+    {
+        obj.parent().addClass('success');                       //增加提示成功的类
+        obj.parent().next().empty();                            //移除错误提示
+        obj.parent().next().removeClass('error');               //删除错误提示的类
+
+    }
+    function val_isnull_phone(obj)
+    {
+        obj.parent().next().html("{$Think.lang.phone_val}");    //增加错误提示
+        obj.parent().next().addClass('error');                  //增加错误提示的类
+        obj.parent().removeClass('success');                    //移除成功提示的类
+
+    }
+    function code_err(obj,err){
+        obj.parent().next().html(err);    //增加错误提示
+        obj.parent().next().addClass('error');                  //增加错误提示的类
+        obj.parent().removeClass('success');                    //移除成功提示的类
+    }
+    function email_check(val)
+    {
+        var pattern = /^(\w-*\.*&*)+@(\w-?)+(\.\w{2,})+$/;
+        return pattern.test(val);
+    }
+     // 验证手机号
+    function isPhoneNo(phone) {
+        var pattern = /^\d{n,}$/;
+        return pattern.test(phone);
+    }
+
+</script>
+</body>
+</html>

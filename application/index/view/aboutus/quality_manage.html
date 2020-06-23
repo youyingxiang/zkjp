@@ -1,0 +1,61 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+    <a href="{:get_img_url($ad['质量管理-banner'][0]['url'])}">
+    <div class="page-banner" style="background-image:url({$ad['质量管理-banner'][0]['img']});"><div class="cooperate-txt txt">{$ad['质量管理-banner'][0]['title']}</div></div></a>
+    <div class="w1400">
+        <div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> > <a href="{:url('/aboutus')}">{$Think.lang.about_us}</a> >{$Think.lang.quality_manage}</div>
+            <div class="slideIn02">
+                <div class="quality clearfix">
+                    <video  controls="controls" poster="{$ad['质量管理-视频'][0]['img']}">
+                        <source src="{$ad['质量管理-视频'][0]['video']}" type="video/mp4">
+                        {$Think.lang.msg_err}
+                    </video>
+                    </div>
+                 </div>    
+             </div>
+    </div>
+    <div class="quality-bg" style="background: url({$Think.HOME_IMGS}/quality-bg.png); ">           
+        <div class="w1400 clearfix">
+            <div class="quality-team">
+                <p class="team-tit">{$ad['质量管理-中-图文'][0]['title']}</p>
+                <img src="{$ad['质量管理-中-图文'][0]['img']}" alt="{$ad['质量管理-中-图文'][0]['title']}">
+                {$ad['质量管理-中-图文'][0]['content']}
+            </div>
+        </div>
+    </div>
+    <div>           
+        <div class="w1400 clearfix">
+            <div class="quality-book">
+                <p class="quality-book-tit">Certificate</p>
+                <div class="quality-book-content clearfix">
+                    {volist name="$ad['质量管理-认证证书']" id='vo'}
+                    <div>
+                        <img src="{$vo.img}" alt="{$vo.title}">
+                        <p>{$vo.title}</p>
+                    </div>
+                    {/volist}
+                </div>
+            </div>
+            <div class="quality-logo fl"><img src="{$ad['质量管理-证书标志'][0]['img']}" alt=""></div>
+        </div>     
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+    $(function(){
+        $("video").click(function(){
+            if ($("video")[0].paused){
+ 
+                $("video")[0].play();
+         
+            }else{
+         
+                $("video")[0].pause();
+            }
+        })
+    })
+</script>
+</body>
+</html>

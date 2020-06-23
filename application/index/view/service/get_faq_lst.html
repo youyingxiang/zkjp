@@ -1,0 +1,35 @@
+{volist name='$lst' id='vo'}
+<div class="list">
+    <div class="tit">{$vo.title}</div>
+    <div class="contxt">
+        <div class="txt">
+            {$vo.solution}
+        </div>
+        <div class="share clearfix right-share bdsharebuttonbox">
+            <div id="shareId">
+                <a class="linkedin" href="" data-cmd="linkedin" title="linkedin"></a>
+                <a class="facebook" href="" data-cmd="fbook" title="facebook"></a>
+                <a class="twitter" href="" data-cmd="twi" title="twitter"></a>
+                <a class="google" href="" data-cmd="buzz" title="google"></a>
+            </div>
+        </div>
+    </div>
+</div>
+{/volist}
+{$lst->render()}
+<script>
+$('.mTabel-pagination-item').on('click',function(){
+    loading_msg("{$Think.lang.query_now}");
+    var page = $(this).html().trim();
+    if (page=="»") {
+        time++;
+    } else if(page=="«") {
+        if (time>1) {
+            time--;
+        }
+    } else {
+        time = page;
+    }
+    get_cate_list();
+})
+</script>

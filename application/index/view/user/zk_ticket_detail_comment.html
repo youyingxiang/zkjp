@@ -1,0 +1,139 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content">
+        <div class="w1400"><div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> &gt; <a href="{:url('/user_center')}">{$Think.lang.user_center}</a> &gt;<a href="{:url('/ticket_query')}">{$Think.lang.check_my_ticket}</a> &gt; {$title}</div></div>
+        <div class="add-comment w1400">
+            <div class="comment-tit">
+                <div class="id">
+                    <span>{$Think.lang.some_id}：{$detailData.someId}</span>
+                    <time>{$Think.lang.create_y}：{$detailData.createTime}<time>
+                </div>
+            </div>
+            <div class="comment-info">
+                <div class="class">{$Think.lang.type}：{$detailData.questionType}</div>{/* 类别 */}
+                <div class="question">{$Think.lang.title}：{$detailData.questTitle}</div>{/* 标题 */}
+                <div class="content">{$Think.lang.desc}：{$detailData.content}</div>{/* 描述 */}
+                <div class="upload">
+                    <span>{$Think.lang.ufile}：</span>{/* 附件 */}
+                    <div>
+                    {volist name=':json_zkpai($detailData.uploadfile)' id='vo'}
+                    <a  href="https://service.zkteco.com:8443/commonController.action?viewFile&subclassname=com.framework.web.system.pojo.base.TSDocument&fileid={$vo.fileKey}">{$vo.name}</a>
+                    {/volist}
+                    </div>
+                </div>
+            </div>
+            <div class="comment-lsit">
+                {volist name="$detailData.handleList" id='voo'}
+                    <div {if condition="$voo['isSiteUser'] != 'siteUser'"}class="server"{else/}class="user"{/if}>
+                        <div class="list-tit">
+                            <span>{$voo.createBy}</span>
+                            <time>{$Think.lang.commit_date}：{$voo.createTime}</time>
+                            {if condition="$voo['isSiteUser'] != 'siteUser'"} <i class="comment-logo">NEW</i>{/if}
+                        </div>
+                        <div class="list-content">
+                            <p>{$voo.contient}</p>
+                            {if condition="$voo['isSiteUser'] != 'siteUser'"}   {/* 后台人员回复 */}
+                            <span>{$Think.lang.ufile}：
+                                {volist name=':json_zkpai($voo.uploadfile)' id='vooo'}
+                                <a href="https://service.zkteco.com:8443/commonController.action?viewFile&subclassname=com.framework.web.system.pojo.base.TSDocument&fileid={$vooo.fileKey}">{$vooo.name}</a>
+                                {/volist}
+                            </span>
+                            <div class="state-unfinished">
+                                {if condition="$voo.isHelpful==0" /}
+                                <div class="bottom">{$Think.lang.yes1}</div>  {/* 是否解决 */}
+                                {elseif condition="$voo.isHelpful==1" /}
+                                <div class="bottom">{$Think.lang.no1}</div>  {/* 是否解决 */}
+                                {/if}
+                            </div>
+                            {/if}
+                        </div>
+                    </div>
+                {/volist}
+            </div>
+            {if condition="empty($detailData.commentContent)"}
+                <div class="comment-evaluate" id='comment_content__'>
+                    <div class="evaluate-tit">
+                        The problem had been solved and closed by ZKTeco service staffs. Please rate your satisfaction level of the interaction experience:
+                    </div>
+                    <div class="evaluate-class">
+                    {volist name=":config('commentScore')" id='vo'}
+                        <span {if condition="$key == 4"}class="active"{/if} data-c='{$key}'>{$vo}</span>
+                    {/volist}
+                    </div>
+                    <div class="evaluate-content">
+                        <textarea  id="comment_content" placeholder="Enter more comments on our technicians"></textarea>
+                    </div>
+                    <button id='submit_comment'>Submit comments</button>
+                </div>
+            {else /}
+                <!-- 提交后显示效果 -->
+                <div class="comment-evaluate evaluated">
+                    <div class="evaluate-tit">
+                        Comment Content
+                    </div>
+                    <div class="evaluate-class">
+                        <span class="active">{:config('commentScore')[$detailData.commentScore]}</span>
+                    </div>
+                    <div class="evaluate-content">
+                        <textarea name="" id="">{$detailData.commentContent}</textarea>
+                    </div>
+                </div>
+            {/if}
+        </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script src="{$Think.HOME_JS}/upload/jquery.ui.widget.js"></script>
+<script src="{$Think.HOME_JS}/upload/jquery.iframe-transport.js"></script>
+<script src="{$Think.HOME_JS}/upload/jquery.fileupload.js"></script>
+<script>
+    $(function(){
+        $(".add-comment .comment-evaluate .evaluate-class span").click(function(){
+            $(this).addClass("active").siblings().removeClass("active");
+        })
+        function loading_msg(msg){
+            index = layer.msg(msg, {
+                icon: 16,
+                shade: 0.5,
+                time: 30000,
+                shadeClose: false
+            });
+        }
+        $('#submit_comment').on('click',function(){
+            var someId = parseInt('{$detailData.someId}');
+            var commentContent = $('#comment_content').val().trim();
+            var commentScore = parseInt($(".add-comment .comment-evaluate .evaluate-class span.active").attr('data-c'));
+            var commentScore_value = $(".add-comment .comment-evaluate .evaluate-class span.active").html();
+            loading_msg("{$Think.lang.commit_now}");
+            $.ajax({
+                url: "{:url('User/ticket_commnet')}",
+                data: {"someId":someId,'commentContent':commentContent,'commentScore':commentScore},
+                type:'post',
+                dataType: "json",
+                error:function(data){
+                    layer.close(index);
+                    showErrMsg("{$Think.lang.ajax_err}");
+                    return;
+                },
+                success:function(result){
+                layer.close(index);
+                    if (result.status == 1) {
+                        $('#comment_content__').hide();
+                        var html = '<div class="comment-evaluate evaluated">'
+                                    +'<div class="evaluate-tit">评价内容</div>'
+                                    +'<div class="evaluate-class"><span class="active">'+commentScore_value+'</span></div>'
+                                    +'<div class="evaluate-content"><textarea name="" id="">'+commentContent+'</textarea></div'
+                                    +'</div>';
+                        $('.comment-lsit').after(html);
+                        showOkTime('{$Think.lang.action_success}',3);
+                    } else {
+                        showErrMsg(result.info);
+                    }
+                },
+            })
+        })
+
+    })
+</script>
+</body>
+</html>

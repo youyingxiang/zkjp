@@ -1,0 +1,187 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content">
+    <div class="w1400"><div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> &gt; <a href="{:url('/user_center')}">{$Think.lang.user_center}</a> &gt; {$title}</div></div>
+
+    <section class="page-container page-containerLR20 marginB30">
+        <div class="mCaption"><span>{$title}</span></div>
+        <form action="" method="post" id='user_info_c'>
+        <section class="mForm mFormLR tran300">
+            <div class="mForm-body content1">           
+                <div class="mForm-group">
+                    <div class="mForm-colLeft">{$Think.lang.phone_number}：</div>
+                    <div class="mForm-colRight">
+                        <div class="mForm-field-txt">{$user_info.tel}<span class=""></span></div>
+                    </div>
+                </div>
+                <div class="mForm-group">
+                    <div class="mForm-colLeft">{$Think.lang.email}：</div>
+                    <div class="mForm-colRight">
+                        <div class="mForm-field-txt">{$user_info.email}<span class=""></span></div>
+                    </div>
+                </div>
+                <div class="mForm-group">
+                    <div class="mForm-colLeft"><span class="mColorGreen">*</span>&nbsp;{$Think.lang.name}：</div>
+                    <div class="mForm-colRight">
+                        <div class="mForm-field tran300">
+                            <input class="tran300" type="text" name='contactName' value="{$user_info.contactName}" placeholder="Please input name" />
+                        </div>
+                        <div class="mForm-group-tips tran300"></div>
+                    </div>
+                </div>
+                <div class="mForm-group">
+                    <div class="mForm-colLeft empty"></div>
+                    <div class="mForm-colRight">
+                        <div class="mForm-field tran300 radio">
+                            <div class="mForm-radio"><input id="man" type="radio" {if condition="$user_info.gender == 0"}checked='true'{/if} name="gender" value="0" /><label for="man">{$Think.lang.sex0}</label></div>
+                            <div class="mForm-radio"><input id="woman" type="radio" name="gender" {if condition="$user_info.gender == 1"}checked='true'{/if} value="1" /><label for="woman">{$Think.lang.sex1}</label></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mForm-group">
+                    <div class="mForm-colLeft"><span class="mColorGreen">*</span>&nbsp;{$Think.lang.company_name}</div>
+                    <div class="mForm-colRight">
+                        <div class="mForm-field tran300">
+                            <input class="tran300" type="text" name='companyName' value="{$user_info.companyName}" placeholder="Please input company name" />
+                        </div>
+                        <div class="mForm-group-tips tran300"></div>
+                    </div>
+                </div>
+                <div class="mForm-group">
+                    <div class="mForm-colLeft"><span class="mColorGreen">*</span>&nbsp;{$Think.lang.industry}</div>
+                    <div class="mForm-colRight">
+                        <div class="mForm-field tran300">
+                            <input class="tran300" type="text" value='{$user_info.industry}' name='industry' placeholder="Please input related industry" />
+                        </div>
+                        <div class="mForm-group-tips tran300"></div>
+                    </div>
+                </div>
+                <div class="mForm-group">
+                    <div class="mForm-colLeft"><span class="mColorGreen">*</span>&nbsp;{$Think.lang.main_business}</div>
+                    <div class="mForm-colRight">
+                        <div class="mForm-field tran300">
+                            <input class="tran300" type="text" name='majorBusiness' value='{$user_info.majorBusiness}' placeholder="Please input main business" />
+                        </div>
+                        <div class="mForm-group-tips tran300"></div>
+                    </div>
+                </div>
+                <div class="mForm-group">
+                    <div class="mForm-colLeft"><span class="mColorGreen">*</span>&nbsp;Country</div>
+                    <div class="mForm-colRight">
+                        <div class="mForm-field tran300">              
+                            <select class='info' name='country'>
+                                {volist name='country' id='vo'}
+                                <option value="{$vo.countryName}" {if condition="$vo.countryName == $user_info.country"}selected='selected'{/if}>{$vo.countryName}</option>
+                                {/volist}
+                            </select>
+                        </div>
+                        <div class="mForm-group-tips tran300"></div>
+                    </div>
+                </div>
+                <div class="mForm-group">
+                    <div class="mForm-colLeft"><span class="mColorGreen">*</span>&nbsp;{$Think.lang.detailed_address}</div>
+                    <div class="mForm-colRight">
+                        <div class="mForm-field tran300">
+                            <input class="tran300" type="text" name='address' value='{$user_info.address}' placeholder="Please input detailed address" />
+                        </div>
+                        <div class="mForm-group-tips tran300"></div>
+                    </div>
+                </div>
+            </div>
+        </section><!--.mForm end-->
+
+        <div class="mForm-more tran30 show">{$Think.lang.perfect_more_info}</div>
+
+        <section class="mForm mFormLR tran300" style="min-height: auto;">
+            <div class="mForm-body">
+                <div class="mForm-group">
+                    <div class="mForm-colLeft">{$Think.lang.department}</div>
+                    <div class="mForm-colRight">
+                        <div class="mForm-field tran300">
+                            <input class="tran300" type="text" name='department' value='{$user_info.department}' placeholder="Please input department" />
+                        </div>
+                        <div class="mForm-group-tips tran300"></div>
+                    </div>
+                </div>
+                <div class="mForm-group">
+                    <div class="mForm-colLeft">{$Think.lang.position}</div>
+                    <div class="mForm-colRight">
+                        <div class="mForm-field tran300">
+                            <input class="tran300" type="text" name='position' value='{$user_info.position}' placeholder="Please input position" />
+                        </div>
+                        <div class="mForm-group-tips tran300"></div>
+                    </div>
+                </div>
+                <div class="mForm-group">
+                    <div class="mForm-colLeft">{$Think.lang.fixTel}</div>
+                    <div class="mForm-colRight">
+                        <div class="mForm-field tran300">
+                            <input class="tran300" type="text" name='fixTel' value='{$user_info.fixTel}' placeholder="Please input fixed phone number" />
+                        </div>
+                        <div class="mForm-group-tips tran300"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        </form>
+
+        <section class="mForm mFormLR" style="min-height: auto;">
+            <div class="mForm-group">
+                <div class="mForm-colLeft empty"></div>
+                <div class="mForm-colRight">
+                    <a class="mForm-btn-solid small tran300" id='save_commit' href="javascript:void(0);">{$Think.lang.save}</a>
+                </div>
+            </div>
+        </section>
+    </section><!--.page-container end-->
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+$(function(){
+    if (getCookie('user_info_err').trim().length>0) {
+        showErrMsg(eval(getCookie('user_info_err')));
+        delCookie('user_info_err');
+    }
+    $('#save_commit').on('click',function(){
+        var check = 0;
+        $(".content1 input[type='text']").each(function(){
+            if ($(this).val().trim().length == 0) {
+                check=1;
+                val_isnull($(this));
+            } else if ($(this).val().trim().length>100) {
+                check=1;
+                val_length($(this));
+            } else {
+                val_is_notnull($(this));
+            }          
+        });
+        if (check == 0) {
+            $('#user_info_c').submit();
+        }
+    })
+    function val_length(obj)
+    {
+        obj.parent().next().html("{$Think.lang.val_l}");        //增加错误提示
+        obj.parent().next().addClass('error');                  //增加错误提示的类
+        obj.parent().removeClass('success');                    //移除成功提示的类
+    }
+    function val_is_notnull(obj)
+    {
+        obj.parent().addClass('success');                       //增加提示成功的类
+        obj.parent().next().empty();                            //移除错误提示
+        obj.parent().next().removeClass('error');               //删除错误提示的类
+        
+    }
+    function val_isnull(obj)
+    {
+        obj.parent().next().html("{$Think.lang.val_r}");        //增加错误提示
+        obj.parent().next().addClass('error');                  //增加错误提示的类
+        obj.parent().removeClass('success');                    //移除成功提示的类
+        
+    }
+
+})
+</script>
+</body>
+</html>

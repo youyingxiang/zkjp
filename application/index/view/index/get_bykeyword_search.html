@@ -1,0 +1,13 @@
+{volist name="$res" id='vo'}
+<div {if condition="!empty($vo.img)"}class="list"{else /}class="list no-img"{/if}>
+    <a href="{$vo.url}">
+       {if condition="!empty($vo.img)"}{$vo.img}{/if}
+        <div class="content">
+            <h3 class="textHidden">{$vo.n}</h3>
+            <p>{if condition="!empty($vo.des)"}{$vo.des}{/if}</p>
+            <time>{$vo.time}</time>
+        </div>
+    </a>
+</div>
+{/volist}
+{$res->render()}

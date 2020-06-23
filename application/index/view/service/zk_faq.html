@@ -1,0 +1,118 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<script>
+    window._bd_share_config={"common":{"bdUrl": "","bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};
+    with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/en/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare-button-style0-16 a, .bdshare-button-style0-16 .bds_more{margin: 0;}
+    .bd_weixin_popup{height: 320px!important;}
+
+</style>
+<div class="page-content02">
+    <div class="page-banner faq-banner" style="background-image:url({$ad['常见问题-banner'][0]['img']});">
+        <div class="content slideIn02">
+            <div class="left" style="margin: auto">
+                <div class="tit">Quick Search</div>
+                <input type="text" class="text" name='keyValue'>
+                <input type="button" class="btn" id='search_kv' value="{$Think.lang.search}">
+            </div>
+        </div>
+    </div>
+    <div class="faq-content">
+        <div class="w1400">
+            <div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> > <a href="{:url('/service')}">{$Think.lang.service}</a> > {$Think.lang.zk_faq}</div>
+            <div class="list-con">
+                <div class="list-nav clearfix">
+                    <a class="on" cid='' href="javascript:void(0)">{$Think.lang.all}</a>
+                    {volist name='$faqcategory->children' id='vo'}
+                    <a  cid='{$vo->name}' href="javascript:void(0)">{$vo->name}</a>
+                    {/volist}
+                </div>
+
+                <div class="list-wrap"></div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+    time = 1;
+    cid = '';
+    keyValue = "";
+    productCategory = "";
+    productName = "";
+    productModel = "";
+    loading_msg("{$Think.lang.query_now}");
+    get_cate_list();
+    $('.list-nav a').on('click',function(){
+       $('.list-wrap').empty();
+       $('#search_kv').prev().val('');                           //增加
+       keyValue = "";                                            //增加
+       time = 1;
+       loading_msg("{$Think.lang.query_now}");
+       $(this).addClass('on').siblings().removeClass('on');
+       cid = $(this).attr('cid').trim();
+       get_cate_list();
+    })
+    $('.faq-content .list-con').on('click', '.list .tit', function(){
+        $(this).toggleClass('on').parents(".list").siblings().find(".tit").removeClass('on');
+        $(this).next(".contxt").slideToggle(150).parents(".list").siblings().find(".contxt").slideUp(150);
+    });
+    $('#search_getbyproduct').on('click',function(){
+        loading_msg("{$Think.lang.query_now}");
+        $('.list-wrap').empty();
+        time = 1;
+        keyValue = "";
+        productCategory = $("select[name='productCategory']").val().trim();
+        productName = $("select[name='productName']").val().trim();
+        productModel = $("select[name='productModel']").val().trim();
+        get_cate_list()
+    })
+    $('#search_kv').on('click',function(){
+        loading_msg("{$Think.lang.query_now}");
+        $('.list-wrap').empty();
+        time = 1;
+        productCategory = "";
+        productName = "";
+        productModel = "";
+        keyValue = $(this).prev().val().trim();
+        $(this).prev().val('');                        //增加
+        get_cate_list()
+    })
+    function get_cate_list(){
+        $.ajax({
+                url: "{:url('/index/Service/get_faq_lst')}",
+                data: {"cid":cid,"time":time,"keyValue":keyValue,"productCategory":productCategory,"productName":productName,"productModel":productModel},
+                type:'post',
+                dataType: "html",
+                error:function(data){
+                     layer.close(index);
+                     showErrMsg("{$Think.lang.ajax_err}");
+                     return;
+                },
+                success:function(result){
+                    layer.close(index);
+                    if (result.length < 50) {
+                        showErrMsg('{$Think.lang.no_data}');
+                    } else {
+                        $('.list-wrap').html(result);
+                        window._bd_share_main.init();
+                    }
+                    
+                },
+        })
+    }
+    function loading_msg(msg){
+        index = layer.msg(msg, {
+                icon: 16,
+                shade: 0.5,
+                time: 30000,
+                shadeClose: false
+            });
+    }
+</script>
+</body>
+</html>

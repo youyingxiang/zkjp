@@ -1,0 +1,284 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+    <a href="{:get_img_url($ad['维修登记-banner'][0]['url'])}">
+    <div class="page-banner check-banner" style="background-image:url({$ad['维修登记-banner'][0]['img']});"><div class="txt">{$ad['维修登记-banner'][0]['title']}</div></div></a>
+    <div class="w1400 slideIn02">
+<!--         <div class="position"><a href="/">{$Think.lang.home}</a> > <a href="{:url('/service')}">{$Think.lang.service}</a> > <a href="">{$Think.lang.after_service}</a> > {$Think.lang.repair_register}</div> -->
+        <div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> > <a href="{:url('/service')}">{$Think.lang.service}</a> > {$Think.lang.repair_register}</div>
+        <div class="weixiu-content">
+            <ul class="step clearfix">
+                <li class="on"><span>1</span>{$Think.lang.repair_register}<i></i></li>
+                <li><span>2</span>{$Think.lang.commit_success}</li>
+            </ul>
+            <div class="item02">
+                <div class="weixiu-title">{$Think.lang.customer_info} <a class="item02-edit" href="javascript:">[{$Think.lang.edit}]</a></div>
+                <div class="table-box clearfix">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <thead>
+                            <tr>
+                                <td>{$Think.lang.company_name}</td>{/* 公司名称 */}
+                                <td>{$Think.lang.contact_p}</td>{/* 联系人 */}
+                                <td>{$Think.lang.email}</td>{/* 邮箱 */}
+                                <td>{$Think.lang.tel}</td>{/* 电话 */}
+                                <td>{$Think.lang.address}</td>{/* 公司地址 */}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id='tr-info'>
+                                <td>
+                                    {if condition="!empty(json_decode(cookie('user_info'),true))"}{:json_decode(cookie('user_info'),true)['companyName']}{/if}
+                                </td>
+                                <td>
+                                    {if condition="!empty(json_decode(cookie('user_info'),true))"}{:json_decode(cookie('user_info'),true)['contactName']}{/if}
+                                </td>
+                                <td>
+                                    {if condition="!empty(json_decode(cookie('user_info'),true))"}{:json_decode(cookie('user_info'),true)['email']}{/if}
+                                </td>
+                                <td>
+                                    {if condition="!empty(json_decode(cookie('user_info'),true))"}{:json_decode(cookie('user_info'),true)['tel']}{/if}
+                                </td>
+                                <td>
+                                    {if condition="!empty(json_decode(cookie('user_info'),true)['address'])"}{:json_decode(cookie('user_info'),true)['address']}{/if}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="item02-box">
+                    <div class="list" style="width:50%;">
+                        <div class="left"><span>*</span>{$Think.lang.company_name}</div>{/* 公司名称 */}
+                        <div class="right"><input class="text" name='companyName'  type="text"></div>
+                    </div>
+                    <div class="list" style="width:50%;">
+                        <div class="left"><span>*</span>{$Think.lang.contact_p}</div>{/* 联系人 */}
+                        <div class="right"><input class="text" name='contactName' type="text"></div>
+                    </div>
+                    <div class="list" style="width:50%;">
+                        <div class="left"><span>*</span>{$Think.lang.address}</div>{/* 公司地址 */}
+                        <div class="right"><input class="text"  type="text"></div>
+                    </div>
+                    <div class="list">
+                        <div class="right"><input type="button" value="{$Think.lang.save}" style="background:#78bc27;color:#fff;" class="btn item02-save"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="item04 clearfix">
+                <div class="weixiu-title"><span>{$Think.lang.product_info}</span></div>{/* 产品信息 */}
+                <div class="list fl" style="width:50%;">
+                    <div class="left"><span>*</span>{$Think.lang.machine_model}</div>{/* 产品型号 */}
+                    <div class="right"><input class="text model" placeholder="Please input device name" type="text"></div>
+                </div>
+                <div class="list fl" style="width:50%;">
+                    <div class="left"><span>*</span>SN</div>
+                    <div class="right"><input class="text sn" placeholder="Please input SN" type="text"></div>
+                </div>
+                <div class="clear"></div>
+                <div class="list">
+                    <div class="left"><span>*</span>{$Think.lang.malfunction_desc}</div>{/* 故障描述 */}
+                    <div class="right"><textarea class="ms" placeholder="Please input malfunction description"></textarea></div>
+                </div>
+                <div class="list">
+                    <div class="right"><input type="button" value="{$Think.lang.add}" class="btn" id="addBtn"></div>{/* 添加 */}
+                </div>
+                <div class="list">
+                    <div class="right">
+                        <div class="cz-a clearfix">
+                            <a href="{:url('/uploads/demo/demo_en.xls','',false)}">{$Think.lang.download_template}</a><a id='download_template' href="javascript:void(0)">{$Think.lang.btch_import}</a>{/* 下载模版 批量导入 */}
+                        </div>
+                        <div class="item02">
+                            <div class="table-box clearfix">
+                                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <td>{$Think.lang.machine_model}</td>
+                                            <td>SN</td>
+                                            <td>{$Think.lang.malfunction_desc}</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody id='p-info'>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="list clearfix">
+                    <div class="right"><input class="text yzm fl" id='verify' type="text" placeholder="{$Think.lang.verify}"><img src="{:captcha_src()}"  id="verify_code" alt="captcha" style="height:45px" onclick="this.src='{:captcha_src()}?rnd=' + Math.random();" /></div>
+                </div>
+                <div class="list">
+                    <div class="right"><input type="button" value="{$Think.lang.submit}" style="background:#78bc27;color:#fff;" class="btn sbm"></div>
+                </div>
+                <input id="fileupload" type="file" name="imgFile"  data-url="{:url('admin/Uploads/upload')}?dir=file" multiple>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $compatible=1;?>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script src="{$Think.HOME_JS}/upload/jquery.ui.widget.js"></script>
+<script src="{$Think.HOME_JS}/upload/jquery.iframe-transport.js"></script>
+<script src="{$Think.HOME_JS}/upload/jquery.fileupload.js"></script>
+<script>
+    $(".btn.sbm").on('click',function(){
+        var i1 = 0;
+        var info = [];
+        var flag = 0;
+        $('#tr-info td').each(function(){               //客户信息
+            info[i1] = $(this).text().trim();
+            if ($(this).text().trim().length == 0) {
+                flag = 1;
+            }
+            i1++;
+        })
+        var i2 = 0;
+        var pinfo = [];
+        $('#p-info tr').each(function(){                   //提交产品信息
+            pinfo[i2] = [];
+            var tdArr = $(this).children('td');
+            pinfo[i2][0] = tdArr.eq(0).text().trim();
+            pinfo[i2][1] = tdArr.eq(1).text().trim();
+            pinfo[i2][2] = tdArr.eq(2).text().trim();
+            i2++;
+        })
+        if (pinfo.length == 0) {
+            flag = 1;
+        }
+      
+        var verify = $('#verify').val().trim();
+        if (verify.length == 0) {
+            flag = 1;
+        }
+        if (flag == 1) {
+            showErrMsg("{$Think.lang.err6}");
+            return;
+        } else {
+            loading_msg("{$Think.lang.commit_now}");
+            $.ajax({
+                url: "{:url('Service/repair_commit')}", 
+                data: {"info":JSON.stringify(info),'pinfo':JSON.stringify(pinfo),'verify':verify},
+                type:'post', 
+                dataType: "json", 
+                error:function(data){
+                    layer.close(index);
+                    $('#verify_code').trigger('click');
+                    showErrMsg("{$Think.lang.ajax_err}");
+                    return;
+                },  
+                success:function(result){
+                    layer.close(index);
+                    $('#verify_code').trigger('click');
+                    if (result.status == 1) {
+                        window.location.href="{:url('index/Service/repair_finish')}";
+                    } else {
+                        showErrMsg(result.info);
+                    }           
+                },
+            })
+        }
+    })
+    function loading_msg(msg)
+    {
+        index = layer.msg(msg, {
+            icon: 16,
+            shade: 0.5,
+            time: 30000,
+            shadeClose: false 
+        });
+    }
+    /**
+     * [excel_in excel 导入]
+     * @param  {[type]} path [上传excel 路径]
+     * @return {[type]}      [description]
+     */
+    function excel_in(path)
+    {
+        $.ajax({
+            url: "{:url('Alone/excel_in')}", 
+            data: {"path":path},
+            type:'post', 
+            dataType: "json",
+            error:function(data){
+                layer.close(index);
+                showErrMsg("{$Think.lang.ajax_err}");
+                return;
+            },  
+            success:function(result){
+                layer.close(index);
+                if (result.status == 1) {
+                    var data = eval(result.info);
+                    var html = '';
+                    $.each(data, function(index, content){
+                        html += "<tr><td>"+ content[1] +"</td><td>"+ content[2] +"</td><td>"+ content[3] +"</td></tr>";
+                    });
+                    $(".weixiu-content .item04 table tbody").append(html);
+                    showOkTime("{$Think.lang.action_success}");
+                } else {
+                    showErrMsg(result.info);
+                }           
+            },
+        }) 
+
+    }
+    $('#fileupload').hide();
+    $('#fileupload').fileupload({
+        dataType: 'json',
+        add: function (e,data) {
+            loading_msg("{$Think.lang.commit_now}");
+            data.submit();
+        },
+        done: function (e, data) {
+            if (data.result.error == '0') {
+                var path = data.result.url.trim();
+                excel_in(path)
+            } else {
+                layer.close(index);
+                showErrMsg(data.result.info);
+            }
+        }
+    });
+    $('#download_template').on('click',function(){
+        $('#fileupload').trigger('click');
+    })
+
+    $("#addBtn").on("click",function(){
+        var model = $(".model").val();
+        var sn = $(".sn").val();
+        var ms = $(".ms").val();
+        if(model == '' || sn == '' || ms == ''){
+            showErrMsg("{$Think.lang.err6}");
+        }else{
+            $(".weixiu-content .item04 table tbody").append("<tr><td>"+ model +"</td><td>"+ sn +"</td><td>"+ ms +"</td></tr>")
+            $(".model,.sn,.ms").val('');
+        }
+    })
+    $(".item02-edit").on("click",function(){
+        $(".item02-box").slideToggle(150);
+        $(".weixiu-content .item02 .item02-box .list").eq(0).find("input").val($(".item02 .table-box table tbody tr td").eq(0).text().trim());
+        $(".weixiu-content .item02 .item02-box .list").eq(1).find("input").val($(".item02 .table-box table tbody tr td").eq(1).text().trim());
+        $(".weixiu-content .item02 .item02-box .list").eq(2).find("input").val($(".item02 .table-box table tbody tr td").eq(4).text().trim());
+    })
+    //保存事件
+    $(".item02-save").on("click",function(){
+        if ($(".weixiu-content .item02 .item02-box .list").eq(0).find("input").val().trim().length == 0) {
+            showErrMsg('{$Think.lang.err1}');
+            return;
+        }
+        if ($(".weixiu-content .item02 .item02-box .list").eq(1).find("input").val().trim().length == 0) {
+            showErrMsg('{$Think.lang.err2}');
+            return;
+        }
+        if ($(".weixiu-content .item02 .item02-box .list").eq(2).find("input").val().trim().length == 0) {
+            showErrMsg('{$Think.lang.err5}');
+            return;
+        }
+        $(".item02-box").slideUp(150);
+        $(".item02 .table-box table tbody tr td").eq(0).text($(".weixiu-content .item02 .item02-box .list").eq(0).find("input").val().trim());
+        $(".item02 .table-box table tbody tr td").eq(1).text($(".weixiu-content .item02 .item02-box .list").eq(1).find("input").val().trim());
+        $(".item02 .table-box table tbody tr td").eq(4).text($(".weixiu-content .item02 .item02-box .list").eq(2).find("input").val().trim());
+    })
+</script>
+</body>
+</html>

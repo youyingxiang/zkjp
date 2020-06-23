@@ -1,0 +1,26 @@
+{volist name="$productData" id="vo"}
+<li class="clearfix">
+    <input type="checkbox" name="subBox_" data-pid='{$vo.id}' data-name='{$vo.name}'>
+    <label for=""></label>
+    <div class="fl">
+        <b style="background-image:url({$vo.img}); "></b>
+    </div>
+    <div class="product fl">
+        <p class="textHidden"><a href="{if condition='$vo.url_title'}{:url('/product_detail/'.$vo.url_title)}{else/}{:url('/product_detail/'.$vo.id)}{/if}">{$vo.name}</a></p>
+        <span class='delete_cart' data-pid='{$vo.id}'>{$Think.lang.delete}</span>
+    </div>
+    <div class="num fr">
+        <span class="reduce_" data-pid="{$vo.id}">-</span>
+        <input type="text" class='pnum' data-pid="{$vo.id}" value="{$idnums[$vo.id]}">
+        <span class="add_" data-pid="{$vo.id}">+</span>
+    </div>
+</li>
+{/volist}
+<input type="hidden" name='order_number' value="{$order_number}" > 
+<script>
+$(".add-popupCar .shoppingcar-list ul li").click(function(){
+    var id_index=$(this).index();
+    $(this).find("input[type='checkbox']").attr("id",id_index);
+    $(this).find("label").attr("for",id_index);
+})
+</script>

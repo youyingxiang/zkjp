@@ -1,0 +1,31 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content">
+    <section class="page-container page-containerLR20">
+        <div class="mBreadCrumb clearfix tran300">
+            <div class="mBreadCrumb-item"><a href="{:url('/')}">{$Think.lang.home}</a></div>
+            <div class="mBreadCrumb-item"><a href="{:url('/aboutus')}">{$Think.lang.about_us}</a></div>
+            {if condition="!empty(input('get.type'))"}<div class="mBreadCrumb-item"><a href="/en/recruit_type/{:input('get.type')}">{if condition="input('get.type') == 'a'"}{$Think.lang.recruit_a}{else if condition="input('get.type') == 'b'"}{$Think.lang.recruit_b}{/if}</a></div>{/if}
+            <div class="mBreadCrumb-item">{$Think.lang.recruit_detail}</div>
+        </div>
+
+        <dl class="mJob">
+            <dt class="mJob-name">{$detailData.name}</dt>
+            <dd>
+                <div class="mJob-infor">
+                    <span class="mJob-infor-item">{$Think.lang.work}：{$detailData.province},{$detailData.city}</span>
+                    <span class="mJob-infor-item">{$Think.lang.work_nature}：{$detailData.work_nature}</span>
+                    <span class="mJob-infor-item">{$Think.lang.num}：{$detailData.num} person(s)</span>
+                </div>
+                <div class="mJob-details">
+                    {$detailData.content}
+                    <br>
+                </div>
+            </dd>
+        </dl>
+    </section><!--.page-container end-->
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+</body>
+</html>

@@ -1,0 +1,21 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+    <a href="{:get_img_url($ad['预约查询-banner'][0]['url'])}">
+     <div class="page-banner check-banner" style="background-image:url({$ad['预约查询-banner'][0]['img']});"><div class="txt">{$ad['预约查询-banner'][0]['title']}</div></div></a>
+    <div class="w1400 slideIn02">
+        <div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> > <a href="{:url('/service')}">{$Think.lang.service}</a> > {$title}</div>
+        <div class="weixiu-content">
+            <div class="ts-succ yuy-succ clearfix">
+                <div class="w1400">
+                    <i></i>
+                    <div class="ts">{$Think.lang.rssuccess}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+</body>
+</html>

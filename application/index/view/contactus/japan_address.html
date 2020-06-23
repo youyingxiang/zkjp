@@ -1,0 +1,97 @@
+{include file="layout/top" /}
+<style>
+    html,body{ background: #fbfbfb;}
+</style>
+{include file="layout/header" /}
+<div class="page-content02">
+    <a href="{:get_img_url($ad['总部地址-banner'][0]['url'])}">
+    <div class="page-banner check-banner" style="background-image:url({$ad['总部地址-banner'][0]['img']});"><div class="txt">{$ad['总部地址-banner'][0]['title']}</div></div></a>
+    <div class="w1400"><div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> &gt;<a href="{:url('/contactus')}">{$Think.lang.contactus}</a> &gt; {$title}</div></div>
+    <section class="page-container page-containerLR20 marginB30">
+        <div class="addrMap">
+            <div class="addrList clearfix marginB20">
+                <div class="addrList-item">
+                    <div class="addrList-item-company">ZKTeco Japan</div>
+                    <div class="addrList-item-infor">
+                        <p>住所：东京台東区东上野3-4-4富士也ビル201</p> 
+			<p>メール：japan@zkteco.com</p>
+                    </div>
+                </div>
+            </div>
+            <!--地图容器-->
+            <div id="mapBox" class="tran300"></div>
+        </div>     
+    </section><!--.page-container end-->
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMPLUhheThpXZq92XAgysQZ1tCXBRRwhQ&language=en"></script>
+<script type="text/javascript">  
+    var map = null;  
+    //标注点数组
+    var markerArr = [{title:"ZKTeco Japan",content:"",lat:"35.710148",lng:"139.781212"}]
+
+//{title:"ZKTeco (Hubei) Technology Co., Ltd",content:"",lat:"30.658809",lng:"114.146642"}];
+    function initialize() {  
+        map = new google.maps.Map(document.getElementById('mapBox'), {  
+                center: {lat:22.328566,lng:73.167181},
+                zoom:16,
+                zoomControl: true,
+                mapTypeControl: false,
+                scaleControl: true,
+                streetViewControl: false,
+                rotateControl: true,
+                fullscreenControl: false,
+                gestureHandling: 'greedy',
+	//	mapTypeId:google.maps.MapTypeId.SATELLITE,    
+            });
+	    //map.MapTypeId.TERRAIN
+//	console.log(map.getZoom());       
+              for(var i=0;i<markerArr.length;i++){
+                var json = markerArr[i];
+                 addSite(map,json.title,json.lat,json.lng,json.content)
+              }       
+    }      
+    var prev_infowindow = null;  
+    function addSite(map, siteDesc, lat, lng, address) {  
+         var contentString =  
+            '<div class="content">'+
+                '<div class="siteNotice">'+
+                '</div>'+
+                '<h3 class="firstHeading" class="firstHeading">'+siteDesc+'</h3>'+
+                '<div class="bodyContent">'+
+                '<p>'+address+'</p>'
+                '</div>'+
+            '</div>'; 
+        var pt = new google.maps.LatLng(lat,lng);  
+        var marker = new google.maps.Marker({  
+                    map: map,  
+                    position : pt,   
+                    title: siteDesc  
+                    });  
+        var infowindow = new google.maps.InfoWindow({  
+            content: contentString  
+        });  
+        infowindow.open(map, marker);
+        google.maps.event.addListener(marker, 'click', function() {  
+            if (prev_infowindow != null) prev_infowindow.close();  
+            prev_infowindow = infowindow;  
+            infowindow.open(map, marker);  
+        });       
+    var LatLngList = new Array (new google.maps.LatLng (35.710148,139.781212));  
+    //  Create a new viewpoint bound  
+    var bounds = new google.maps.LatLngBounds ();  
+    //  Go through each...  
+    for (var i = 0, LtLgLen = LatLngList.length; i < LtLgLen; i++) {  
+      //  And increase the bounds to take this point  
+      bounds.extend (LatLngList[i]);  
+    }  
+    //  Fit these bounds to the map  
+    map.fitBounds (bounds);      
+    }  
+    $(document).ready(function() { initialize();});  
+</script>
+
+</body>
+</html>
+

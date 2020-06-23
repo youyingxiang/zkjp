@@ -1,0 +1,8 @@
+{volist name='recruitData' id='vo_data'}
+	<tr>
+	    <td>{$vo_data.name}{if condition="$vo_data.emergency"}<i class="mJobLabel">{$Think.lang.emergency}</i>{/if}</td>
+	    <td>{$vo_data.province},{$vo_data.city}</td>
+	    <td>{$vo_data->RecruitPost->job_name}</td>
+	    <td><a class="mColorGreen" href="{:url('/recruit_detail/'.$vo_data.id).'?type='.input('id')}">{$Think.lang.view_details}</a></td>
+	</tr>
+{/volist}

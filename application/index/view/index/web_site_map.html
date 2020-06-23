@@ -1,0 +1,60 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="webmap">
+    <div class="w1400">
+        <div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> > {$title}</div>
+        <div class="webmap-content">
+            <div class="item">
+            {volist name='$nav_all' id='vo1'}
+                {if condition='$vo1.level == 0'}
+                <div class="item-content">
+                    <a {:check_target($vo1.url)} href="{:get_img_url($vo1.url)}">
+                        <div class="tit">
+                           {$vo1.name}
+                        </div>
+                    </a>
+                    <div>
+                        <div class="list clearfix">
+                            <div class="class">
+                            {if condition='$vo1.id eq 5'}
+                                {volist name='$product_cat' id='vop1'}
+                                {if condition='$vop1.level eq 0'}
+                                <a  href="{:url('/product_category/'.$vop1.id)}">{$vop1.name}</a>
+                                {/if}
+                                {/volist}
+                            {elseif condition='$vo1.id eq 2'}
+                                {volist name='$news_cat' id='von1'}
+                                <a  href="{:url('/category_news/'.$von1.id)}">{$von1.name}</a>
+                                {/volist}
+                            {elseif condition='$vo1.id eq 6'}
+                                {volist name="$scheme" id="solution"}
+                                {volist name='solution' id='vos'}
+                                    <a  href="{:url('/scheme_detail/'.$vos.id)}">{$vos.name}</a>  
+                                {/volist}  
+                                {/volist}
+                            {else /}
+                                {volist name='$nav_all' id='vo2'}
+                                {if condition='$vo1.id == $vo2.parent_id'}
+                                <a {:check_target($vo2.url)} href="{:get_img_url($vo2.url)}">{$vo2.name}</a>
+                                    {volist name='$nav_all' id='vo3'}
+                                        {if condition='$vo2.id == $vo3.parent_id'}
+                                            <a {:check_target($vo3.url)} href="{:get_img_url($vo3.url)}">{$vo3.name}</a>
+                                        {/if}
+                                    {/volist}
+                                {/if}
+                                {/volist}
+                            {/if}                          
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {/if}
+            {/volist}
+            </div>
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+</body>
+</html

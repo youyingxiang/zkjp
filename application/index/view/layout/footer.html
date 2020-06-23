@@ -1,0 +1,76 @@
+<div class="footer">
+    <div class="w1400 clearfix slideIn01">
+        <div class="left clearfix">
+        {volist name="nav[1]" id="fnav"}
+        {if condition="$fnav.level == 0"}   
+        <div class="list">
+            <div class="tit"><a {:check_target($fnav.url)} href="{:get_img_url($fnav.url)}">{$fnav.name}</a></div>
+                <ul>
+                    {if condition="$fnav.id==2"}{/* 新闻 */ }
+                        {volist name="news_cat" id="fvn"}
+                        {if condition='$fvn.id neq 40&&$fvn.id neq 48'}
+                        <li><a href="{:url('/category_news/'.$fvn.id)}">{$fvn.name}</a></li>
+                        {/if}
+                        {/volist}  
+                    {elseif condition="$fnav.id eq 5"/}{/* 产品 */ }
+                        {volist name="product_cat" id="fvp"}
+                        {if condition="$fvp.level == 0"}
+                        <li><a href="#">{$fvp.name}</a></li>
+                        {/if}
+                        {/volist}   
+                    {else/}
+                        {volist name="nav[1]" id="fnav_2"}
+                        {if condition="$fnav_2.parent_id == $fnav.id"}
+                        <li><a {:check_target($fnav_2.url)} {if condition="empty($fnav_2.url)"} href='javascript:void(0)'{else/}href='{$fnav_2.url}' {/if}>{$fnav_2.name}</a></li>
+                        {/if}
+                        {/volist}
+                    {/if}    
+                </ul>
+        </div>
+        {/if}
+        {/volist}
+        </div>
+        <div class="right clearfix">
+            <div class="tit"><a href='/contactus.html'>お 問い合わせ</a></div>
+            <div class="tit"><a target="_blank" href='https://www.zkteco.com/en'>ZKTeco HQ</a></div>
+<!--	    <div class="bdsharebuttonbox">
+                <div class="share clearfix" id="shareId">
+			<a class="facebook" target="_blank" href="https://www.facebook.com/zkteco.in/" title="facebook"></a>
+                    <a class="linkedin" target="_blank" href="https://www.linkedin.com/company/zkteco-biometrics-india/" title="linkedin"></a>
+                    
+                    <a class="twitter" target="_blank" href="https://twitter.com/zk_india" title="twitter"></a>
+                    <a class="google" target="_blank" href="https://plus.google.com/+ZKTeco" title="google"></a>-
+                    <a class="youtube" target="_blank" href="https://www.youtube.com/channel/UCUmPk17DoTFpseySg9t5BQw?view_as=subscriber
+" title="youtube"></a>
+		    <a style="background:url({$Think.HOME_IMGS}/zkid5.png)  no-repeat center center;width: 24px;height:20px" target="_blank" href="https://www.instagram.com/zkteco_india/"></a>
+                </div>
+            </div>
+           <div class="ewm fl">
+                <img src="{$ad['首页-微信'][0]['img']}" alt="">
+                <div class="txt">E-Catalogue</div>
+	   </div> -->
+           <!-- <div class="service fl">
+              <a target="_blank" class='zhiCustomBtn' href="javascript:void(0)"><img src="{$Think.HOME_IMGS}/footer-icon02.png" alt="">{$Think.lang.online_consulting}</a>
+                 <div class="time">{$web['work_time']['v']}</div>
+                <div class="tel">{$web['tel']['v']}</div> 
+            </div>-->
+        </div>
+    </div>
+    <div class="copy clearfix">
+        <div class="w1400 slideIn02">
+            <div class="left">{$web['copyright']['v']}</div>
+            <div class="right clearfix">
+                <div class="foot-nav fl">
+                    <a href="{:url('/index/Index/legal_statement')}">{$Think.lang.legal_statement}</a>
+                    <a href="{:url('/index/Index/privacy_protection')}">{$Think.lang.privacy_protection}</a>
+                    <a href="{:url('/web_site_map')}">{$Think.lang.sitemap}</a>
+                </div>
+                <!-- <div class="lang fl">
+                    <a href=""><img src="{$Think.HOME_IMGS}/footer-icon03.png" alt="">{$Think.lang.China}</a>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+

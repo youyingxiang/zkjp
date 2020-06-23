@@ -1,0 +1,55 @@
+ <!-- 头部 -->
+  <header class="main-header">
+    <!-- Logo -->
+    <a href="{:url('Index/lst')}" class="logo">
+      <!-- 窗口折叠 -->
+      <span class="logo-mini"><img src="{$Think.ADMIN_IMG}/logo-inverse.png"></span>
+      <!-- 窗口展开 -->
+      <span class="logo-lg"><img src="{$Think.ADMIN_IMG}/logo-inverse.png"></span>
+    </a>
+    <!-- 右上导航 -->
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+      </a>
+
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <li class="dropdown messages-menu">
+             <a href="{:url('/')}" target="_blank">{$Think.lang.web_index}</a>
+          </li>
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="{$admin_base['img']}" class="user-image" alt="User Image">
+              <span class="hidden-xs">{$admin_base['admin_name']}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- User image -->
+              <li class="user-header">
+                <img src="{$admin_base['img']}" class="img-circle" alt="User Image">
+
+                <p>
+                  {$admin_base['admin_name']}
+                  <small>{$role_base['role_name']}</small>
+                </p>
+              </li>
+              <li class="user-footer">
+                <div class="pull-left">
+                  <a href="{:url('Admin/edit',['id'=>$admin_base['id']])}" class="btn btn-default btn-flat">{$Think.lang.personal_settings}</a>
+                </div>
+                <div class="pull-right">
+                  <a href="{:url('Login/logout')}" class="btn btn-default btn-flat">{$Think.lang.logout}</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+
+    
+        </ul>
+      </div>
+    </nav>
+  </header>

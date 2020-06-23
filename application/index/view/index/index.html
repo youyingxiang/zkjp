@@ -1,0 +1,209 @@
+{include file="layout/top" /}
+{include file="layout/header_index" /}
+<div class="has-bg" style="background-image:url({$ad['首页-底部长图'][0]['img']});">
+<div class="swiper-container banner-container">
+    <div class="swiper-wrapper">
+        {if condition="!empty($ad['首页-轮播图'])" }
+            {volist name="$ad['首页-轮播图']" id = 'ad1'}
+            <div class="swiper-slide">
+                <a {:check_target($ad1.url)}  href="{:get_img_url($ad1.url)}"><img src="{$ad1.img}" width="100%" alt="{$ad1.title}"></a>
+            </div>
+            {/volist}
+        {/if}
+        {if condition="!empty($ad['首页-轮播视频'])" }
+            {volist name="$ad['首页-轮播视频']" id = 'ad2'}
+            <div class="swiper-slide">
+                <video src="{:get_img_url($ad2.video)}" width="100%" preload></video>
+            </div>
+            {/volist}
+        {/if}
+    </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-next tran300"></div>
+    <div class="swiper-button-prev tran300"></div>
+</div>
+<div class="index-item01 clearfix">
+    <div class="index-tit">{$ad['首页-中文字'][0]['title']}</div>
+    <div class="index-ms">{$ad['首页-中文字'][0]['content']}</div>
+    <div class="swiper-container index-item01-swiper">
+        <div class="swiper-wrapper">
+            {volist name="$ad['首页-中小图']" id = 'ad2'}
+            <div class="swiper-slide">
+                <a href="javascript:void(0)"><img src="{$ad2.img}" width="100%" alt="{$ad2.title}"></a>
+                <div class="box">
+                    <a class="icon" {:check_target($ad2.url)} href="{:get_img_url($ad2['url'])}"><img src="{$ad2['icon']}" alt="{$ad2['title']}"></a>
+                    <div class="tit"><a {:check_target($ad2.url)} href="{:get_img_url($ad2['url'])}">{$ad2['title']}</a></div>
+                </div>
+            </div>
+            {/volist}
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+</div>
+<div class="index-item02">
+    <div class="w1400 clearfix">
+        <div class="bigtit clearfix"><div class="fl"><a href="{:url('/news_center')}">{$Think.lang.news_center}</a></div><div class="fr"><a href="{:url('/news_center')}">{$Think.lang.more} >></a></div></div>
+        <div class="list-con clearfix">
+        {volist name='news' id='vo'}
+            <div class="list">
+                <div class="box">
+                    <div class="img"><a class="tranImg" style="background-image:url({$vo.img});" href="{if condition='$vo.url_title'}{:url('/news_detail/'.$vo.url_title)}{else/}{:url('/news_detail/'.$vo.id)}{/if}"></a></div>
+                    <div class="con">
+                        <div class="tit"><a href="{if condition='$vo.url_title'}{:url('/news_detail/'.$vo.url_title)}{else/}{:url('/news_detail/'.$vo.id)}{/if}">{$vo.title}</a></div>
+                        <a href="{if condition='$vo.url_title'}{:url('/news_detail/'.$vo.url_title)}{else/}{:url('/news_detail/'.$vo.id)}{/if}">{$Think.lang.view_details}</a>
+                    </div>
+                </div>
+            </div>
+         {/volist}   
+        </div>
+    </div>
+</div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+// // banner视频播放设置
+// var mySwiper = new Swiper('.banner-container', {
+//     pagination: '.swiper-pagination',
+//     paginationClickable: true,
+//     nextButton: '.swiper-button-next',
+//     prevButton: '.swiper-button-prev',
+//     observer:true,
+//     observeParents:true,
+//     loop:true,
+//     speed:800,
+//     onTransitionStart: function(swiper){
+//         // 判断swiper-slide-active是否有视频
+//         if($(".banner-container .swiper-slide-active video").length>0){
+//             $(".banner-container .swiper-slide-active video").attr("id","video_01");
+//             var _video=document.getElementById("video_01");
+//             // 加大切换时间
+//             // 动态增加id
+//             _video.currentTime = 0;
+//             _video.play();
+//             _video.addEventListener('ended', function () {  
+//                 setTimeout(function(){
+//                     mySwiper.slideNext();
+//                 },500)
+//                 $(".banner-container .swiper-slide-active video").attr("id","");
+//             });
+//         }else if(!$(".banner-container .swiper-slide-active video").length>0){
+//         // 通过触发按钮切换banner
+//         setTimeout(function(){
+//             mySwiper.slideNext();
+//         },3500)
+//        }
+//     },
+//     onTransitionEnd: function(swiper){
+//         //动态移除id
+//         var _video=document.getElementById("video_01");
+//     }
+// });
+
+// 0302-3-2
+
+
+if($(".banner-container .swiper-slide").length==1){
+	if($(".banner-container .swiper-slide video").length>0){	
+		$(".banner-container .swiper-slide video").get(0).play();
+		$(".banner-container .swiper-slide video").attr("loop","loop");
+	}
+	$(".banner-container .swiper-button-prev, .banner-container .swiper-button-next").hide();
+    var Swiper1 = new Swiper('.banner-container', {
+	    paginationClickable: true,
+	    observer:true,
+	    observeParents:true,
+	    loop:false,
+	})
+}else{
+
+	var Swiper1 = new Swiper('.banner-container', {
+	    pagination: '.swiper-pagination',
+	    paginationClickable: true,
+	    nextButton: '.swiper-button-next',
+	    prevButton: '.swiper-button-prev',
+	    observer:true,
+	    observeParents:true,
+	    autoplay:3500,
+	    loop:true,
+	    speed:800,
+	    onSlideChangeStart: function(Swiper1){
+	        // 暂停所有视频
+	         var videos = document.getElementsByTagName('video');
+	            for (var i = videos.length - 1; i >= 0; i--) {
+	                (function(){
+	                    var p = i;
+	                    videos[p].addEventListener('play',function(){
+	                        pauseAll(p);
+	                    })
+	                })()
+	            }
+	            function pauseAll(index){
+	                for (var j = videos.length - 1; j >= 0; j--) {
+	                    if (j!=index) videos[j].pause();
+	                }
+	            };
+	        // 判断swiper-slide-active是否有视频
+	        if($(".banner-container .swiper-slide-active video").length>0){
+	            // 停止自动切换
+	            Swiper1.stopAutoplay();
+		    //if ($(".banner-container .swiper-slide-active video").attr('src').indexOf('http')) {
+		   //    var  _src = "http://{$_SERVER['SERVER_NAME']}"+$(".banner-container .swiper-slide-active video").attr('src');
+		    //    $(".banner-container .swiper-slide-active video").attr('src',_src);
+	            //}
+	            // 动态增加id
+	            $(".banner-container .swiper-slide-active video").attr("id","video_01");
+	            var _video=document.getElementById("video_01");
+		    // console.log(_video);
+	            // 播放视频
+	            _video.play();
+	            // if(!$(".banner-container .swiper-slide").hasClass("swiper-slide-active")){
+	            //     _video.pause();
+	            // }
+	            // 切换后重新播放视频
+	            _video.currentTime = 0;
+	            // 静音
+	            _video.volume = 0;
+	            // 监听视频播放结束
+	            _video.addEventListener('ended', function () {  
+
+	                Swiper1.slideNext();
+	                //重新开始轮播banner
+	                
+	                Swiper1.startAutoplay();
+	            });
+	        }
+	    },
+	    onSlideChangeEnd: function(Swiper1){
+	        //动态移除id
+	        $(".banner-container .swiper-slide-active video").attr("id","");
+	    }
+	});
+
+}
+
+
+var swiper = new Swiper('.index-item01-swiper', {
+    slidesPerView: 3,
+    nextButton: '.swiper-button-next',
+    prevButton: '.swiper-button-prev',
+    loop:false,
+    observer:true,
+    observeParents:true,
+    preventClicks:false,
+    breakpoints:{
+        768:{
+            slidesPerView: 2,
+        },
+        600:{
+            slidesPerView: 1,
+        }
+    }
+});
+if ($(window).width()<640) {
+    $(".header-top").addClass("on");
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+    <a href="{:get_img_url($ad['培训课程文件-banner'][0]['url'])}">
+        <div class="page-banner" style="background-image:url({$ad['培训课程文件-banner'][0]['img']});">
+            <div class="training-txt txt">
+                {$ad['培训课程文件-banner'][0]['title']}
+            </div>
+        </div>
+    </a>
+    <div class="w1400">
+        <div class="position"><a href="{:url('/')}">Home Page</a> > <a href="{:url('/service')}">Support</a> > <a href="{:url('/train_center')}">Training Center</a> > {$title}</div>
+            <div class="course-content slideIn02 clearfix">
+            {volist name='$data' id='vo'}
+                <div class="content-list">
+                    <div class="left">
+                        <a {if condition="substr($vo.file_url,3)&&file_exists('.'.substr($vo.file_url,3))"}href="{:url('Service/load?id='.$vo.id)}"{else/}href="javascript:void(0)"{/if} style="background: url({$vo.img}); "></a>
+                    </div>
+                    <div class="right">
+                        <a class="textHidden" src="">{$vo.title}</a>
+                        <p>{$vo.abstract}</p>
+                        <time>{:date("Y-m-d",$vo.update_time)}</time>
+                    </div>
+                </div>
+            {/volist}   
+            </div>
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+    // $(function(){
+    //     if($(window).width()>1023){
+    //         $(".course-content .content-list").eq(-2).css("borderBottom","none");
+    //     }
+    // })
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{volist name='data' id='vo'}
+<div class="exp-content-list">
+    <time>{$vo.develop_time}</time>
+    <h2><a href="{:url('/')}">{$vo.title}</a></h2>
+    <div class="list-item clearfix">
+        <div class="item-left">
+            <a href="javascript:void(0)"><img src="{$vo.img}" alt="{$vo.title}"></a>
+        </div>
+        <div class="item-right">
+            <p>{$vo.abstract}</p>
+        </div>
+    </div>
+</div>
+{/volist}

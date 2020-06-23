@@ -1,0 +1,11 @@
+{volist name='fhData' id='vo'}
+<tr>
+    <td>{$vo->DownFileHistory->title}</td>
+    <td>{$vo->DownFileHistory->update_time}</td>
+    <td>{$vo.create_time}</td>
+    <?php
+	    $vo->DownFileHistory->file_url = substr($vo->DownFileHistory->file_url,3);
+	?>
+    <td><a class="mColorGreen" {if condition="$vo->DownFileHistory->file_url&&file_exists('.'.$vo->DownFileHistory->file_url)"}href="{:url('Service/load?id='.$vo->DownFileHistory->id)}"{else/}href="javascript:void(0)"{/if}>{$Think.lang.redownload}</a></td>
+</tr>
+{/volist}

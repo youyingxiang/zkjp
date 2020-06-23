@@ -1,0 +1,240 @@
+{include file="layout/top" /}
+<style>
+    html,body{ background: #fbfbfb;}
+</style>
+{include file="layout/header" /}
+<div class="page-content02">
+    <a href="{:get_img_url($ad['总部地址-banner'][0]['url'])}">
+    <div class="page-banner check-banner" style="background-image:url({$ad['总部地址-banner'][0]['img']});"><div class="txt">{$ad['总部地址-banner'][0]['title']}</div></div></a>
+    <div class="w1400"><div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> &gt;<a href="{:url('/contactus')}">{$Think.lang.contactus}</a> &gt; {$title}</div></div>
+    <section class="page-container page-containerLR20 marginB30">
+        <div class="addrMap">
+            <div class="addrList clearfix marginB20">
+                <div class="addrList-item">
+                    <div class="addrList-item-company">{$web['map1_name']['v']}</div>
+                    <div class="addrList-item-infor">
+                        <p>Address：{$web['map1_address']['v']}</p>
+                        <p>Tel.：{$web['map1_tel']['v']}</p>
+                    </div>
+                </div>
+                <div class="addrList-item">
+                    <div class="addrList-item-company">{$web['map2_name']['v']}</div>
+                    <div class="addrList-item-infor">
+                        <p>Address：{$web['map2_address']['v']}</p>
+                        <p>Tel.：{$web['map2_tel']['v']}</p>
+                    </div>
+                </div>
+<!--		<div class="addrList-item">
+                    <div class="addrList-item-company">{$web['map3_name']['v']}</div>
+                    <div class="addrList-item-infor">
+                        <p>Address：{$web['map3_address']['v']}</p>
+                        <p>Tel.：{$web['map3_tel']['v']}</p>
+                    </div>
+                </div>-->
+            </div>
+            <!--地图容器-->
+            <div id="mapBox" class="tran300"></div>
+        </div>     
+    </section><!--.page-container end-->
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+ <!--引用百度地图API-->
+
+
+<!-- <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=p9eG7ur9bbB0Me5lIKKNKFfZD2jat2RN&s=1"></script> -->
+
+<!-- 谷歌 -->
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMPLUhheThpXZq92XAgysQZ1tCXBRRwhQ&sensor=true"></script> -->
+<!-- <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMPLUhheThpXZq92XAgysQZ1tCXBRRwhQ&callback=initMap"></script>
+<script type="text/javascript">
+
+    function initMap() {
+      var uluru = {lat: -25.363, lng: 131.044};
+      var map = new google.maps.Map(document.getElementById('mapBox'), {
+        zoom: 4,
+        center: uluru
+      });
+      var marker = new google.maps.Marker({
+        position: uluru,
+        map: map
+      });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    // //创建和初始化地图函数：
+    // function initMap(){
+    //     createMap();//创建地图
+    //     setMapEvent();//设置地图事件
+    //     addMapControl();//向地图添加控件
+    //     addMarker();//向地图中添加marker
+    // }
+    
+    // //创建地图函数：
+    // function createMap(){
+    //     var map = new BMap.Map("mapBox");//在百度地图容器中创建一个地图
+    //     var point = new BMap.Point(115.173534,23.090933);//定义一个中心点坐标
+    //     map.centerAndZoom(point,7);//设定地图的中心点和坐标并将地图显示在地图容器中
+    //     window.map = map;//将map变量存储在全局
+    // }
+    
+    // //地图事件设置函数：
+    // function setMapEvent(){
+    //     map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
+    //     map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+    //     map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
+    //     map.enableKeyboard();//启用键盘上下左右键移动地图
+    // }
+    
+    // //地图控件添加函数：
+    // function addMapControl(){
+    //     //向地图中添加缩放控件
+    //     var ctrl_nav = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
+    //     map.addControl(ctrl_nav);
+    //         //向地图中添加缩略图控件
+    //     var ctrl_ove = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:1});
+    //     map.addControl(ctrl_ove);
+    //         //向地图中添加比例尺控件
+    //     var ctrl_sca = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
+    //     map.addControl(ctrl_sca);
+    // }
+    
+    // //标注点数组
+    // var markerArr = [{title:"中控智慧科技股份有限公司",content:"东莞市塘厦镇平山区188工业大道26号（中控智慧产业园）",point:"114.086689|22.768832",isOpen:0,icon:{w:23,h:25,l:46,t:21,x:9,lb:12}}
+    //      ,{title:"厦门中控智慧信息技术有限公司",content:"厦门市集美区软件园三期B区2栋21楼",point:"118.055495|24.618539",isOpen:0,icon:{w:23,h:25,l:46,t:21,x:9,lb:12}}
+    //      ];
+    // //创建marker
+    // function addMarker(){
+    //     for(var i=0;i<markerArr.length;i++){
+    //         var json = markerArr[i];
+    //         var p0 = json.point.split("|")[0];
+    //         var p1 = json.point.split("|")[1];
+    //         var point = new BMap.Point(p0,p1);
+    //         var iconImg = createIcon(json.icon);
+    //         var marker = new BMap.Marker(point,{icon:iconImg});
+    //         var iw = createInfoWindow(i);
+    //         var label = new BMap.Label(json.title,{"offset":new BMap.Size(json.icon.lb-json.icon.x+10,-20)});
+    //         marker.setLabel(label);
+    //         map.addOverlay(marker);
+    //         label.setStyle({
+    //                     borderColor:"#808080",
+    //                     color:"#333",
+    //                     cursor:"pointer"
+    //         });
+            
+    //         (function(){
+    //             var index = i;
+    //             var _iw = createInfoWindow(i);
+    //             var _marker = marker;
+    //             _marker.addEventListener("click",function(){
+    //                 this.openInfoWindow(_iw);
+    //             });
+    //             _iw.addEventListener("open",function(){
+    //                 _marker.getLabel().hide();
+    //             })
+    //             _iw.addEventListener("close",function(){
+    //                 _marker.getLabel().show();
+    //             })
+    //             label.addEventListener("click",function(){
+    //                 _marker.openInfoWindow(_iw);
+    //             })
+    //             if(!!json.isOpen){
+    //                 label.hide();
+    //                 _marker.openInfoWindow(_iw);
+    //             }
+    //         })()
+    //     }
+    // }
+    // //创建InfoWindow
+    // function createInfoWindow(i){
+    //     var json = markerArr[i];
+    //     var iw = new BMap.InfoWindow("<b class='iw_poi_title' title='" + json.title + "'>" + json.title + "</b><div class='iw_poi_content'>"+json.content+"</div>");
+    //     return iw;
+    // }
+    // //创建一个Icon
+    // function createIcon(json){
+    //     var icon = new BMap.Icon("http://app.baidu.com/map/images/us_mk_icon.png", new BMap.Size(json.w,json.h),{imageOffset: new BMap.Size(-json.l,-json.t),infoWindowOffset:new BMap.Size(json.lb+5,1),offset:new BMap.Size(json.x,json.h)})
+    //     return icon;
+    // }
+    
+    // initMap();//创建和初始化地图
+</script> -->
+
+
+
+<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMPLUhheThpXZq92XAgysQZ1tCXBRRwhQ&language=en"></script>
+<script type="text/javascript">  
+    var map = null;  
+    //标注点数组
+    var markerArr = [{title:"ZKTECO CO., LTD.",content:"",lat:"22.7629906812",lng:"114.0801645381"}
+     ,{title:"ZKTeco Xiamen Information Technology Co., Ltd.",content:"",lat:"24.6073639976",lng:"118.0523145846"}]
+//{title:"ZKTeco (Hubei) Technology Co., Ltd",content:"",lat:"30.658809",lng:"114.146642"}];
+    function initialize() {  
+        map = new google.maps.Map(document.getElementById('mapBox'), {  
+                center: {lat:23.3534997367,lng:116.6821945025},
+                zoom: 8,
+                zoomControl: true,
+                mapTypeControl: false,
+                scaleControl: true,
+                streetViewControl: false,
+                rotateControl: true,
+                fullscreenControl: false,
+                gestureHandling: 'greedy',    
+            });       
+              for(var i=0;i<markerArr.length;i++){
+                var json = markerArr[i];
+                 addSite(map,json.title,json.lat,json.lng,json.content)
+              }       
+    }      
+    var prev_infowindow = null;  
+    function addSite(map, siteDesc, lat, lng, address) {  
+         var contentString =  
+            '<div class="content">'+
+                '<div class="siteNotice">'+
+                '</div>'+
+                '<h3 class="firstHeading" class="firstHeading">'+siteDesc+'</h3>'+
+                '<div class="bodyContent">'+
+                '<p>'+address+'</p>'
+                '</div>'+
+            '</div>'; 
+        var pt = new google.maps.LatLng(lat,lng);  
+        var marker = new google.maps.Marker({  
+                    map: map,  
+                    position : pt,   
+                    title: siteDesc  
+                    });  
+        var infowindow = new google.maps.InfoWindow({  
+            content: contentString  
+        });  
+        infowindow.open(map, marker);
+        google.maps.event.addListener(marker, 'click', function() {  
+            if (prev_infowindow != null) prev_infowindow.close();  
+            prev_infowindow = infowindow;  
+            infowindow.open(map, marker);  
+        });       
+    var LatLngList = new Array (new google.maps.LatLng (22.7629906812,114.0801645381), new google.maps.LatLng (24.6073639976,118.0523145846),new google.maps.LatLng(30.509398,114.355854));  
+    //  Create a new viewpoint bound  
+    var bounds = new google.maps.LatLngBounds ();  
+    //  Go through each...  
+    for (var i = 0, LtLgLen = LatLngList.length; i < LtLgLen; i++) {  
+      //  And increase the bounds to take this point  
+      bounds.extend (LatLngList[i]);  
+    }  
+    //  Fit these bounds to the map  
+    map.fitBounds (bounds);      
+    }  
+    $(document).ready(function() { initialize();});  
+</script>
+
+</body>
+</html>

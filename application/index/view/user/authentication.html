@@ -1,0 +1,46 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content">
+    <div class="w1400"><div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> &gt; <a href="/en/user_center">{$Think.lang.user_center}</a> &gt; {$Think.lang.authentication}</div></div>
+
+    <section class="page-container page-containerLR20 marginB30">
+        <div class="mCaption"><span>{$Think.lang.authentication}</span></div>
+
+        <section class="userCanDo">
+            <div class="userCanDo-status">{$Think.lang.register_level1}{if condition='$userType == 0'}{$Think.lang.level1}{else if conditon='$userType == 1'}{$Think.lang.level2}{/if}</div>
+            <div class="userCanDo-details clearfix">
+                <div class="userCanDo-detailsItem">
+                    <div class="userCanDo-detailsItem-tt lv1">{$Think.lang.level1}</div>
+                    <div class="userCanDo-detailsItem-txt">{$Think.lang.register_level1}</div>
+                    <div class="userCanDo-detailsItem-unit">
+                        <div class="userCanDo-unit do1">{$Think.lang.do1}</div>
+                        <div class="userCanDo-unit do4">{$Think.lang.do4}</div>
+                        <div class="userCanDo-unit do5">{$Think.lang.do5}</div>
+                        <div class="userCanDo-unit do6">{$Think.lang.do6}</div>
+                    </div>
+                    <div class="userCanDo-actions"></div>
+                </div>
+                <div class="userCanDo-detailsItem">
+                    <div class="userCanDo-detailsItem-tt lv2">{$Think.lang.level2}</div>
+                    <div class="userCanDo-detailsItem-txt">{$Think.lang.register_level2}</div>
+                    <div class="userCanDo-detailsItem-unit">
+                        <div class="userCanDo-unit do7">{$Think.lang.customized}</div>
+                        <div class="userCanDo-unit do8">{$Think.lang.do8}</div>
+                        <div class="userCanDo-unit do9">{$Think.lang.do9}</div>
+                        <div class="userCanDo-unit do10">{$Think.lang.do10}</div>
+                    </div>
+                    <div class="userCanDo-actions">
+                        {if condition='$userType == 0'}<a class="mBtn-solid" href="{:url('/apply_gold_vip')}">{$Think.lang.become_level2}</a>{/if}
+                    </div>
+                </div>
+            </div>
+        </section>
+        <style>
+
+        </style>
+    </section><!--.page-container end-->
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+</body>
+</html>

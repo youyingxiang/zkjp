@@ -1,0 +1,139 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content">
+   <div class="w1400"><div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> &gt; <a href="{:url('/user_center')}">{$Think.lang.user_center}</a> &gt;<a href="{:url('/customized_query')}">{$Think.lang.customized}</a> &gt; {$title}</div></div>
+    <div class="customSeach w1400">
+        <div class="item custom-info">
+            <h2>{$Think.lang.basic_information}</h2>
+            <div class="cinfo-content">
+                <ul class="clearfix">
+                    <li>{$Think.lang.customized_order}：{$detailData.doccode}</li>
+<!--                    <li>{$Think.lang.createTime}：{$detailData.createTime}</li>
+                    <li>{$Think.lang.contact}：{$detailData.customerName}</li>-->
+                    <li>{$Think.lang.techSupport}：{$detailData.techSupport}</li>
+                    <li>{$Think.lang.sales}：{$detailData.sales}</li>
+                </ul>
+            </div>
+        </div>
+<!--        <div class="item custom-info custom-scene">
+            <h2>{$Think.lang.softwareList}</h2>
+            <div class="cinfo-content">
+            {volist name="$detailData.softwareList" id='vo'}
+                <ul class="clearfix">
+                    <li>{$Think.lang.netEnvir}：{if condition='!empty($vo.netEnvir)'}{$vo.netEnvir}{/if}</li>
+                    <li>{$Think.lang.osType}：{if condition='!empty($vo.osType)'}{$vo.osType}{/if}</li>
+                    <li>{$Think.lang.db}：{if condition='!empty($vo.db)'}{$vo.db}{/if}</li>
+                </ul>
+             {/volist}   
+            </div>
+        </div>-->
+
+        <div class="item custom-info">
+            <h2>{$Think.lang.productInfo}</h2>
+            <div class="cinfo-content">
+                {volist name='$detailData.productList' id='vo'}
+                {if condition='count($vo) == 2'}
+                <ul class="clearfix">
+                    <li>{$Think.lang.softinfo}：{if condition="!empty($vo.soft)"}{$vo.soft}{/if}</li>
+                    <li>{$Think.lang.sdkinfo}：{if condition="!empty($vo.machinemodel)"}{$vo.machinemodel}{/if}</li>
+                    <li></li>
+                </ul>
+                {else /}
+                <ul class="clearfix">
+                    <li>{$Think.lang.machine_model}：{if condition="!empty($vo.machinemodel)"}{$vo.machinemodel}{/if}</li>
+                </ul>
+                {/if}
+                {/volist}
+            </div>
+        </div>
+
+        <div class="item custom-info">
+            <h2>{$Think.lang.requirement}</h2>
+            <div class="cinfo-content">
+                <ul class="clearfix">
+                    <li>{$detailData.requireDesc}</li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="item custom-info"><!--item productInfo-->
+            <h2>{$Think.lang.payinfo}</h2>
+            <div class="cinfo-content">
+                <ul class="clearfix">
+                    <li>{$Think.lang.developTime}：{$detailData.developTime}{$Think.lang.working_day} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {$Think.lang.testTime}：{$detailData.testTime}{$Think.lang.working_day}</li>
+                    <!--<li>{$Think.lang.charge}：{if condition='empty($detailData.amount)'}{$Think.lang.free_Admission}{else / }{$detailData.amount}{/if}</li>-->
+                    <li>{$Think.lang.total_fee}：{$detailData.totalFee} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {$Think.lang.amount}：{$detailData.amount}</li>
+                </ul>
+            </div>
+        </div>
+
+
+
+        <div class="item custom-info">
+            <h2>{$Think.lang.handoverTime2}</h2>
+            <div class="cinfo-content">
+                <ul class="clearfix">
+                    <li>{if condition="!empty($detailData.handoverTime)"}{$detailData.handoverTime}{/if}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="item productInfo add">
+            <h2>{$Think.lang.uploadFileInfo}</h2>
+            <div class="add-content">
+                <ul class="clearfix">
+
+                    <li style="width: 70%">
+
+                        <div class="mOrder-unit">
+
+                            <div class="mOrder-unit-details">
+                                <table class="mTable" style="word-break: break-all">
+                                    <tbody>
+                                    <tr>
+                                        <td>{$Think.lang.info_name}</td>        {/* 产品型号 */}
+                                        <td>{$Think.lang.info_time}</td>
+                                        <td>{$Think.lang.size}</td>
+                                        <td>{$Think.lang.author}</td>
+                                        <td>{$Think.lang.download}</td>
+                                    </tr>
+                                    </tbody>
+
+                                    <tbody>
+                                    {volist name='$detailData.uploadFileInfo' id='vo'}
+                                    <tr>
+                                        <td>{$vo.name}</td>        {/* 产品型号 */}
+                                        <td>{$vo.time}</td>
+                                        <td></td>
+                                        <td>{$vo.uploadUser}</td>
+                                        <td>
+                                            <a href="javascript:void(0)" class="down_load" down_url="{$download_url}{$vo.fileKey}"><!--{$download_url}{$vo.realPath}-->
+                                            <img src="{$Think.HOME_IMGS}/download-icon.png" alt="{$Think.lang.download}">{$Think.lang.download}</a>
+                                       </td>
+                                        <!--     <td><a class="mColorGreen" href="{:url('/zk_repair_detail/'.$vo.doccode)}">{$Think.lang.order_detail}</a></td> -->
+                                    </tr>
+                                    {/volist}
+                                </table>
+                            </div>
+                        </div>
+
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+</body>
+</html>
+
+<script>
+
+        $(".down_load").click(function(){
+            var url = $(this).attr("down_url") ;
+            window.location.href=url;
+        })
+
+</script>

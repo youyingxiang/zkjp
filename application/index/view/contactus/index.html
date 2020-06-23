@@ -1,0 +1,82 @@
+{include file="layout/top" /}
+<style>
+    html,body{ background: #fbfbfb;}
+    .contact-us-list {
+    height: 295px;
+    width: 32%;
+    text-align: center;
+    background-size: cover!important;
+    border: 15px solid #fff;
+    opacity: .8;
+    transition: all .5s;
+    -o-transition: all .5s;
+    -moz-transition: all .5s;
+    -webkit-transition: all .5s;
+    }
+    .contact-us-list img {
+    max-width: 60px;
+    margin: 88px 0 50px;
+    }
+    img {
+    border: 0;
+    max-width: 100%;
+    display: inline-block;
+    }
+    .content-list a {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    }
+    .contact-us-list p {
+    font-size: 18px;
+	    color: #fff;
+	    margin-bottom: 70px;
+font-size: 24px;
+    }
+    .contact-us-list {
+    height: 295px;
+    width: 32%;
+    text-align: center;
+    background-size: cover!important;
+    border: 15px solid #fff;
+    opacity: .8;
+    transition: all .5s;
+    -o-transition: all .5s;
+    -moz-transition: all .5s;
+    -webkit-transition: all .5s;
+    }
+</style>
+{include file="layout/header" /}
+<div class="page-content02">
+    <a href="{:get_img_url($ad['联系我们-banner'][0]['url'])}">
+    <div class="page-banner check-banner" style="background-image:url({$ad['联系我们-banner'][0]['img']});"><div class="txt">{$ad['联系我们-banner'][0]['title']}</div></div></a>
+    <div class="w1400"><div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> &gt; {$title}</div></div>
+    <section class="page-container page-containerLR20 marginB30">
+        <div id="contactUs" class="clearfix">
+		<div class="contact-us-en" style="background:url({$ad['关于我们-大背景']['0']['img']});" id="contact-us-en">
+           <div class="w1400">
+               
+
+			   <div class="contact-content clearfix">
+				   {volist name="$ad['关于我们-图标']" id='vo'}
+				   <div class="{if condition='$key==1'}contact-us-list contact-us-list-m fl{else/}contact-us-list fl{/if}" style="background-image: url('{$vo.img}');background-repeat:no-repeat;background-position-x: -225px;" id="test">
+
+
+                       <a {if condition="$vo.url"}href="{$vo.url}"{else/}href="javascript:void(0)"{/if} class="textHidden">
+                            <img src="{$vo.icon}" alt="{$vo.title}">
+                            <p>{$vo.title}</p>
+                       </a>
+
+				   </div>
+				   {/volist}
+			   </div>
+           </div>
+
+        </div>	
+        </div>            
+    </section><!--.page-container end-->
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+</body>
+</html>

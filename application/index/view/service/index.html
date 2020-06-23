@@ -1,0 +1,28 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+    <a {:check_target($ad['服务支持-banner'][0]['url'])} href="{:get_img_url($ad['服务支持-banner'][0]['url'])}">
+    <div class="page-banner" style="background-image:url({$ad['服务支持-banner'][0]['img']});"><div class="txt">{$ad['服务支持-banner'][0]['title']}</div></div></a>
+    <div class="w1400">
+        <div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> >{$title}</div>
+        <div class="yuy-content slideIn02">
+            <div class="list-con clearfix">
+            {volist name="$ad['服务支持-中文字']" id='vo'}
+                <div class="list">
+                    <a {:check_target($vo.url)} href="{:get_img_url($vo.url)}">
+                        <div class="box">
+                            <div class="img"><img class="block" src="{$vo.img}" alt="{$vo.title}"></div>
+                            <div class="tit">{$vo.title}</div>
+                            <div class="ms">{$vo.content}</div>
+                        </div>
+                    </a>
+                </div>
+            {/volist}   
+            </div>
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+</body>
+</html>

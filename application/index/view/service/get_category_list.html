@@ -1,0 +1,18 @@
+{volist name ='file_cate_data' id ='vo'}
+<div class="list clearfix">
+    <div class="img fl"><img src="{$vo.img}" alt="{$vo.title}"></div>
+    <div class="con">
+        <div class="tit">{$vo.title}</div>
+        <div class="ms">
+           {$vo.abstract}
+        </div>
+        <div class="size">{$Think.lang.soft_size}：{:round($vo.file_size / 1048576 * 100) / 100 . ' MB'}</div>
+    </div>
+    <div class="right"> 	
+        <a style="width:190px" {if condition="$vo.file_url&&file_exists('.'.$vo.file_url)"}href="{:url('Service/load?id='.$vo.id)}"{else/}href="javascript:void(0)"{/if}><img src="{$Think.HOME_IMGS}/download-icon.png" alt="{$Think.lang.download}">{$Think.lang.download}</a>
+        <div class="clear"></div>
+        <div class="date">{$Think.lang.update_time}：{$vo.update_time|date="Y-m-d",###}</div>
+    </div>
+</div>
+{/volist}
+

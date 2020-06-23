@@ -1,0 +1,100 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content">
+    <div class="download-content">
+        <div class="w1400">
+            <div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> > <a href="{:url('/service')}">{$Think.lang.service}</a> > ダウンロード</div>
+            <div class="item01 clearfix">
+                <div class="left">
+                    <!-- <div class="title">{$Think.lang.quick_find}</div> -->
+                    <input type="text" placeholder="{$Think.lang.input_keyword}">
+                    <input type="button" id='search' value="{$Think.lang.search}">
+                </div>
+                
+            </div>
+            <div class="item02">
+                <div class="down-nav clearfix" id="tab_file">                   
+                    <a  {if condition="$cid eq 0"}class ='on'{/if} cid ='0'  href="javascript:void(0)">{$Think.lang.all}</a>
+                    {volist name = 'file_cat' id ='vo_file'}
+                    <a  {if condition="$cid eq $vo_file.id"}class ='on'{/if} cid ='{$vo_file.id}' href="javascript:void(0)">{$vo_file.name}</a>
+                    {/volist}
+                </div>
+                <div class="down-wrap" id='file_content'> 
+
+                    <a class="more" id='loadmore' href="javascript:void(0)">{$Think.lang.view_more}<img src="{$Think.HOME_IMGS}/download-icon02.png" alt="{$Think.lang.view_more}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+$(function(){
+    cid = {$cid};
+    time = 0;
+    loading_msg("{$Think.lang.query_now}");
+    var search = '';
+    get_cate_list();
+    $(".download-content .item02 .down-nav a").on("click",function(){
+        loading_msg("{$Think.lang.query_now}");
+        $(this).addClass('on').siblings().removeClass('on');
+        cid = $(this).attr('cid');
+        time = 0;
+        $("#file_content div").remove();
+        get_cate_list();
+    })
+    $('#loadmore').click(function(){
+        loading_msg("{$Think.lang.query_now}");
+        search = $("#search").prev().val().trim();
+        if ($(this).html() == "{$Think.lang.no_data}") {
+            layer.close(index);
+            return;
+        }
+        get_cate_list(search);
+    })
+    $("#search").on('click',function(){
+        time = 0;
+        loading_msg("{$Think.lang.query_now}");
+        search = $(this).prev().val().trim();
+        $("#file_content div").remove();
+        get_cate_list(search);
+    })
+    function get_cate_list(search){       
+        $.ajax({
+                url: "{:url('Service/get_category_list')}", 
+                data: {"cid":cid,'time':time,'search':search},
+                type:'post', 
+                dataType: "html", 
+                error:function(data){
+                    layer.close(index);
+                    showErrMsg("{$Think.lang.ajax_err}");
+                    return;
+                },  
+                success:function(result){
+                    if(result.length <100){
+                        $('#file_content a.more').html("{$Think.lang.no_data}");                     
+                    } else {
+                        $('#file_content a.more').html('{$Think.lang.load_more}<img src="{$Think.HOME_IMGS}/download-icon02.png" alt="">'); 
+                        $('#loadmore').before(result);                      
+                        time ++;
+                    }
+                    layer.close(index);
+                     $("#search").prev().val("");
+                },complete:function(){
+                      
+                }
+        })
+    }
+    function loading_msg(msg){
+        index = layer.msg(msg, {
+                icon: 16,
+                shade: 0.5,
+                time: 30000,
+                shadeClose: false 
+            });
+    }
+})
+</script>
+</body>
+</html>

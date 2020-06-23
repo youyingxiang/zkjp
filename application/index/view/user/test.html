@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>jQuery File Upload Example</title>
+</head>
+<body>
+<input id="fileupload" type="file" name="imgFile"  data-url="http://39.108.244.25:8888/apiv1/upload/uploadFile.action" multiple>
+<a href="javascript:void(0)" id='test'>测试</a>
+<script type="text/javascript" src="{$Think.HOME_JS}/jquery.min.js"></script>
+<script src="{$Think.HOME_JS}/upload/jquery.ui.widget.js"></script>
+<script src="{$Think.HOME_JS}/upload/jquery.iframe-transport.js"></script>
+<script src="{$Think.HOME_JS}/upload/jquery.fileupload.js"></script>
+<script>
+$(function () {
+	 $('#fileupload').hide();
+     $('#fileupload').fileupload({
+        dataType: 'json',
+        done: function (e, data) {
+        	console.log(data);
+        	// if (data.result.error == 0) {
+        	// 	html = '<img src="'+data.result.url+'" alt="">';
+        	// 	//$('#fileupload').val(data.result.url);
+        	// 	$('#fileupload').after(html);
+        	// }
+         //    alert('上传完成');
+        }
+    });
+   $('#test').on('click',function(){
+   		$('#fileupload').trigger('click');
+   })
+});
+</script>
+</body> 
+</html>

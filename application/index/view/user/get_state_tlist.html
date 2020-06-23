@@ -1,0 +1,11 @@
+{volist name='lst' id='vo'}
+	<tr>
+	    <td>{$vo.someId}</td>
+	    <td>{$vo.questionType}</td>
+	    <td>{$vo.questTitle}</td>
+	    <td>{$vo.createTime}</td>
+	    <td>{$vo.lastUpdateTime}</td>
+	    <td>{$vo.status}</td>
+	    <td><a class="mColorGreen" href="{:url('/zk_ticket_detail/'.$vo.someId)}">{$Think.lang.view_more}</a></td>
+	</tr>
+{/volist}

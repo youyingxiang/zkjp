@@ -1,0 +1,28 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+     <a href="{:get_img_url($ad['培训Technology-banner'][0]['url'])}">
+        <div class="page-banner" style="background-image:url({$ad['培训Technology-banner'][0]['img']});">
+            <div class="training-txt txt">
+                {$ad['培训Technology-banner'][0]['title']}
+            </div>
+        </div>
+    </a>
+    <div class="w1400">
+        <div class="position"><a href="{:url('/')}">Home Page</a> > <a href="{:url('/service')}">Support</a> > <a href="{:url('/train_center')}">Training Center</a> > {$title}</div>
+            <div class="technology-content slideIn02">
+                {$data}
+            </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+    $(function(){
+        if($(window).width()>1023){
+            $(".course-content .content-list").eq(-2).css("borderBottom","none");
+        }
+    })
+</script>
+</body>
+</html>

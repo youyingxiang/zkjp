@@ -1,0 +1,93 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content">
+    <div class="w1400"><div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> &gt; <a href="{:url('/user_center')}">{$Think.lang.user_center}</a> &gt; {$title}</div></div>
+    <section class="page-container page-containerLR20 minH500 marginB30">  
+        <section class="mFilterPanel clearfix">
+            <div class="mFilterPanel-searchBox"><input type="text" placeholder="{$Think.lang.rorder_number}" value="" /><a class="mFilterPanel-searchBtn" id='search_reservation' href="javascript:;">{$Think.lang.search}</a></div>
+            <div class="mFilterPanel-tab clearfix">
+                <div class="mFilterPanel-tab-item active" data-state=''><span>{$Think.lang.all_reservation}</span></div>
+                {/* 所有预约 */}
+                {volist name=":config('status_reservstion')" id='vo'}
+                <div class="mFilterPanel-tab-item" data-state='{$key}'><span>{$vo}</span></div>
+                {/volist}
+            </div>
+        </section>
+
+        <section class="mOrderList">
+           
+        </section>
+        <div class="mOrderList-getMore">{$Think.lang.view_more}</div>
+    </section><!--.page-container end-->
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+$(function(){
+    var status = '';
+    time = 1;
+    var docsn = '';
+    loading_msg("{$Think.lang.query_now}");
+    get_state_list(status);
+    $('.mFilterPanel-tab-item').on('click',function(){
+       time = 1;
+       $(this).addClass('active').siblings().removeClass('active');
+       $(".mOrderList").empty();
+       status = $(this).attr('data-state').trim();
+       loading_msg("{$Think.lang.query_now}");
+       $('#search_reservation').prev().val('');
+       docsn = '';
+       get_state_list(status,docsn);
+    })
+    $('.mOrderList-getMore').click(function(){
+        loading_msg("{$Think.lang.query_now}");
+        if($(this).html() == "{$Think.lang.no_data}"){
+            layer.close(index);
+            return;
+        };
+        docsn = $('#search_reservation').prev().val().trim();
+        get_state_list(status,docsn);
+    })
+    $('#search_reservation').on('click',function(){
+        loading_msg("{$Think.lang.query_now}");
+        time = 1;
+        $('.mOrderList').empty();
+        docsn = $('#search_reservation').prev().val().trim();
+        get_state_list(status,docsn);
+    })
+})
+    function get_state_list(status,docsn){      
+        $.ajax({
+                url: "{:url('User/get_state_rlist')}", 
+                data: {"status":status,'time':time,'docsn':docsn},
+                type:'post', 
+                dataType: "html", 
+                error:function(data){
+                    layer.close(index);
+                    showErrMsg("{$Think.lang.ajax_err}");
+                    return;
+                },  
+                success:function(result){
+                    layer.close(index);
+                    if(result.length <100){
+                        $('.mOrderList-getMore').html("{$Think.lang.no_data}");
+                        if(result.length>0)showErrMsg(result);         //有消息提示的时候                            
+                    } else {
+                        $('.mOrderList-getMore').html('{$Think.lang.view_more}'); 
+                        $('.mOrderList').append(result);                      
+                        time ++;
+                    }
+                },
+        })
+    }
+    function loading_msg(msg){
+        index = layer.msg(msg, {
+            icon: 16,
+            shade: 0.5,
+            time: 30000,
+            shadeClose: false 
+        });
+    }    
+</script>
+</body>
+</html>

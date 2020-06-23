@@ -1,0 +1,35 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+    <a href="{:get_img_url($ad['合作共赢-banner'][0]['url'])}">
+    <div class="page-banner" style="background-image:url({$ad['合作共赢-banner'][0]['img']});"><div class="cooperate-txt txt">{$ad['合作共赢-banner'][0]['title']}</div></div></a>
+    <div class="cooperate-bg">
+    <div class="w1400">
+        <div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> > <a href="{:url('/aboutus')}">{$Think.lang.about_us}</a> >{$Think.lang.win_win}
+        </div>
+    </div>
+        <div class="cooperate-img slideIn02"><img src="{$ad['合作共赢-中-大图'][0]['img']}" alt="{$ad['合作共赢-中-大图'][0]['title']}"></div>
+    </div>    
+    <div class="w1400">    
+        <div class="slideIn02">
+            <p class="cooperate-title">{$Think.lang.cooperative_styles}</p>
+            {volist name="$ad['合作共赢-合作多样式']" id='vo'}
+            <div class="cooperate-content clearfix">
+                <div class="fl">
+                    <a href="{if condition='$vo.url'}{$vo.url}{else/}javascript:void(0){/if}"><img src="{$vo.img}" alt="{$vo.title}"></a>
+                </div>
+                <div class="cooperate-right">
+                    <a href="{if condition='$vo.url'}{$vo.url}{else/}javascript:void(0){/if}">
+                    	<p class="tit">{$vo.title}</p>
+                   	 	<div class="text">{$vo.content}</div>
+                    </a>
+                </div>
+            </div>
+            {/volist}   
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+</body>
+</html>

@@ -1,0 +1,47 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+    <a href="{:get_img_url($ad['维修登记-banner'][0]['url'])}">
+    <div class="page-banner check-banner" style="background-image:url({$ad['维修登记-banner'][0]['img']});"><div class="txt">{$ad['维修登记-banner'][0]['title']}</div></div></a>
+    <div class="w1400 slideIn02">
+        <div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> > <a href="{:url('/service')}">{$Think.lang.service}</a> > {$Think.lang.repair_register}</div>
+        <div class="weixiu-content">
+            <ul class="step clearfix">
+                <li class="on on02"><span>1</span>{$Think.lang.repair_register}<i></i></li>
+                <li class="on on02"><span>2</span>{$Think.lang.commit_success}</li>
+            </ul>
+            <div class="ts-succ clearfix">
+                <div class="w1400">
+                    <i></i>
+                    <div class="ts">{$Think.lang.commit_success}</div>
+                    <div class="txt">{$Think.lang.doccode}：{$response[0]['doccode']}</div>
+                </div>
+            </div>
+            <div class="table-box clearfix">
+                <!-- <div class="exp-num">顺丰快递号：{$response[0]['doccode']}</div> -->
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <thead>
+                        <tr>
+                            <td>{$Think.lang.machine_model}</td>
+                            <td>SN</td>
+                            <td>{$Think.lang.malfunction_desc}</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {volist name='$response' id='vo'}
+                        <tr>
+                            <td>{$vo.machineModel}</td>
+                            <td>{$vo.sn}</td>
+                            <td>{$vo.malfunctionDesc}</td>
+                        </tr>
+                        {/volist}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+</body>
+</html>

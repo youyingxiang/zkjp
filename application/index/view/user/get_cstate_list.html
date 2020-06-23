@@ -1,0 +1,14 @@
+{volist name='lst' id='vo'}
+<tr>
+    <td><a href="{:url('/zk_customized_detail/'.$vo.doccode)}" style="color:#78bc27">{$vo.doccode}</a></td>
+   <!-- <td>{$vo.contactName}</td>-->
+
+    <td>{volist name='vo.firmwareList' id='voo'}{$voo.machinemodel}{/volist}</td>
+    <td>{volist name='vo.softwareList' id='voo'}{$voo.soft}{/volist}</td>
+    <td>{$vo.status}</a></td>
+  <!--  <td>{$vo.createTime}</td>-->
+    <td>requirement</td>
+    <td>{if condition="!empty($vo.handoverTime)"}{$vo.handoverTime}{/if}</td>
+   <!-- <td>{if condition="!empty($vo.charge)"}{$vo.charge}{/if}</td>-->
+</tr>
+{/volist}

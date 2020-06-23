@@ -1,0 +1,32 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+    <div class="w1400 teacher lesson">
+        <div class="position"><a href="{:url('/')}">Home Page</a> > <a href="{:url('/service')}">Support</a> > <a href="{:url('/train_center')}">Training Center</a> > <a href="{:url('/course_lst')}">Learning Center</a>>  {$title}</div>
+        <div class="lesson-content slideIn02 clearfix">
+           <div class="left fl" style="background-image: url({$data.img});"></div>
+           <div class="right fl">
+                <h2 class="textHidden">{$data.name}</h2>
+                <div class="txt">
+                    {$data.des}
+                </div>
+                <h3>Lecturer: {$data.teatcher}</h3>
+                <time>Class hours: {$data.time_detail}</time>
+           </div>
+        </div>
+        <div class="bottom slideIn02">
+            {$data.content}
+       </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+    $(function(){
+        if($(window).width()>1023){
+            $(".course-content .content-list").eq(-2).css("borderBottom","none");
+        }
+    })
+</script>
+</body>
+</html>

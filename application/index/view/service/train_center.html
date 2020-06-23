@@ -1,0 +1,44 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content02">
+    <a href="{:get_img_url($ad['培训中心-banner'][0]['url'])}">
+        <div class="page-banner" style="background-image:url({$ad['培训中心-banner'][0]['img']});">
+            <div class="training-txt txt">
+                {$ad['培训中心-banner'][0]['title']}
+            </div>
+        </div>
+    </a>
+    <div class="w1400">
+        <div class="position"><a href="{:url('/')}">Home Page</a> > <a href="{:url('/service')}">Support</a> > {$title}</div>
+            <div class="center-content slideIn02 clearfix">
+                <h2>{$ad['培训中心-文字'][0]['title']}</h2>
+                <div class="txt">
+                    {$ad['培训中心-文字'][0]['content']}
+                </div>
+                <div class="center-class clearfix">
+                    {volist name='$tdata' id='vo'}
+                    <div class="list fl" style="background-image: url({$vo.img});">
+                        <div class="hover">
+                            <a href="{:url('/video_cat/'.$vo.id)}" class="textHidden">Training   videos</a>
+                            <a href="{:url('/file_cat/'.$vo.id)}" class="textHidden">Course   Documents</a>
+                            <a href="{:url('/technology_cat/'.$vo.id)}" class="textHidden">Technology</a>
+                        </div>
+                        <a class="txt textHidden">
+                            {$vo.name}
+                        </a>
+                    </div>
+                    {/volist}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+    $(".center-content .center-class .list").eq(0).find("a").attr("href","{:url('/course_lst')}");
+    $(".center-content .center-class .list").eq(1).find("a").attr("href","{:url('/apply_training')}");
+    $(".center-content .center-class .list").eq(2).find("a").attr("href","{:url('/certificate')}");
+</script>
+</body>
+</html>

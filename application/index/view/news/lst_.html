@@ -1,0 +1,61 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page3-content">
+    <div class="w1400">
+        <div class="position add-position"><a href="{:url('/')}">{$Think.lang.home}</a> > <a href="en/partner">{$Think.lang.partner}</a> >{$crumb_news}</div>
+    </div>
+    <div class="w1400">
+        <div class="slideIn02" id='news_content'>
+            
+            <div class="newsList-more"><a id='loadmore' href="javascript:void(0)">{$Think.lang.view_more}<img src="{$Think.HOME_IMGS}/download-icon02.png" alt=""></a></div>
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+    cid = "{$cid}";
+    time = 0;
+    loading_msg("{$Think.lang.query_now}");
+    get_cate_list();
+    $('#loadmore').click(function(){
+        loading_msg("{$Think.lang.query_now}");
+        if ($('#news_content a.more').html() == "{$Think.lang.no_data}") {
+            layer.close(index);
+            return;
+        }
+        get_cate_list();
+    })
+    function get_cate_list(){     
+        $.ajax({
+                url: "{:url('News/get_category_list')}", 
+                data: {"cid":cid,'time':time},
+                type:'post', 
+                dataType: "html", 
+                error:function(data){
+                     showErrMsg("{$Think.lang.ajax_err}");
+                     return;
+                },  
+                success:function(result){
+                    if(result.length <100){
+                        $('#loadmore').html("{$Think.lang.no_data}");                     
+                    } else {
+                        $('#loadmore').html('{$Think.lang.load_more}<img src="{$Think.HOME_IMGS}/download-icon02.png" alt="">'); 
+                        $('#loadmore').parent().before(result);                      
+                        time ++;
+                    }
+                    layer.close(index);
+                },
+        })
+    }
+    function loading_msg(msg){
+        index = layer.msg(msg, {
+                icon: 16,
+                shade: 0.5,
+                time: 30000,
+                shadeClose: false 
+            });
+    }
+</script>
+</body>
+</html>

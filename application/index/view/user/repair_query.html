@@ -1,0 +1,93 @@
+{include file="layout/top" /}
+{include file="layout/header" /}
+<div class="page-content">
+    <div class="w1400"><div class="position"><a href="{:url('/')}">{$Think.lang.home}</a> &gt; <a href="{:url('/user_center')}">{$Think.lang.user_center}</a> &gt; {$title}</div></div>
+
+    <section class="page-container page-containerLR20 marginB30">
+        <section class="mFilterPanel clearfix">
+            <div class="mFilterPanel-searchBox"> <a class="mFilterPanel-searchBtn" href="/en/repair_register.html" style="right: 0px;">{$Think.lang.add}</a><input type="text" placeholder="{$Think.lang.doccode_sn}" value="" /><a class="mFilterPanel-searchBtn" id='search' href="javascript:void(0);">{$Think.lang.search}</a></div>
+            <div class="mFilterPanel-tab clearfix">
+                <div data-status='' class="mFilterPanel-tab-item active"><span>{$Think.lang.state1}</span></div>{/* 所有 */}
+                {volist name=":config('status_repair_lst')" id='vo'}
+                <div data-status='{$key}' class="mFilterPanel-tab-item"><span>{$vo}</span></div>
+                {/volist}
+            </div>
+        </section>
+
+        <section class="mOrderList" id='content_nr'>
+
+        </section>
+        <div class="mOrderList-getMore">{$Think.lang.view_more}</div>
+    </section><!--.page-container end-->
+</div>
+{include file="layout/footer" /}
+{include file="layout/js" /}
+<script>
+$(function(){
+    var status = '';
+    var docsn = '';
+    time_ = 1;
+    loading_msg("{$Think.lang.query_now}");
+    get_state_list(status,docsn);
+    $('.mFilterPanel-tab-item').on('click',function(){
+       time_ = 1;
+       status = $(this).attr('data-status').trim();
+       $(this).addClass('active').siblings().removeClass('active');
+       $("#content_nr").empty();
+       loading_msg("{$Think.lang.query_now}");
+       docsn = '';
+       get_state_list(status,docsn);
+    })
+
+    $('.mOrderList-getMore').click(function(){
+        loading_msg("{$Think.lang.query_now}");
+        if($(this).html() == "{$Think.lang.no_data}"){
+            layer.close(index);
+            return;
+        };
+        docsn = $('#search').prev().val().trim();
+        get_state_list(status,docsn);
+    })
+    $('#search').on('click',function(){
+        loading_msg("{$Think.lang.query_now}");
+        docsn = $(this).prev().val().trim();
+        time_ = 1;
+        $("#content_nr").empty();
+        get_state_list(status,docsn);
+    })
+})
+    function get_state_list(status,docsn){
+        $.ajax({
+                url: "{:url('User/get_state_list')}",
+                data: {"status":status,'time':time_,'docsn':docsn},
+                type:'post',
+                dataType: "html",
+                error:function(data){
+                    layer.close(index);
+                    showErrMsg("{$Think.lang.ajax_err}");
+                    return;
+                },
+                success:function(result){
+                    layer.close(index);
+                    if(result.length <100){
+                        $('.mOrderList-getMore').html("{$Think.lang.no_data}");
+                        if(result.length>0)showErrMsg(result);         //有消息提示的时候
+                    } else {
+                        $('.mOrderList-getMore').html('{$Think.lang.view_more}');
+                        $('.mOrderList').append(result);
+                        time_ ++;
+                    }
+                },
+        })
+    }
+    function loading_msg(msg){
+        index = layer.msg(msg, {
+            icon: 16,
+            shade: 0.5,
+            time: 30000,
+            shadeClose: false
+        });
+    }
+</script>
+</body>
+</html>

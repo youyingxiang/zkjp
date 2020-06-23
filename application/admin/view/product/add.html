@@ -1,0 +1,221 @@
+{include file="layout/top" /}
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-horizontal" method="POST" action="{:url('admin/Product/add')}" onsubmit="return false" >
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab1" data-toggle="tab">{$Think.lang.base_param}</a></li>
+                        <li ><a href="#tab2" data-toggle="tab">{$Think.lang.advanced_param}</a></li>
+                        <li><a href="#tab4" data-toggle="tab">{$Think.lang.seo}</a></li>
+                        <li class="pull-right"><a href="javascript:history.back(-1)" class="btn btn-sm" style="padding:10px 2px;"><i class="fa fa-list"></i> {$Think.lang.back}</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab1">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$Think.lang.name}</label>
+                                <div class="col-sm-7"><input class="form-control" name="name" value="" placeholder="{$Think.lang.name}"></div>
+                            </div>
+			    <div class="form-group">
+                                <label class="col-sm-2 control-label">Url Alias</label>
+                                <div class="col-sm-7"><input class="form-control" name="url_title" value="" placeholder="Url Alias"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$Think.lang.product_cat}</label>
+                                <div class="col-sm-7">
+                                    <!-- <div class="input-group" style="margin-bottom:10px"> -->
+                                        <select class="form-control select2" name="product_cat[]">
+                                            {volist name='typeData' id='vo'}
+                                                <option value="{$vo.id}" level='{$vo.level}' {if condition="$vo.level eq '3'"}disabled="disabled"{/if} >
+                                                    {eq name="vo.level" value="2"}　　│　　├{/eq}
+                                                    {eq name="vo.level" value="1"}　　├{/eq}
+                                                    {$vo.name}
+                                                </option>
+                                            {/volist}
+                                        </select>
+                                        <!-- <span class="input-group-btn" onclick="add_self(this)"><button class="btn btn-success btn-flat" type="button">+</button></span>
+                                    </div> -->
+                                </div>
+                            </div> 
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$Think.lang.img}</label>
+                                <div class="col-sm-7">
+                                    <div class="input-group">
+                                        <input class="form-control" name="img"  placeholder="{$Think.lang.img}" >
+                                        <span class="input-group-btn up_img"><button class="btn btn-success btn-flat" type="button"><i class="fa fa-cloud-upload"> {$Think.lang.Upload}</i></button></span>
+                                    </div>
+                                </div>
+                            </div>
+			    <div class="form-group">
+                                <label class="col-sm-2 control-label">Amazon Url</label>
+                                <div class="col-sm-7"><input class="form-control" name="cart_url" value="" placeholder="Amazon Url"></div>
+                            </div>
+			    <div class="form-group">
+                                <label class="col-sm-2 control-label">Flipkar</label>
+                                <div class="col-sm-7"><input class="form-control" name="cart_url2" value="" placeholder="Flipkar"></div>
+                            </div>
+			    <div class="form-group">
+                                <label class="col-sm-2 control-label">India Mart</label>
+                                <div class="col-sm-7"><input class="form-control" name="cart_url3" value="" placeholder="India Mart"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$Think.lang.flag}</label>
+                                <div class="col-sm-7">
+                                    <label class="checkbox-inline"><input type="checkbox" name="flag[]" value="a" class="minimal"> {$Think.lang.flag_1}</label>
+                                    <label class="checkbox-inline"><input type="checkbox" name="flag[]" value="b" class="minimal"> {$Think.lang.flag_2}</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$Think.lang.product_img}</label>
+                                <div class="col-sm-7">
+                                    <div class="input-group" style="margin-bottom:10px">
+                                        <input class="form-control" name="product_img[]"  placeholder="{$Think.lang.product_img}" >
+                                        <span class="input-group-btn up_img"><button class="btn btn-success" type="button"><i class="fa fa-cloud-upload"> {$Think.lang.Upload}</i></button></span>
+                                        <span class="input-group-btn" onclick="add_self(this)"><button class="btn btn-success btn-flat" type="button">+</button></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$Think.lang.product_des}</label>
+                                <div class="col-sm-7"><textarea class="form-control" style='resize:none;height:155px' name="product_des" placeholder="{$Think.lang.product_des}"></textarea></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$Think.lang.order_key}</label>
+                                <div class="col-sm-7"><input class="form-control" name="order_key" value="1" placeholder="{$Think.lang.order_key}"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$Think.lang.state}</label>
+                                <div class="col-sm-7">
+                                    <select class="form-control" name="state" style="width:100%;">
+                                        <option value="1" >{$Think.lang.status1}</option>
+                                        <option value="0" >{$Think.lang.status0}</option>
+                                    </select>
+                                </div>
+                            </div>                          
+                        </div>
+
+                        <div class="tab-pane" id="tab2">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$Think.lang.product_material}</label>
+                                <div class="col-sm-7">
+                                    <div style="margin-bottom:15px">
+                                        <input class="form-control" name="product_material[title][]" placeholder="{$Think.lang.product_material}" >
+                                        <div class="input-group">
+                                            <input class="form-control" name="product_material[img][]" >
+                                            <span class="input-group-btn up_img"><button class="btn btn-success" type="button"><i class="fa fa-cloud-upload"> {$Think.lang.Upload}</i></button></span>
+                                            <span class="input-group-btn" onclick="add_self_2(this)"><button class="btn btn-success btn-flat" type="button">+</button></span>
+                                        </div> 
+                                    </div>                                                     
+                                </div>                                  
+                            </div>   
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$Think.lang.product_trait}</label>
+                                <div class="col-sm-7">
+                                    <div style="margin-bottom:15px">
+                                        <textarea class="form-control" name="product_trait[content][]" placeholder="{$Think.lang.product_trait_font}"></textarea>
+                                        <div class="input-group">
+                                            <input class="form-control" name="product_trait[img][]" >
+                                            <span class="input-group-btn up_img"><button class="btn btn-success" type="button"><i class="fa fa-cloud-upload"> {$Think.lang.Upload}</i></button></span>
+                                            <span class="input-group-btn" onclick="add_self_2(this)"><button class="btn btn-success btn-flat" type="button">+</button></span>
+                                        </div> 
+                                    </div>                                                     
+                                </div>                                  
+                            </div>                     
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$Think.lang.product_parameter}</label>
+                                <div class="col-sm-9"><textarea class="form-control"  name="product_parameter" placeholder="{$Think.lang.product_parameter}"></textarea></div>
+                            </div>                         
+                        </div>
+
+                        <div class="tab-pane" id="tab4">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$Think.lang.seo_keyword}</label>
+                                <div class="col-sm-7"><input class="form-control" name="seo_keyword" value="" placeholder="{$Think.lang.seo_keyword}"></div>
+                            </div>  
+                            <div class="form-group">
+                                    <label class="col-sm-2 control-label">{$Think.lang.seo_des}</label>
+                                    <div class="col-sm-7"><textarea class="form-control" style="resize:none;height:155px;" name="seo_des" placeholder="{$Think.lang.seo_des}"></textarea></div>                                 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-7">
+                            <div class="btn-group pull-right">
+                                <button type="submit" class="btn btn-info pull-right submits" data-loading-text="&lt;i class='fa fa-spinner fa-spin '&gt;&lt;/i&gt; {$Think.lang.submit}">{$Think.lang.submit}</button>
+                            </div>
+                            <div class="btn-group pull-left">
+                                <button type="reset" class="btn btn-warning">{$Think.lang.reset}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+$(function(){
+    /*ajax页面加载icheck，有该控件的页面才需要*/
+    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+        checkboxClass: 'icheckbox_minimal-blue',
+        radioClass: 'iradio_minimal-blue'
+    });
+    
+    /*ajax页面加载icheck，有该控件的页面才需要*/
+    $(".select2").select2({language:"zh-CN"});
+    $('.datepicker').datepicker();
+    KindEditor.create('textarea[name="product_parameter"]',{
+        width : '100%',   //宽度
+        height : '500px',   //高度
+        resizeType : '0',   //禁止拖动
+        allowFileManager : true,   //允许对上传图片进行管理
+        uploadJson : '{:url("Uploads/upload")}',   //文件上传地址
+        fileManagerJson : '{:url("Uploads/manager")}',   //文件管理地址
+        //urlType : 'domain',   //带域名的路径
+        formatUploadUrl: true,   //自动格式化上传后的URL
+        autoHeightMode: false,   //开启自动高度模式
+        afterBlur: function () { this.sync(); }   //同步编辑器数据
+    });
+    $('#fileupload_').fileupload({
+        dataType: 'json',
+        done: function (e, data) {
+            if (data.result.error == 0) {
+                var up_url = data.result.url.trim();
+                obj.prev().val(up_url );
+                if (obj.children('a').length>0) {
+                    obj.children('a').attr('href',up_url);
+                    obj.find('img').attr('src',up_url );
+                }
+            } else {
+                $.amaran({'message':data.result.info});
+            }       
+        }
+    });
+    $(".up_img").on('click',function(){
+        obj = $(this);
+        $('#fileupload_').trigger('click');
+    })
+})
+    function add_self(a){
+        var flag = $(a).children(".btn-flat").html().trim();
+        if (flag=='+') {
+            var par_p = $(a).parent().clone(true);
+            $(par_p).find(".btn-flat").html('-');
+            $(a).parent().after(par_p);
+        } else if (flag == '-') {
+            $(a).parent().remove(); 
+        }
+    }
+    function add_self_2(a){
+        var flag = $(a).children(".btn-flat").html().trim();
+        if (flag=='+') {
+            var par_p = $(a).parent().parent().clone(true);
+            $(par_p).find(".btn-flat").html('-');
+            $(a).parent().parent().after(par_p);
+        } else if (flag == '-') {
+            $(a).parent().parent().remove(); 
+        }
+    }                                        
+</script>
+{include file="layout/bottom" /}
