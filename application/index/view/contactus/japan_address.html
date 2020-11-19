@@ -13,11 +13,25 @@
                 <div class="addrList-item">
                     <div class="addrList-item-company">ZKTeco Japan</div>
                     <div class="addrList-item-infor">
-                        <p>住所：东京台東区东上野3-4-4富士也ビル201</p> 
+                        <p>住所：東京都台東东区東上野3-4-4富士野ビル201号室</p> 
 			<p>メール：japan@zkteco.com</p>
                     </div>
                 </div>
-            </div>
+            
+
+                <div class="addrList-item">
+                    <div class="addrList-item-company">協業パートナー
+</div>
+                    <div class="addrList-item-infor">
+		        <p>飛天ジャパン株式会社</p>	    
+                        <p>住所：〒103-0016 東京都中央区日本橋小網町9-3 CANAL TOWER 4F
+</p>
+                        <p>メール：sales@ftsafe.co.jp</p>
+			<p>03-3668-6668(代)  電話受付：月～金 09:00～18:00</p>
+                    </div>
+                </div>
+            </div>	
+
             <!--地图容器-->
             <div id="mapBox" class="tran300"></div>
         </div>     
@@ -29,7 +43,7 @@
 <script type="text/javascript">  
     var map = null;  
     //标注点数组
-    var markerArr = [{title:"ZKTeco Japan",content:"",lat:"35.710148",lng:"139.781212"}]
+    var markerArr = [{title:"ZKTeco Japan",content:"",lat:"35.710148",lng:"139.781212"},{title:"飛天ジャパン株式会社",content:"",lat:"35.683383",lng:"139.780145"}];
 
 //{title:"ZKTeco (Hubei) Technology Co., Ltd",content:"",lat:"30.658809",lng:"114.146642"}];
     function initialize() {  
@@ -78,7 +92,7 @@
             prev_infowindow = infowindow;  
             infowindow.open(map, marker);  
         });       
-    var LatLngList = new Array (new google.maps.LatLng (35.710148,139.781212));  
+    var LatLngList = new Array (new google.maps.LatLng (35.710148,139.781212),new google.maps.LatLng (35.710148,139.781212));  
     //  Create a new viewpoint bound  
     var bounds = new google.maps.LatLngBounds ();  
     //  Go through each...  

@@ -1,0 +1,591 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ZKTeco</title>
+<meta name="description" content="ZKTeco" />
+<meta name="keywords" content="ZKTeco" />
+<meta name="author" content="order by" />
+<meta http-equiv="MSThemeCompatible" content="Yes" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">-->
+<link rel="stylesheet" type="text/css" href="style/css/style_2_common.css" />
+<link rel="stylesheet" type="text/css" href="style/css/style_2_portal_index.css" />
+<link href="style/css/service.css" rel="stylesheet" type="text/css" />
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-57TDBN7');</script>
+<!-- End Google Tag Manager -->
+</head>
+
+<body id="nv_portal" class="pg_index">
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div id="toptb" class="cl" style="display:none;"> </div>
+<div id="hd">
+  <div class="clear"></div>
+  <div id="week_nav">
+    <div class="wk_navwp">
+      <div class="wk_lonav">
+        <div class="wk_logo">
+          <h2><a href="index.html" title=""><img src="style/images/logo.png" alt="" border="0" /></a></h2>
+        </div>
+        <div class="wk_inav">
+          <ul class="nav">
+            <li><a href="#service">ZKTeco紹介</a></li>
+            <li class="chanping-li"><a href="http://www.zkteco.jp/product_category" target="_blank" >業務</a></li>
+            
+            <li><a href="http://www.zkteco.jp/news_center.html" >ニュース</a></li>
+            
+            <li><a href="http://www.zkteco.jp/scheme_lst.html" target="_blank" >ソリューション</a></li>
+            
+            <li><a href="http://www.zkteco.jp/service.html" target="_blank" >サポート情報</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--AI产品系列-->
+<div class="div-chanping-xilie-content">
+	<ul class="pt10 xilie-ul">
+		<li class="active xilie-title">入口制御</li>
+		<li class="xilie-title">駐車場</li>
+		<li class="xilie-title">物体検出</li>
+	</ul>
+	<ul class="child-ul">
+		<li>
+			<a href="http://www.zkteco.jp/product_category/77.html" target="_blank">
+				<img src="style/images/215.png" width="100" height="100" />
+				<div class="mt6">勤怠管理</div>
+			</a>
+		</li>
+		<li>
+			<a href="http://www.zkteco.jp/product_category/108.html" target="_blank">
+			<img src="style/images/2151.png" width="100" height="100" />
+			<div class="mt6">入口の制御システム</div>
+			</a>
+		</li>
+		<li>
+			<a href="http://www.zkteco.jp/product_detail/498.html" target="_blank">
+			<img src="style/images/dpj01.png" width="120" height="100" />
+			<div class="mt6">アクセス制御システム</div>
+			</a>
+		</li>
+		
+	</ul>
+	
+	<ul class="child-ul f-dn">
+		<li>
+			<a href="http://www.zkteco.jp/product_category/282.html" target="_blank">
+			<img src="style/images/ZI700.png" width="120" height="120" />
+			<div class="mt6">駐車場</div>
+			</a>
+		</li>
+		<li>
+			<a href="http://www.zkteco.jp/product_category/110.html" target="_blank">
+			<img src="style/images/LPRS1000.png" width="120" height="120" />
+			<div class="mt6">ナンバープレート認識</div>
+		  </a>
+	  </li>
+		<li>
+			<a href="http://www.zkteco.jp/product_category" target="_blank">
+			<img src="style/images/SBTL8000.png" width="120" height="120" />
+			<div class="mt6">チャンネルゲート</div>
+		  </a>
+	  </li>
+		
+	</ul>
+	
+	<ul class="child-ul f-dn">
+		<li>
+			<a href="http://www.zkteco.jp/product_category/282.html" target="_blank">
+			<img src="style/images/Biopro.png" width="120" height="120" />
+			<div class="mt6">ゲート式金属探知機</div>
+			</a>
+		</li>
+		<li>
+			<a href="http://www.zkteco.jp/product_category/112.html" target="_blank">
+			<img src="style/images/tcy.png" width="120" height="120" />
+			<div class="mt6">金属探知機</div>
+		  </a>
+	  </li>
+		
+	</ul>
+</div>
+
+<div id="mu" class="cl">
+  <div class="wp"> </div>
+</div>
+<script src="style/js/week_nav.js" type="text/javascript"></script>
+<div id="wp" class="wp">
+<script src="style/js/jquery-1.7.2.js" type="text/javascript"></script> 
+<script src="style/js/jquery.fullpage.min.js" type="text/javascript"></script> 
+<script src="style/js/scoll.js" type="text/javascript"></script> 
+<script src="style/js/addons.js" type="text/javascript"></script> 
+<script src="style/js/case.js" type="text/javascript"></script> 
+<script src="style/js/tab.lib.js" type="text/javascript"></script> 
+<script type="text/javascript">
+
+PTM(document).ready(function(){
+
+PTM(".wk_about").tab({
+
+tabId:"#wk_about_menu",tabTag:"a",conId:"#wk_about_div",conTag:"div.wk_aaa",act:"mouseover",effact: "scrollx",dft:0
+
+});
+
+});
+
+</script> 
+</div>
+<div class="wk_index_main"> 
+  
+  <!--page1-->
+  
+  <div class="section page1">
+    <div class="wk_slide-wrap">
+      <ul>
+         <li>  <div class="wk_banner32">
+		          <div>
+		          	<video src="style/images/ZKTecoAI1.mp4" width="100%" height="100%" autoplay="autoplay" loop="loop"
+		                muted="muted" cue-before:none;></video>
+		          </div>
+		        </div>
+        </li>
+
+      </ul>
+    </div>
+    <div class="wk_arrow"><a href="#service"><img src="style/images/ico3.png" /></a></div>
+    
+  </div>
+  
+  
+   <!--page4-->
+  
+  <div class="section page4">
+    <div class="wk_about">
+      <h2><img src="style/images/about_title.png" alt="" /></h2>
+      <h2 class="wk_h2"><img src="style/images/about_title1.png" alt=""/></h2>
+      <div class="wk_about_menu" id="wk_about_menu"><a class="active">ZKTeco</a><a>経歴</a></div>
+      <div class="wk_about_div" id="wk_about_div">
+        <div class="wk_about_main wk_aaa">
+          <div class="wk_about_left"><img src="style/images/about_img.png" alt="" /></div>
+          <div class="wk_about_right">
+<!--            <div class="wk_about_top"> <a><img src="style/images/about_ico1.png" alt="" /></a> <a><img src="style/images/about_ico2.png" alt="" /></a> <a><img src="style/images/about_ico3.png" alt="" /></a> 
+              <div class="clear"></div>
+            </div>
+-->            <div class="wk_about_des">ZKTECO.CO.,LTD. 1998年以来、複合生体認証アルゴリズムの研究開発と複合生体認証 SDK の製品化に努めてきました。最初はPC セキュリティおよび ID 認証分野で広く適用されてきました．開発の継続と市場への応用により、徐々に複合生体認証技術に基づいた身元認証エコシステムとスマートセキュリティエコシステムを構築しました。長年に生体認証の産業化の基礎を培ってきた ZKTeco は、2007年に正式に設立され、生体認証業界で世界をリードする企業となり、さまざまな特許と知的財産権を持ち、国家ハイテク企業として6 年連続で選ばれています。
+            </div>
+          </div>
+        </div>
+        
+        <div class="wk_history wk_aaa">
+          <div class="wk_blk_18"> <a class="LeftBotton" onmousedown="ISL_GoUp_1()" onmouseup="ISL_StopUp_1()" onmouseout="ISL_StopUp_1()" href="javascript:void(0);" target="_self"></a>
+            <div class="wk_pcont" id="ISL_Cont_11">
+              <div class="ScrCont">
+                <div id="List1_1">
+                  <div id="List1_1">
+                    <div class="wk_fzlc_b">
+                      <h4>1998年</h4>
+                      <div class="wk_his_ico"></div>
+                      <dl>
+                        <dt><img src="style/images/history_img1.jpg"></dt>
+                        <dd>ZKTecoは、自社開発の指紋アルゴリズムZKFinger2.0をリリースし、顔認証アルゴリズムも専念しています。身分証明書の用途における指紋認証技術の開発を目指しています。</dd>
+                      </dl>
+                    </div>
+                    <div class="wk_fzlc_b">
+                      <h4>1999年</h4>
+                      <div class="wk_his_ico"></div>
+                      <dl>
+                        <dt><img src="style/images/history_img2.jpg"></dt>
+                        <dd>複合生体認証技術を発表しました 初の入退室管理製品V20を発売しました</dd>
+                      </dl>
+                    </div>
+                    <div class="wk_fzlc_b">
+                      <h4>2002年</h4>
+                      <div class="wk_his_ico"></div>
+                      <dl>
+                        <dt><img src="style/images/history_img3.jpg"></dt>
+                        <dd>7,000,000人の上海市民カード指紋プロジェクトを適用し、7,000,000人以上の市民に指紋認証技術を提供し、この分野で最も認可された中核技術プロバイダーです。</dd>
+                      </dl>
+                    </div>
+                    <div class="wk_fzlc_b">
+                      <h4>2003年</h4>
+                      <div class="wk_his_ico"></div>
+                      <dl>
+                        <dt><img src="style/images/history_img4.jpg"></dt>
+                        <dd>ZKTecoは、埋め込み式指紋開発ツール2.0と顔認証アルゴリズムZKFace 1.0を発表しました。</dd>
+                      </dl>
+                    </div>
+                    <div class="wk_fzlc_b">
+                      <h4>2004年</h4>
+                      <div class="wk_his_ico"></div>
+                      <dl>
+                        <dt><img src="style/images/history_img5.jpg"></dt>
+                        <dd>最初の指紋に入退室管理製品F4を含み、一連の指紋製品およびモジュールを発表しました。指紋製品は国際的なOEMプロバイダになりました</dd>
+                      </dl>
+                    </div>
+                    <div class="wk_fzlc_b">
+                      <h4>2005年</h4>
+                      <div class="wk_his_ico"></div>
+                      <dl>
+                        <dt><img src="style/images/history_img6.jpg"></dt>
+                        <dd>会社の急成長と市場の拡大により、指紋ロックの開発が始まりました。</dd>
+                      </dl>
+                    </div>
+                    <div class="wk_fzlc_b">
+                      <h4>2006年</h4>
+                      <div class="wk_his_ico"></div>
+                      <dl>
+                        <dt><img src="style/images/history_img7.jpg"></dt>
+                        <dd>深センにZKビルと工場を設立しました。</dd>
+                      </dl>
+                    </div>
+					<div class="wk_fzlc_b">
+                      <h4>2007年</h4>
+                      <div class="wk_his_ico"></div>
+                      <dl>
+                        <dt><img src="style/images/history_img8.jpg"></dt>
+                        <dd>ZKTecoは正式に設立され、同じ年に海外市場に参入しました。 ZKTecoは、バイオメトリック認証、TFT、Wi-Fi時間管理およびアクセス制御アプリケーションの新時代を迎えました。</dd>
+                      </dl>
+                    </div>
+					<div class="wk_fzlc_b">
+                      <h4>2008年</h4>
+                      <div class="wk_his_ico"></div>
+                      <dl>
+                        <dt><img src="style/images/history_img9.jpg"></dt>
+                        <dd>初の指紋ドアロックを発売しました。</dd>
+                      </dl>
+                    </div>
+					<div class="wk_fzlc_b">
+                      <h4>2009年</h4>
+                      <div class="wk_his_ico"></div>
+                      <dl>
+                        <dt><img src="style/images/history_img10.jpg"></dt>
+                        <dd>東莞産業基地が設立されました。</dd>
+                      </dl>
+                    </div>
+					<div class="wk_fzlc_b">
+                      <h4>2010年</h4>
+                      <div class="wk_his_ico"></div>
+                      <dl>
+                        <dt><img src="style/images/history_img11.jpg"></dt>
+                        <dd>ZKTecoは初の虹彩アルゴリズムZKIris 1.0、静脈アルゴリズムZK Vein 2.0、指静脈アルゴリズムZK Finger Vein 2.0およびアクセスコントローラC3シリーズを発表しました。</dd>
+                      </dl>
+                    </div>
+					<div class="wk_fzlc_b">
+                      <h4>2011年</h4>
+                      <div class="wk_his_ico"></div>
+                      <dl>
+                        <dt><img src="style/images/history_img12.jpg"></dt>
+                        <dd>ZKTecoが指静脈アルゴリズムZKFingerVein 1.0を発表しました。 ZKTecoにち当社のブランド名。 ZKTecoブラジルとアルゼンチンの子会社が設立されました。</dd>
+                      </dl>
+                    </div>
+					<div class="wk_fzlc_b">
+                      <h4>2012年</h4>
+                      <div class="wk_his_ico"></div>
+                      <dl>
+                        <dt><img src="style/images/history_img13.jpg"></dt>
+                        <dd>指紋、顔、虹彩および静脈認識技術を備えた複合生体生体認証技術アルゴリズム、ZK MultiBio 3.0を発表しました。<br />
+ベトナム、インドネシア、ブラジル、アルゼンチン、ロシアに支店を開設しました。</dd>
+                      </dl>
+                    </div><div class="wk_fzlc_b">
+                      <h4>2013年</h4>
+                      <div class="wk_his_ico"></div>
+                      <dl>
+                        <dt><img src="style/images/history_img14.jpg"></dt>
+                        <dd>ZKTecoは、米国のシリコンバレーにSilk ID Research Laboratoryを設立しました。 アモイソフトウェアベースが設立され、ソフトウェアの開発、販売およびサービス部門が運営されています。</dd>
+                      </dl>
+                    </div>
+					<div class="wk_fzlc_b">
+                      <h4>2014年</h4>
+                      <div class="wk_his_ico"></div>
+                      <dl>
+                        <dt><img src="style/images/history_img15.jpg"></dt>
+                        <dd>ZKTecoは、手のひら認識アルゴリズムZK Palm Vein 1.0と顔認証アクセスコントロールカメラBiocam 300を発売しました。</dd>
+                      </dl>
+                    </div>
+					<div class="wk_fzlc_b">
+                      <h4>2015年</h4>
+                      <div class="wk_his_ico"></div>
+                      <dl>
+                        <dt><img src="style/images/history_img16.jpg"></dt>
+                        <dd>新世代の勤怠管理ソフトウェア、ZKTime.Net 3.0を発表しました<br />
+米国に新たな独立セキュリティ部門、ZKAccessの設立を発表しました。</dd>
+                      </dl>
+                    </div>
+                    
+					
+					<div class="wk_fzlc_b">
+                      <h4>2016年</h4>
+                      <div class="wk_his_ico"></div>
+                      <dl>
+                        <dt><img src="style/images/history_img17.jpg"></dt>
+                        <dd>ZKTecoは長距離虹彩認識端末と顔と指紋と手のひら認識端末を発表しました。 企業は正式にZKTeco Co., LTD.に改名されました。</dd>
+                      </dl>
+                    </div>
+					
+					<div class="wk_fzlc_b">
+                      <h4>2017年</h4>
+                      <div class="wk_his_ico"></div>
+                      <dl>
+                        <dt><img src="style/images/history_img18.jpg"></dt>
+                        <dd>業界最先端のシリコン指紋コレクター、スマートシティアプリケーションに基づくAIセンシングビジュアルシステム、最新の超長時間待機時間デスクトップモバイル出席デバイスD1S / D2Sを発表しました。</dd>
+                      </dl>
+                    </div>
+					
+					<div class="wk_fzlc_b">
+                      <h4>2018年</h4>
+                      <div class="wk_his_ico"></div>
+                      <dl>
+                        <dt><img src="style/images/history_img19.jpg"></dt>
+                        <dd>可視光製品を発表しました<br />
+韓国に共同製品研究所を設立しました。</dd>
+                      </dl>
+                    </div>
+                  </div>
+                  
+                  <!--首页-发展历程-内部调用代码设置位置--> 
+                  
+                </div>
+                <div id="List2_1"></div>
+              </div>
+            </div>
+            <a class="RightBotton" onmousedown="ISL_GoDown_1()" onmouseup="ISL_StopDown_1()" onmouseout="ISL_StopDown_1()" href="javascript:void(0);" target="_self"></a> </div>
+          <div class="c"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  <!--page2-->
+  
+  <div class="section page2">
+    <div class="wk_fwxm">
+      <ul>
+        <li class="wk_li1">
+          <div class="wk_fwxm_bg"></div>
+          <div class="wk_fwxm_main">
+            <div class="wk_fwxm_ico"></div>
+            <h2>生体認証</h2>
+            <p>Biometric Feature</p>
+            <div class="wk_fwxm_des">正確で高速で動的な生体顔認識</div>
+            <div class="wk_ljzx"><a href="http://www.zkteco.jp/scheme_lst.html" target="_blank">詳細について</a></div>
+          </div>
+        </li>
+        <li class="wk_li2">
+          <div class="wk_fwxm_bg"></div>
+          <div class="wk_fwxm_main">
+            <div class="wk_fwxm_ico"></div>
+            <h2>IoT物联网</h2>
+            <p>IoT Application</p>
+            <div class="wk_fwxm_des">長距離自動ドア、低消費電力</div>
+            <div class="wk_ljzx"><a href="http://www.zkteco.jp/scheme_lst.html" target="_blank">詳細について</a></div>
+          </div>
+        </li>
+        <li class="wk_li3">
+          <div class="wk_fwxm_bg"></div>
+          <div class="wk_fwxm_main">
+            <div class="wk_fwxm_ico"></div>
+            <h2>顔分析</h2>
+            <p>Face Analysis</p>
+            <div class="wk_fwxm_des">クラウドプラットフォーム、ビッグデータ分析比は、顔、高精度、高合格率です</div>
+            <div class="wk_ljzx"><a href="http://www.zkteco.jp/scheme_lst.html" target="_blank">詳細について</a></div>
+          </div>
+        </li>
+        <li class="wk_li4">
+          <div class="wk_fwxm_bg"></div>
+          <div class="wk_fwxm_main">
+            <div class="wk_fwxm_ico"></div>
+            <h2>最先端のアルゴリズム</h2>
+            <p>Leading Algorithm</p>
+            <div class="wk_fwxm_des">世界をリードするアルゴリズムを使用して、最大99.90%の顔比精度を備えたラボクラスのディープラーニングエンジン</div>
+            <div class="wk_ljzx"><a href="http://www.zkteco.jp/scheme_lst.html" target="_blank">詳細について</a></div>
+          </div>
+        </li>
+		
+        <li class="wk_li5">
+          <div class="wk_fwxm_bg"></div>
+          <div class="wk_fwxm_main">
+            <div class="wk_fwxm_ico"></div>
+            <h2>適用</h2>
+            <p>Application</p>
+            <div class="wk_fwxm_des">クラウド勤務評定、クラウド訪問客、クラウド門限</div>
+           <div class="wk_ljzx"><a href="http://www.zkteco.jp/scheme_lst.html" target="_blank">詳細について</a></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+
+  
+  <!--page5-->
+  
+  <div class="section page5">
+<div class="wk_service">
+      <!--<h2><img src="style/images/service_title.png" alt="" /></h2>-->
+      <div class="wk_service_main">
+        <ul>
+          <li class="videolist" vpath="v1.jpg" ipath="style/mp4/yuanqu.mp4">
+			<img src="style/images/service_img1.jpg"  />
+			<img src="style/images/play.png" class="videoed"/>
+            <span class="wk_span_1"></span> <span class="wk_span_2"></span> <span class="wk_span_3"></span> <span class="wk_span_4"></span> </li>
+           <li class="videolist" vpath="v1.jpg" ipath="style/mp4/yiqing.mp4">
+			<img src="style/images/service_img2.jpg"  />
+			<img src="style/images/play.png" class="videoed"/>
+            <span class="wk_span_1"></span> <span class="wk_span_2"></span> <span class="wk_span_3"></span> <span class="wk_span_4"></span> </li>
+           <li class="videolist" vpath="v1.jpg" ipath="style/mp4/menjin.mp4">
+			<img src="style/images/service_img3.jpg"  />
+			<img src="style/images/play.png" class="videoed"/>
+            <span class="wk_span_1"></span> <span class="wk_span_2"></span> <span class="wk_span_3"></span> <span class="wk_span_4"></span> </li>
+			<li>
+			  <a href="http://www.zkteco.jp/scheme_detail/25.html"><img src="style/images/service_img4.jpg" border="0" /></a>
+			  <span class="wk_span_1"></span> <span class="wk_span_2"></span> <span class="wk_span_3"></span> <span class="wk_span_4"></span> </li>
+			<li>
+			  <a href="http://www.zkteco.jp/scheme_detail/5.html"><img src="style/images/service_img5.jpg" border="0"  /></a>
+			  <span class="wk_span_1"></span> <span class="wk_span_2"></span> <span class="wk_span_3"></span> <span class="wk_span_4"></span> </li>
+			<li>
+			<a href="http://www.zkteco.jp/scheme_lst.html?type=1"><img src="style/images/mo.png" border="0"  /></a>
+            <span class="wk_span_1"></span> <span class="wk_span_2"></span> <span class="wk_span_3"></span> <span class="wk_span_4"></span> </li>
+		  <div class="videos"></div>
+        </ul>
+		
+        <!--首页-合作客户-内部调用代码设置位置--> 
+        <script type="text/javascript" src="style/js/jquery.min.js"></script>
+<script type="text/javascript">
+$('.videolist').each(function(){ //遍历视频列表
+	$(this).hover(function(){ //鼠标移上来后显示播放按钮
+		$(this).find('.videoed').show();
+	},function(){
+		$(this).find('.videoed').hide();
+	});
+	$(this).click(function(){ //这个视频被点击后执行
+		var img = $(this).attr('vpath');//获取视频预览图
+		var video = $(this).attr('ipath');//获取视频路径
+		$('.videos').html("<video id=\"video\" poster='"+img+"' style='width: 640px' src='"+video+"' preload=\"auto\" controls=\"controls\" autoplay=\"autoplay\"></video><img onClick=\"close1()\" class=\"vclose\" src=\"style/images/gb.png\" width=\"30\" height=\"30\"/>");
+		$('.videos').show();
+	});
+});
+
+function close1(){
+	var v = document.getElementById('video');//获取视频节点
+	$('.videos').hide();//点击关闭按钮关闭暂停视频
+	v.pause();
+	$('.videos').html();
+}
+</script>
+      </div>
+    </div>
+  </div>
+
+<!--page6-->
+  
+ <!-- <div class="section page6">
+    <div class="wk_contact">
+<!--轮播-->
+<!--<div id="phoneCarousel">
+	<div class="previous arrow"></div>
+	<div class="next arrow"></div>
+	
+<!--	<div id="stage">
+		<a href="#"><img id="iphone" class="default" src="img/001.png"  alt="iPhone" /></a>
+		<a href="#"><img id="nexus" src="img/002.png"  alt="Nexus One" /></a>
+		<a href="#"><img id="nokia" src="img/003.png"  alt="Nokia" /></a>
+	</div>
+</div>-->
+
+<!--<link rel="stylesheet" type="text/css" href="style/css/styles.css" />
+<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>-->
+
+<!--轮播结束-->
+<!--    </div>
+  </div>-->
+  <!--index_footer-->
+  
+  <div class="section fp-auto-height">
+  <div class="wk_footer_side">
+    <div class="wk_footer">Copyright © 2020 ZKTeco  <br />
+       <a href='#' >东京台東区东上野3-4-4富士也ビル201</a><a href='#' >E-mail :japan@zkteco.com</a></div>
+  </div>
+</div>
+
+</div>
+<div class="clear"></div>
+<div class="wp">
+
+<!--[diy=diy1]-->
+  
+  <div id="diy1" class="area"></div>
+  
+  <!--[/diy]--></div>
+<div class="clear"></div>
+<div id="wp" class="wp"> </div>
+<div id="wk_ft" style="display:none; ">
+  <div id="ft" class="wp cl" style="border:0;"> </div>
+</div>
+<ul id="scbar_type_menu" class="p_pop" style="display: none;">
+</ul>
+
+<script type="text/javascript">
+
+PTM(document).ready(function(){
+
+PTM('#close_im').bind('click',function(){
+
+PTM('#main-im').css("height","0");
+
+PTM('#im_main').hide();
+
+PTM('#open_im').show();
+
+});
+
+PTM('#open_im').bind('click',function(e){
+
+PTM('#main-im').css("height","272");
+
+PTM('#im_main').show();
+
+PTM(this).hide();
+
+});
+
+
+
+PTM(".weixing-container").bind('mouseenter',function(){
+
+PTM('.weixing-show').show();
+
+})
+
+PTM(".weixing-container").bind('mouseleave',function(){        
+
+PTM('.weixing-show').hide();
+
+});
+
+});
+
+</script> 
+<script src="style/js/home.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+	_attachEvent(window, 'scroll', function () { showTopLink(); });checkBlind();
+</script>
+<div id="discuz_tips" style="display:none;"></div>
+<script src="style/js/discuz_tips.js" type="text/javascript" charset="UTF-8"></script>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-57TDBN7"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+</body>
+</html>

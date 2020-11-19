@@ -1,42 +1,4 @@
-<style type="text/css">
-.xlnav {
-top:90px !important;
-}
-</style>
 <div class="header-top page-top tran300">
-   <!--  <div class="top tran300">
-        <div class="w1400 slideIn01 clearfix">
-            <div class="fr clearfix">
-                <div class="top-nav fl">
-                    {php}$z=0;{/php}
-                    {volist name="nav[0]" id="vo"}
-                        {if condition="$vo.level == 0"}                            
-                            {if condition="$z lt 5"}
-                            <a {:check_target($vo.url)} {if condition="empty($vo.url)"}href='javascript:void(0)'{else/}href='{$vo.url}' {/if}>{$vo.name}</a>
-                            {/if}
-                            {php}$z++;{/php}
-                        {/if}
-                    {/volist}
-                </div>
-                <div class="fr add-headerR">
-                    <div class="add-headerA">
-                        <span class="addShoppingCar"><img src="{$Think.HOME_IMGS}/shoppingcar.png" alt=""><i id='cart_num'></i></span>
-                    </div>
-                    <div class="lang fl">
-                        <a href="javascript:void(0)"><i></i>{$Think.lang.select_language}</a>
-                        <div class="check-lang tran300">
-                        {volist name='$language' id='vo'}
-                            <a {:check_target($vo.url)} {if condition="empty($vo.url)"}href='javascript:void(0)'{else/}href='{$vo.url}' {/if}>{$vo.name}</a>
-                        {/volist}
-                        </div>
-                    </div>
-                    <div class="login-box fl" id='login_state'>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
     <div class="header tran300">
         <div class="w1400 slideIn02 clearfix">
             <div class="logo fl"><a href="{:url('/index')}"><img width="100%" src="{$web['logo']['v']}" alt=""></a></div>

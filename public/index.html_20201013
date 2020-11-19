@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+<title>ZKTeco | バイオメトリクス認証 | 体温検査 | アクセス管理ソフトウェア | 顔認識</title>
+<meta name="description" content="ZKTeco - 勤怠管理, 入退室管理, 生体認証技術, BioSecurity/BioAccessアクセス管理ソフトウェア, 顔認識, カメラ, アクセスコントローラ, 非接触検温" />
+<meta name="keywords" content="ZKTeco - バイオメトリクス認証, 体温検査, アクセス管理ソフトウェア, 顔認識" />
+		<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-57TDBN7');</script>
+<!-- End Google Tag Manager -->
+	</head>
+
+	<body>
+
+		<script src="style-h5/js/jquery-1.7.2.js" type="text/javascript"></script>
+		<script>
+			if(isMobile()) { //手机端
+				location.href = "index-h5.html#banner";
+			} else { //PC端
+				location.href = "index-pc.html";
+			}
+
+			function isMobile() {
+				var userAgentInfo = navigator.userAgent;
+				var mobileAgents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
+				var mobile_flag = false;
+				//根据userAgent判断是否是手机
+				for(var v = 0; v < mobileAgents.length; v++) {
+					if(userAgentInfo.indexOf(mobileAgents[v]) > 0) {
+						mobile_flag = true;
+						break;
+					}
+				}
+				var screen_width = window.screen.width;
+				var screen_height = window.screen.height;
+				//根据屏幕分辨率判断是否是手机
+				if(screen_width < 500 && screen_height < 800) {
+					mobile_flag = true;
+				}
+				return mobile_flag;
+			}
+		</script>
+		<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-57TDBN7"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+	</body>
+
+</html>

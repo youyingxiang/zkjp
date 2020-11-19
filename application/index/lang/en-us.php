@@ -24,7 +24,7 @@ return [
     'news_center'             => 'ニュースセンター',
     'view_details'            => 'もっと詳しく知る',
     'all'                     => '全部',
-    'home'                    => 'ホームページ', 
+    'home'                    => 'ZKTeco ホームページ', 
     'view_more'               => 'もっと詳しく知る',
 /*    'know_more'               => 'さらに読み込む',*/
     'know_more'               => 'もっと詳しく',
